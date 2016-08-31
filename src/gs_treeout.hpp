@@ -5,7 +5,7 @@
 #include "game_state.hpp"
 
 constexpr float ballVelocity = 8.f;
-constexpr int windowWidth = 800, windowHeight = 800;
+constexpr int windowWidth = 800, windowHeight = 600;
 constexpr float paddleWidth = 60.f, paddleHeight = 20.f, paddleVelocity = 9.f;
 
 class Player {
@@ -94,14 +94,14 @@ public:
 	Player *player = new Player(385, 580, "");
 	std::vector<Resource> resources;
 	int localHighscore;
+	int paddleHitsRemaining;
 
 	GameStateTreeout(Game *g) {
 		game = g;
 		localHighscore = 0;
-		int resourcesSize = 8.f;
-    	for (int x = 0; x < 4; ++x)
-        	for (int y = 0; y < 10; ++y)
-            	resources.emplace_back(*new Resource((float)(x + 1) * (resourcesSize + 3) + 22, (float) (y + 2) * (resourcesSize + 3), ""));
+		for (int i = 0; i < 50; i++) {
+            resources.push_back(Resource(rand() % 600 + 100, rand() % 400 + 100, ""));
+        }
 	}
 
 	virtual void draw(const float dt);
