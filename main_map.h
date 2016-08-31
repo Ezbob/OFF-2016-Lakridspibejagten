@@ -4,8 +4,11 @@
 #include <SFML/Graphics/Texture.hpp>
 
 class MainMap : public sf::Texture {
+	unsigned x;
+	unsigned y;
+
 public:
-	MainMap();
+	MainMap(unsigned _x, unsigned _y);
 };
 
 #endif
