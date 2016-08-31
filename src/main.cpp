@@ -3,6 +3,8 @@
 #include <string>
 #include <sstream>
 #include <map>
+#include <stdlib.h>
+#include <time.h>
 
 
 #include <SFML/System/Vector2.hpp>
@@ -11,6 +13,8 @@
 #include "mock_gamestate.hpp"
 #include "gs_map.hpp"
 #include "mg_runner.hpp"
+#include "gs_treeout.hpp"
+#include "gs_description.hpp"
 
 using namespace std;
 
@@ -40,14 +44,24 @@ int main() {
 		nodes >> name >> x >> y;
 		positions[name] = Vector2f(x,y);
 	}
+#if 0
+	GameStateMap map(&game, graph, positions, 
+		{
+			new GameStateTreeout(&game),
+			new MiniGameRunner(&game)
+		}
+	);
 
-	vector<GameState*> mini_games;
-	mini_games.push_back(new GameStateMockMiniGame(&game));
-	GameStateMap map(&game, graph, positions, mini_games);
+	game.pushState(new GameStateDescription(&game, "You're done"));
 	game.pushState(&map);
+#endif
 
+	game.pushState(new GameStateDescription(&game, "Yala3\n"));
+	game.pushState(new MiniGameRunner(&game));
+	game.pushState(new GameStateDescription(&game, "Yala2\n"));
+	game.pushState(new GameStateDescription(&game, "Yala\n"));
+	game.pushState(new GameStateTreeout(&game));
 	game.gameloop();
 
 	return 0;
 }
-

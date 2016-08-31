@@ -1,26 +1,46 @@
 #include "mg_runner.hpp"
 #include "stone.hpp"
 
-void MiniGameRunner::create() {
-}
-
 void MiniGameRunner::draw(const float dt) {
-	game->window.setView(view);
+	//game->window.setView(view);
 	game->window.clear(sf::Color::White);
 
 	game->window.draw(back);
 	game->window.draw(runner.shape);
-	game->window.draw(stone.shape);
+	for (auto& stone : stones)
+		game->window.draw(stone.shape);
+
+	// Draw highscore
+	this->game->window.draw(text);
+}
+
+template<class T1, class T2> bool isIntersecting(T1& mA, T2& mB) {
+	return mA.right() >= mB.left() && mA.left() <= mB.right()
+		&& mA.bottom() >= mB.top() && mA.top() <= mB.bottom();
+}
+
+void MiniGameRunner::testCollision(Stone& stone, Runner& runner) {
+	if (!isIntersecting(stone, runner))
+		return;
+
+	// Collision
+	std::cerr << "GAME OVER with score " << score << std::endl;
+	game->popState();
 }
 
 void MiniGameRunner::update(const float dt) {
 	runner.update(dt);
-	//stone.update(dt);
+	for (auto& stone : stones) {
+		stone.update(dt);
+		testCollision(stone, runner);
+		stone.setVelocity(-runner.velocity.x/10, 0);
+	}
 	// Update background
-	//back.setTextureRect(IntRect(..., ...., ...., ....));
-	//back.move({-runner.velocity.x, 0});
-	//
-	back.setTextureRect(sf::IntRect(runner.wx, 0, 800, 600));
+	back.setTextureRect(sf::IntRect(runner.wx * 8, 0, 800, 600));
+
+	// Update score
+	score++;
+	text.setString("Highscore: " + std::to_string(score));
 }
 
 void MiniGameRunner::handleInput() {
@@ -30,6 +50,10 @@ void MiniGameRunner::handleInput() {
 		switch (event.type) {
 			case sf::Event::Closed:
 				game->window.close();
+				break;
+
+			case sf::Event::Resized:
+				//view.setSize(event.size.width, event.size.height);
 				break;
 
 			case sf::Event::KeyPressed:
@@ -48,7 +72,7 @@ void MiniGameRunner::handleInput() {
 	}
 }
 
-MiniGameRunner::MiniGameRunner(Game *game) : stone(500, 585) {
+MiniGameRunner::MiniGameRunner(Game *game) {
 	this->game = game;
 
 	// Load background
@@ -59,5 +83,19 @@ MiniGameRunner::MiniGameRunner(Game *game) : stone(500, 585) {
 	} else {
 		std::cerr << "An error occoured loading an asset." << std::endl;
 	}
+
+	for (int i=0; i<1; i++)
+		stones.emplace_back(800 + 800*i, 585);
+
+	// Highscore text
+	if (!font.loadFromFile("AmazDooMLeft.ttf"))
+		std::cerr << "An error occoured loading font." << std::endl;
+	
+	text.setFont(font);
+	text.setString("Highscore: ");
+	text.setCharacterSize(30);
+	text.setColor(sf::Color::Black);
+	text.setStyle(sf::Text::Bold);
+	text.setPosition(10,10);
 }
 

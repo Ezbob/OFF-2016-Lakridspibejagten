@@ -37,7 +37,7 @@ void Runner::update(const float dt) {
 		charge_jump = false;
 	}
 
-	velocity.x += speed;
+	//velocity.x += speed;
 
 	shape.move({0, velocity.y});
 

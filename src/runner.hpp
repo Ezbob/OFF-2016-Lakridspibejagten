@@ -8,7 +8,7 @@ constexpr float GRAVITY{25};
 
 class Runner : public Object {
 	public:
-	sf::Vector2f velocity{300, 0}; 
+	sf::Vector2f velocity{50, 0}; 
 	sf::RectangleShape shape; // player sprite placeholder
 	sf::Clock clock, jClock;
 

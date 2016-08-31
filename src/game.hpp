@@ -10,6 +10,8 @@ class GameState;
 
 class Game {
 	public:
+	
+	int currentScore;
 
 	std::stack<GameState*> states;
 	sf::RenderWindow window;

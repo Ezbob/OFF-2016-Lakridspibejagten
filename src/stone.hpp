@@ -8,6 +8,7 @@ class Stone : public Object {
 	public:
 
 	sf::CircleShape shape;
+	sf::Vector2f velocity{-5, 0};
 
 	Stone(float x, float y) {
 		shape.setPosition(x, y);
@@ -17,6 +18,7 @@ class Stone : public Object {
 	}
 
 	void update(const float dt);
+	void setVelocity(float vx, float vy);
 	
 	float x()		 { return shape.getPosition().x; }
 	float y()		 { return shape.getPosition().y; }
