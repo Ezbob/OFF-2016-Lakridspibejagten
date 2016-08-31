@@ -10,10 +10,11 @@
 #include "game.hpp"
 #include "mock_gamestate.hpp"
 #include "gs_map.hpp"
+#include "mg_runner.hpp"
 
 using namespace std;
 
-int main() {
+int mainGame() {
 	Game game;
 
 	// indlæs knuder
@@ -48,4 +49,18 @@ int main() {
 	game.gameloop();
 
 	return 0;
+}
+
+int testMiniGame() {
+	Game game;
+
+	game.pushState(new MiniGameRunner(&game));
+	game.gameloop();
+
+	return 0;
+}
+
+int main() {
+	//return mainGame();
+	return testMiniGame();
 }
