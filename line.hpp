@@ -1,35 +1,44 @@
 #ifndef SFML_LINESHAPE_HPP
 #define SFML_LINESHAPE_HPP
 
-#include <SFML/Graphics/Export.hpp>
-#include <SFML/Graphics/Shape.hpp>
+#include <cmath>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/Vertex.hpp>
+#include <SFML/Graphics/PrimitiveType.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 
-
-namespace sf
+class sfLine : public sf::Drawable
 {
-    class SFML_GRAPHICS_API LineShape : public Shape
-    {
-        public :
+private:
+	sf::Vertex vertices[4];
+	sf::Color color;
+	float thickness;
 
-        explicit LineShape(const Vector2f& point1, const Vector2f& point2);
+public:
+	sfLine(const sf::Vector2f& point1, const sf::Vector2f& point2):
+		color(sf::Color::Yellow), thickness(5.f)
+	{
+		sf::Vector2f direction = point2 - point1;
+		sf::Vector2f unitDirection =  direction / std::sqrt(direction.x * direction.x + direction.y * direction.y);
+		sf::Vector2f unitPerpendicular(-unitDirection.y,unitDirection.x);
 
-        void setThickness(float thickness);
+		sf::Vector2f offset = (thickness/2.f)*unitPerpendicular;
 
-        float getThickness() const;
+		vertices[0].position = point1 + offset;
+		vertices[1].position = point2 + offset;
+		vertices[2].position = point2 - offset;
+		vertices[3].position = point1 - offset;
 
-        float getLength() const;
+		for (int i=0; i<4; ++i)
+				vertices[i].color = color;
+	}
 
-        virtual size_t getPointCount() const;
+	void draw(sf::RenderTarget &target, sf::RenderStates states) const
+	{
+		target.draw(vertices, 4, sf::Quads);
+	}
 
-        virtual Vector2f getPoint(unsigned int index) const;
 
-        private :
-
-    Vector2f m_direction; ///< Direction of the line
-    float m_thickness;    ///< Thickness of the line
 };
-
-} // namespace sf
-
 
 #endif // SFML_LINESHAPE_HPP

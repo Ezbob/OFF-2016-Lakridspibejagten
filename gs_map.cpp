@@ -18,11 +18,21 @@ void GameStateMap::draw(const float dt) {
 	t->setFont(f);
 
 	for (auto i : graph) {
+		if (current_node == "") current_node = i.first;
 		t->setString(i.first);
-		t->setPosition(positions[i.first]);
+		t->setPosition(positions[i.first] + position);
 		game->window.draw(*t);
+		for (auto j : i.second) {
+			sfLine l(positions[i.first] + position, positions[j.first] + position);
+			game->window.draw(l);
+		}
 	}
 
+
+	t->setColor(Color::Black);
+	t->setString(current_node);
+	t->setPosition(positions[current_node] + position);
+	game->window.draw(*t);
 	delete t;
 }
 
@@ -35,9 +45,7 @@ void GameStateMap::handleInput() {
 	constexpr float step_size = 5;
 	float delta_x = 0;
 	float delta_y = 0;
-	float scale = 1.0;
-	static float scale_x = 1.0;
-	static float scale_y = 1.0;
+	static float scale = 1.0;
 
 	while (game->window.pollEvent(event)) {
 		switch (event.type) {
@@ -70,12 +78,6 @@ void GameStateMap::handleInput() {
 	position.x = std::min(position.x, 0.0f);
 	position.y = std::min(position.y, 0.0f);
 
-	auto texture_size = texture.getSize();
-	auto window_size  = game->window.getSize();
-	scale_x = min(scale_x * scale, float(window_size.x) / texture_size.x);
-	scale_y = min(scale_y * scale, float(window_size.x) / texture_size.x);
-
-	sprite.setScale(Vector2f(scale_x, scale_y));
 	sprite.setPosition(position);
 }
 
