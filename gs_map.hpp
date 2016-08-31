@@ -1,3 +1,5 @@
+#include <SFML/Graphics.hpp>
+
 #include "game_state.hpp"
 
 class GameStateMap : public GameState {
