@@ -2,7 +2,7 @@
 
 for A in $@; do
     DIR=$(dirname $A)
-    A=$DIR/$(basename $A .h).h
+    A=$DIR/$(basename $A .hpp).hpp
     if [ ! -d $DIR ] ; then
         mkdir $DIR
     fi;
