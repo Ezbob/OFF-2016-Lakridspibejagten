@@ -13,15 +13,29 @@ void GameStateMap::draw(const float dt) {
 	game->window.clear(Color::Black);
 	game->window.draw(sprite);
 	Text * t = new Text();
-	Font f;
-	f.loadFromFile("/usr/share/wine/fonts/arial.ttf");
-	t->setFont(f);
+	Font node_font;
+	node_font.loadFromFile("./AmazDooMLeft.ttf");
+	t->setFont(node_font);
 
 	for (auto i : graph) {
+		if (current_node == "") current_node = i.first;
 		t->setString(i.first);
-		t->setPosition(positions[i.first]);
+		t->setPosition(positions[i.first] + position);
 		game->window.draw(*t);
+
+		for (auto j : i.second) {
+			sfLine l(positions[i.first] + position, positions[j.first] + position);
+			if (i.first == current_node) l.setColor(Color::Red);
+			if (j.first == current_node) l.setColor(Color::Red);
+			game->window.draw(l);
+		}
 	}
+
+
+	t->setColor(Color::Black);
+	t->setString(current_node);
+	t->setPosition(positions[current_node] + position);
+	game->window.draw(*t);
 
 	delete t;
 }
@@ -35,10 +49,9 @@ void GameStateMap::handleInput() {
 	constexpr float step_size = 5;
 	float delta_x = 0;
 	float delta_y = 0;
-	float scale = 1.0;
-	static float scale_x = 1.0;
-	static float scale_y = 1.0;
+	static float scale = 1.0;
 
+	size_t new_route = 11;
 	while (game->window.pollEvent(event)) {
 		switch (event.type) {
 			case Event::Closed:
@@ -53,6 +66,12 @@ void GameStateMap::handleInput() {
 			case Event::KeyPressed:
 				if (event.key.code == Keyboard::Escape)
 					game->window.close();
+
+				if (event.key.code >= Keyboard::Num0 &&
+				    event.key.code <= Keyboard::Num9) {
+				    new_route = (event.key.code - Keyboard::Num0);
+				}
+
 			break;
 
 			default:
@@ -70,13 +89,17 @@ void GameStateMap::handleInput() {
 	position.x = std::min(position.x, 0.0f);
 	position.y = std::min(position.y, 0.0f);
 
-	auto texture_size = texture.getSize();
-	auto window_size  = game->window.getSize();
-	scale_x = min(scale_x * scale, float(window_size.x) / texture_size.x);
-	scale_y = min(scale_y * scale, float(window_size.x) / texture_size.x);
-
-	sprite.setScale(Vector2f(scale_x, scale_y));
 	sprite.setPosition(position);
+	if (new_route < 11 && new_route < graph[current_node].size() + 1) {
+		auto new_node = graph[current_node].begin();
+
+		for (size_t i = 0; i < new_route - 1; ++i) ++new_node;
+
+		current_node = new_node->first;
+		auto r = rand() % (mini_games.size());
+		game->pushState(*(mini_games.begin() + r));
+	}
+	
 }
 
 void GameStateMap::loadgame() {

@@ -17,6 +17,7 @@ typedef map<string, map<string, float>> node_graph;
  
 class GameStateMap : public GameState {
 
+
 	private:
 	sf::View view;
 	sf::Sprite sprite;
@@ -26,11 +27,10 @@ class GameStateMap : public GameState {
 	node_graph graph;
 	map<string,Vector2f> positions;
 	string current_node;
-	Font node_font;
-
+	vector<GameState*> mini_games;
 	public:
 	
-	GameStateMap(Game * g, node_graph gr, map<string,Vector2f> ps) {
+	GameStateMap(Game * g, node_graph gr, map<string,Vector2f> ps, vector<GameState*> mg) {
 		game = g;
 		graph = gr;
 		positions = ps;
@@ -38,13 +38,15 @@ class GameStateMap : public GameState {
 		texture.setSmooth(true);
 		sprite.setTexture(texture);
 		position = sprite.getPosition();
-		node_font.loadFromFile("/usr/share/wine/fonts/arial.ttf");
+		mini_games = mg;
+
 	}
 
 	virtual void draw(const float dt);
 	virtual void update(const float dt);
 	virtual void handleInput();
 
+	void select_route();
 	void loadgame();
 
 };
