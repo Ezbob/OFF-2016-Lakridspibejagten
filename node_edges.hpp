@@ -5,6 +5,7 @@
 #include <string>
 #include <unordered_map>
 #include <memory>
+#include <SFML/System/Vector2.hpp>
 
 using namespace std;
 
@@ -13,12 +14,11 @@ class edge;
 
 class edge {
 
-private:
 	int id;
-	shared_ptr<node> from;
-	shared_ptr<node> to;
 
 public:
+	shared_ptr<node> from;
+	shared_ptr<node> to;
 	int get_id();
 	shared_ptr<node> get_from();
 	shared_ptr<node> get_to();
@@ -26,11 +26,10 @@ public:
 };
 
 
-class node {
+class node : public sf::Vector2f {
 
 private: 
 	int id;
-	int x, y;
 	string name;
 	vector<shared_ptr<edge>> connections;
 	unordered_map<string, double> weights;
