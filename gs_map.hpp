@@ -25,7 +25,8 @@ class GameStateMap : public GameState, public sf::Texture {
 	virtual void draw(const float dt);
 	virtual void update(const float dt);
 	virtual void handleInput();
-	
+	virtual void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
+
 	void loadgame();
 
 };
