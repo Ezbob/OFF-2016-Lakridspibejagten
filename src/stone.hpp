@@ -13,9 +13,10 @@ class Stone : public Object {
 
 	float width{24},
 		  height{24};
+	float speed{.2};
 
 	Stone(float x, float y) {
-		if (!tex.loadFromFile("assets/ani/rock1.png"))
+		if (!tex.loadFromFile("assets/imgs/rock1.png"))
 			std::cerr << "Error loading rock texture" << std::endl;
 		sprite.setTexture(tex);
 		sprite.setPosition({x, y});

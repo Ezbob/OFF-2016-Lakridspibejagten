@@ -36,7 +36,7 @@ void MiniGameRunner::update(const float dt) {
 		stone.setVelocity(-runner.velocity.x/10, 0);
 	}
 	// Update background
-	back.setTextureRect(sf::IntRect(runner.wx * 8, 0, 800, 600));
+	back.setTextureRect(sf::IntRect(runner.wx*2, 0, 800, 600));
 
 	// Update score
 	score++;
@@ -99,7 +99,11 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 	text.setPosition(10,10);
 
 	runner.scale(2.f, 2.f);
-	for (auto& stone : stones)
+	runner.speed = .05;
+	for (auto& stone : stones) {
 		stone.scale(2.f, 2.f);
+		stone.speed = 0.05;
+	}
+
 }
 

@@ -11,6 +11,8 @@ void Stone::update(const float dt) {
 		//std::cerr << "new pos: " << pos << std::endl;
 	}
 
+	velocity.x += speed;
+
 	sprite.move(velocity);
 }
 

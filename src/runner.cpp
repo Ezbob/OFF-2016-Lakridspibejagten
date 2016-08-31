@@ -49,9 +49,10 @@ void Runner::update(const float dt) {
 		charge_jump = false;
 	}
 
-	ani.update(dt, 0.1);
+	float upd = fmax(0.05, .5/log(velocity.x));
+	ani.update(dt, upd);
 
-	//velocity.x += speed;
+	velocity.x += speed;
 
 	ani.move({0, velocity.y});
 
