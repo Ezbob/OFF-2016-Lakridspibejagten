@@ -8,6 +8,7 @@
 #include <SFML/System/Vector2.hpp>
 
 #include "game.hpp"
+#include "mock_gamestate.hpp"
 #include "gs_map.hpp"
 
 using namespace std;
@@ -39,7 +40,9 @@ int main() {
 		positions[name] = Vector2f(x,y);
 	}
 
-	GameStateMap map(&game, graph, positions);
+	vector<GameState*> mini_games;
+	mini_games.push_back(new GameStateMockMiniGame(&game));
+	GameStateMap map(&game, graph, positions, mini_games);
 	game.pushState(&map);
 
 	game.gameloop();

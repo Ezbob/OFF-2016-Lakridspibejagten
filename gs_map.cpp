@@ -93,6 +93,8 @@ void GameStateMap::handleInput() {
 		for (size_t i = 0; i < new_route - 1; ++i)
 			++new_node;
 		current_node = new_node->first;
+		auto r = rand() % (mini_games.size());
+		game->pushState(*(mini_games.begin() + r));
 	}
 	
 }

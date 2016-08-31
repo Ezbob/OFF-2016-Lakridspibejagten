@@ -27,10 +27,10 @@ class GameStateMap : public GameState {
 	node_graph graph;
 	map<string,Vector2f> positions;
 	string current_node;
-
+	vector<GameState*> mini_games;
 	public:
 	
-	GameStateMap(Game * g, node_graph gr, map<string,Vector2f> ps) {
+	GameStateMap(Game * g, node_graph gr, map<string,Vector2f> ps, vector<GameState*> mg) {
 		game = g;
 		graph = gr;
 		positions = ps;
@@ -38,6 +38,7 @@ class GameStateMap : public GameState {
 		texture.setSmooth(true);
 		sprite.setTexture(texture);
 		position = sprite.getPosition();
+		mini_games = mg;
 
 	}
 
