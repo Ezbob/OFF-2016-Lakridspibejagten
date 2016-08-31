@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include "game_state.hpp"
 #include "runner.hpp"
+#include "stone.hpp"
 
 class MiniGameRunner : public GameState {
 	private:
@@ -14,6 +15,7 @@ class MiniGameRunner : public GameState {
 	sf::Texture tex_back;
 	sf::Sprite back;
 	Runner runner;
+	Stone stone;
 
 	public:
 

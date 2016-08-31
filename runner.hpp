@@ -8,14 +8,14 @@ constexpr float GRAVITY{25};
 
 class Runner : public Object {
 	public:
-	sf::Vector2f velocity{30, 0}; 
+	sf::Vector2f velocity{300, 0}; 
 	sf::RectangleShape shape; // player sprite placeholder
 	sf::Clock clock, jClock;
 
 	float ground{600};	// ground level (can be updated)
-	float width{50},
-		  height{100};
-	float speed{.03};
+	float width{48},
+		  height{56};
+	float speed{.2};
 	float jump_force{0.25};
 	float force{0};
 	bool is_jumping = true;
@@ -24,7 +24,7 @@ class Runner : public Object {
 
 	float wx{0};
 
-	Runner(float x=50, float y=100) {
+	Runner(float x=400, float y=100) {
 		shape.setPosition(x, y);
 		shape.setSize({width, height});
 		shape.setFillColor(sf::Color::Red);

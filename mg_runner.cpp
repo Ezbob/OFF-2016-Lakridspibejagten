@@ -1,5 +1,5 @@
 #include "mg_runner.hpp"
-
+#include "stone.hpp"
 
 void MiniGameRunner::create() {
 }
@@ -10,15 +10,17 @@ void MiniGameRunner::draw(const float dt) {
 
 	game->window.draw(back);
 	game->window.draw(runner.shape);
+	game->window.draw(stone.shape);
 }
 
 void MiniGameRunner::update(const float dt) {
 	runner.update(dt);
+	//stone.update(dt);
 	// Update background
 	//back.setTextureRect(IntRect(..., ...., ...., ....));
 	//back.move({-runner.velocity.x, 0});
 	//
-	back.setTextureRect(sf::IntRect(runner.wx, 0, runner.wx + 800, 600));
+	back.setTextureRect(sf::IntRect(runner.wx, 0, 800, 600));
 }
 
 void MiniGameRunner::handleInput() {
@@ -46,11 +48,10 @@ void MiniGameRunner::handleInput() {
 	}
 }
 
-MiniGameRunner::MiniGameRunner(Game *game) {
+MiniGameRunner::MiniGameRunner(Game *game) : stone(500, 585) {
 	this->game = game;
 
-	// sf::Texture tex_back
-	// sf::Sprite back
+	// Load background
 	if (tex_back.loadFromFile("assets/tiling_background.png")) {
 		tex_back.setRepeated(true);
 		tex_back.setSmooth(true);
