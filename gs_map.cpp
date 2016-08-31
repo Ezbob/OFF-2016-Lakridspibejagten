@@ -48,6 +48,9 @@ void GameStateMap::handleInput() {
 	constexpr float step_size = 5;
 	float delta_x = 0;
 	float delta_y = 0;
+	float scale = 1.0;
+	static float scale_x = 1.0;
+	static float scale_y = 1.0;
 	while (game->window.pollEvent(event)) {
 		switch (event.type) {
 			case Event::Closed:
@@ -55,11 +58,8 @@ void GameStateMap::handleInput() {
 			break;
 
 			case Event::MouseWheelMoved:
-				if (event.mouseWheel.delta > 0)
-					scale *= 2.0;
-				if (event.mouseWheel.delta < 0)
-					scale /= 2.0;
-				sprite.setScale(Vector2f(scale,scale));
+				if (event.mouseWheel.delta > 0) scale *= 2.0;
+				if (event.mouseWheel.delta < 0) scale /= 2.0;
 			break;
 
 			case Event::KeyPressed:
@@ -79,6 +79,15 @@ void GameStateMap::handleInput() {
 
 	position.x += delta_x;
 	position.y += delta_y;
+	position.x = std::min(position.x, 0.0f);
+	position.y = std::min(position.y, 0.0f);
+
+	auto texture_size = texture.getSize();
+	auto window_size  = game->window.getSize();
+	scale_x = min(scale_x * scale, float(window_size.x) / texture_size.x);
+	scale_y = min(scale_y * scale, float(window_size.x) / texture_size.x);
+
+	sprite.setScale(Vector2f(scale_x, scale_y));
 	sprite.setPosition(position);
 }
 
