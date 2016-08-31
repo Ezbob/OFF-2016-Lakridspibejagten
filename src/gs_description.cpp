@@ -17,7 +17,7 @@ void GameStateDescription::handleInput() {
 				game->window.close();
 				break;
 			case sf::Event::KeyPressed:
-				this->game->popState();
+				game->popState();
 			default:
 				break;
 		}
@@ -25,5 +25,5 @@ void GameStateDescription::handleInput() {
 }
 
 void GameStateDescription::loadgame() {
-	return;
+
 }

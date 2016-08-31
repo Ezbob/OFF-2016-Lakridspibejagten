@@ -26,7 +26,7 @@ void GameStateMockMiniGame::update(const float dt) {
 
 void GameStateMockMiniGame::handleInput() {
 	sf::Event event;
-	while (this->game->window.pollEvent(event)) {
+	while (game->window.pollEvent(event)) {
 		switch (event.type) {
 			case sf::Event::Closed:
 				game->window.close();
