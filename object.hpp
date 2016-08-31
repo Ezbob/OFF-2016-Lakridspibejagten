@@ -9,6 +9,6 @@ class Object {
 	virtual float right() = 0;
 	virtual float top() = 0;
 	virtual float bottom() = 0;
-}
+};
 
 #endif
