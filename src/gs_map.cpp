@@ -36,8 +36,6 @@ GameStateMap::GameStateMap (
 	current_node = positions.begin()->first;
 	target_node = current_node;
 	character = new animation({0,1, 2, 3, 4, 5}, character_texture);
-
-
 }
 
 void GameStateMap::draw(const float dt) {
