@@ -10,7 +10,8 @@ class GameStateMap : public GameState {
 	sf::Sprite sprite;
 	sf::Texture texture;
 	sf::Vector2f position;
-	// ..
+	float scale = 1.0;
+
 	
 	public:
 	

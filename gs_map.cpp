@@ -2,6 +2,7 @@
 
 #include "game_state.hpp"
 #include "gs_map.hpp"
+#include <iostream>
 
 using namespace sf;
 
@@ -17,16 +18,22 @@ void GameStateMap::update(const float dt) {
 
 void GameStateMap::handleInput() {
 	Event event;
-
 	constexpr float step_size = 5;
 	while (game->window.pollEvent(event)) {
 		switch (event.type) {
-			case Event::Closed: {
+			case Event::Closed:
 				game->window.close();
-				break;
-			}
+			break;
 
-			case Event::KeyPressed: {
+			case Event::MouseWheelMoved:
+				if (event.mouseWheel.delta > 0)
+					scale *= 2.0;
+				if (event.mouseWheel.delta < 0)
+					scale /= 2.0;
+				sprite.setScale(Vector2f(scale,scale));
+			break;
+
+			case Event::KeyPressed:
 				switch (event.key.code) {
 				case Keyboard::Escape:
 					game->window.close();
@@ -51,10 +58,10 @@ void GameStateMap::handleInput() {
 				default:
 					break;
 				}
-			}
+			break;
 
 			default:
-				break;
+			break;
 		}
 	}
 
