@@ -24,7 +24,7 @@ class GameStateMap : public GameState {
 	Texture texture;
 	Vector2f position;
 
-	constexpr double delay = 0.5;
+	static constexpr double delay = 0.5;
 	float scale = 1.0;
 	node_graph graph;
 	map<string,Vector2f> positions;

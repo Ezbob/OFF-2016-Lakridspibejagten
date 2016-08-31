@@ -33,6 +33,12 @@ public:
 				vertices[i].color = color;
 	}
 
+	void setColor(Color c) {
+		color = c;
+		for (int i=0; i<4; ++i)
+			vertices[i].color = color;
+	}
+
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const
 	{
 		target.draw(vertices, 4, sf::Quads);
