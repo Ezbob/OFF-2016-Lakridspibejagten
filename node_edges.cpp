@@ -2,7 +2,7 @@
 
 // edge
 
-edge::edge(int id, node *from, node *to) {
+edge::edge(int id, shared_ptr<node> from, shared_ptr<node> to) {
 	this->id = id;
 	this->from = from;
 	this->to = to;
