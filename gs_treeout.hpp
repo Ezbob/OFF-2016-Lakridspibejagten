@@ -1,11 +1,12 @@
 #pragma once
 
 #include <SFML/Graphics/Texture.hpp>
+#include <vector>
 #include "game_state.hpp"
 
 constexpr float ballVelocity = 8.f;
 constexpr int windowWidth = 800, windowHeight = 800;
-constexpr float paddleWidth = 60.f, paddleHeight = 20.f, paddleVelocity = 6.f;
+constexpr float paddleWidth = 60.f, paddleHeight = 20.f, paddleVelocity = 9.f;
 
 class Player {
 public:
@@ -71,6 +72,9 @@ public:
 		if (!this->texture.loadFromFile(texture)) printf("Texture missing\n");
 		this->sprite.setTexture(this->texture);
 		this->hit = false;
+		shape.setRadius(10.f);
+		shape.setFillColor(sf::Color::Cyan);
+		shape.setOrigin(10.f, 10.f);
 	}
 
 	void update();
@@ -94,6 +98,10 @@ public:
 	GameStateTreeout(Game *g) {
 		game = g;
 		localHighscore = 0;
+		int resourcesSize = 8.f;
+    	for (int x = 0; x < 4; ++x)
+        	for (int y = 0; y < 10; ++y)
+            	resources.emplace_back(*new Resource((float)(x + 1) * (resourcesSize + 3) + 22, (float) (y + 2) * (resourcesSize + 3), ""));
 	}
 
 	virtual void draw(const float dt);
