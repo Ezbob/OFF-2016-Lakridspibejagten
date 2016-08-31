@@ -2,12 +2,13 @@
 
 #include "game_state.hpp"
 #include "mock_gamestate.hpp"
+#include "paths.hpp"
 
 void GameStateMockMiniGame::draw(const float dt) {
 	sf::Text * text = new sf::Text();
 	sf::Font font;
-	//font.loadFromFile("AmazDooMLeft.ttf");
-	font.loadFromFile("DejaVuSansCondensed.ttf");
+	font.loadFromFile(path::font);
+	//font.loadFromFile("DejaVuSansCondensed.ttf");
     text->setString("You have started a minigame\nPress any key to continue.");
     text->setCharacterSize(30);
     text->setStyle(sf::Text::Bold);

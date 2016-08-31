@@ -10,11 +10,10 @@ class animation : public sf::Sprite {
 	std::vector<int> frame_indices;
 	int frame;
 	int width;
-	int height;
 
 public:
-	animation(std::vector<int> frame_indices, sf::Texture t);
-	void update();
+	animation(std::vector<int> frame_indices, sf::Texture& t);
+	void update(double dt);
 };
 
 #endif
