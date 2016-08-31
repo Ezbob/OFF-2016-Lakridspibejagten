@@ -4,6 +4,8 @@
 #include <stack>
 #include <SFML/Graphics.hpp>
 
+constexpr int WINDOW_WIDTH{800}, WINDOW_HEIGHT{600};
+
 class GameState;
 
 class Game {
