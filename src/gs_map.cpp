@@ -54,14 +54,25 @@ void GameStateMap::draw(const float dt) {
 	t->setFont(node_font);
 
 	// tegn alle knuder
+	t->setColor(Color::Black);
 	for (auto i : graph) {
 		t->setString(i.first);
-		t->setPosition(positions[i.first] + position);
+		auto p = positions[i.first] + position;
+		t->setPosition(p);
 		game->window.draw(*t);
+
+		auto from = positions[i.first];
 
 		// tegn alle kanter imellem knuderne
 		for (auto j : i.second) {
-			sfLine l(positions[i.first] + position, positions[j.first] + position);
+			auto to = positions[j.first];
+
+			auto start = from;
+			auto end = to;
+			if (start.x < end.x) continue;
+			
+			
+			sfLine l(start, end);
 
 			// skift farve, hvis en af siderne er den nuværende knude
 			if (i.first == current_node) l.setColor(Color::Red);
@@ -69,8 +80,9 @@ void GameStateMap::draw(const float dt) {
 			game->window.draw(l);
 		}
 	}
+	
 
-	t->setColor(Color::Black);
+	t->setColor(Color::White);
 	t->setString(current_node);
 	t->setPosition(positions[current_node] + position);
 
