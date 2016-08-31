@@ -1,4 +1,4 @@
-CXXFLAGS=--std=c++14 -O3 -Wall -Wpedantic -Wextra 
+CXXFLAGS=-std=c++14 -O3 -Wall -Wpedantic -Wextra 
 SOURCE=$(shell find . -type f -iname \*.cpp)
 OBJECTS=$(patsubst %.cpp,%.o,$(SOURCE))
 EXE=$(shell basename `pwd`)
