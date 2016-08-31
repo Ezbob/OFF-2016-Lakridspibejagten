@@ -7,9 +7,9 @@ void MiniGameRunner::draw(const float dt) {
 	game->window.clear(sf::Color::White);
 
 	game->window.draw(back);
-	game->window.draw(runner.shape);
+	game->window.draw(runner.ani);
 	for (auto& stone : stones)
-		game->window.draw(stone.shape);
+		game->window.draw(stone.sprite);
 
 	// Draw highscore
 	this->game->window.draw(text);
@@ -98,6 +98,10 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 	text.setColor(sf::Color::Black);
 	text.setStyle(sf::Text::Bold);
 	text.setPosition(10,10);
+
+	runner.scale(2.f, 2.f);
+	for (auto& stone : stones)
+		stone.scale(2.f, 2.f);
 }
 
 

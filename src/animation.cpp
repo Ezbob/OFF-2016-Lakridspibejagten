@@ -4,28 +4,45 @@
 
 animation::animation(std::vector<int> frame_indices, sf::Texture& t) {
 	this->frame_indices = frame_indices;
-	setTexture(t);
+	setupFrames(t);
+}
+
+void animation::setupFrames(sf::Texture& t) {
 	auto size = t.getSize();
 	width = size.x / frame_indices.size();
-
 	auto r = getTextureRect();
 	r.width = width;
 	setTextureRect(r);
-	std::cout << frame_indices.size() << "\n";
 	frame = 0;
 }
 
 void animation::update(double dt) {
+	update(dt, 0.2);
+}
+
+void animation::update(double dt, double ts) {
 	static double time = 0.0;
 	time += dt;
 
-	if (time > 0.2) {
-		++frame;
+	if (time > ts) {
 		time = 0.0;
-		size_t index = frame_indices[frame % frame_indices.size()];
-		auto rectangle = getTextureRect();
-		rectangle.left = index * width;
-		setTextureRect(rectangle);
+		nextFrame();
 	}
+}
+
+void animation::nextFrame() {
+	frame = (frame+1) % frame_indices.size();
+	setFrame(frame);
+}
+
+void animation::setFrame(int findex) {
+	size_t index = frame_indices[findex];
+	auto rect = getTextureRect();
+	rect.left = index * width;
+	setTextureRect(rect);
+}
+
+int animation::getFrame() {
+	return frame;
 }
 
