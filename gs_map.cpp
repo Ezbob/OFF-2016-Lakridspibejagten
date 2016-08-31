@@ -3,34 +3,68 @@
 #include "game_state.hpp"
 #include "gs_map.hpp"
 
+using namespace sf;
+
 void GameStateMap::draw(const float dt) {
-	this->game->window.setView(this->view);
-	this->game->window.clear(sf::Color::Black);
-	// this->game->window.draw( /*background here*/ );
+	game->window.setView(view);
+	game->window.clear(Color::Black);
+	game->window.draw(sprite);
 }
 
 void GameStateMap::update(const float dt) {
+	
 }
 
 void GameStateMap::handleInput() {
-	sf::Event event;
+	Event event;
 
-	while (this->game->window.pollEvent(event)) {
+	constexpr float step_size = 5;
+	while (game->window.pollEvent(event)) {
 		switch (event.type) {
-			case sf::Event::Closed: {
+			case Event::Closed: {
 				game->window.close();
 				break;
 			}
 
-			case sf::Event::KeyPressed: {
-				if (event.key.code == sf::Keyboard::Escape)
-					this->game->window.close();
+			case Event::KeyPressed: {
+				switch (event.key.code) {
+				case Keyboard::Escape:
+					game->window.close();
+					break;
+				
+				case Keyboard::Left:
+					position.x -= step_size;
+					break;
+				
+				case Keyboard::Right:
+					position.x += step_size;
+					break;
+
+				case Keyboard::Up:
+					position.y -= step_size;
+					break;
+
+				case Keyboard::Down:
+					position.y += step_size;
+					break;
+
+				default:
+					break;
+				}
 			}
 
 			default:
 				break;
 		}
 	}
+
+#if 0
+	auto rectangle = texture.getSize();
+	position.x = std::max(std::min(0.0f, position.x), float(rectangle.x));
+	position.y = std::max(std::min(0.0f, position.y), float(rectangle.y));
+#endif
+	sprite.setPosition(position);
+
 }
 
 void GameStateMap::loadgame() {
