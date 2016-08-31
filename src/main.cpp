@@ -10,11 +10,11 @@
 #include <SFML/System/Vector2.hpp>
 
 #include "game.hpp"
-#include "mock_gamestate.hpp"
-#include "gs_map.hpp"
-#include "mg_runner.hpp"
-#include "gs_treeout.hpp"
-#include "gs_description.hpp"
+#include "states/mock_gamestate.hpp"
+#include "states/gs_map.hpp"
+#include "states/mg_runner.hpp"
+#include "states/gs_treeout.hpp"
+#include "states/gs_description.hpp"
 #include "assets.hpp"
 
 using namespace std;

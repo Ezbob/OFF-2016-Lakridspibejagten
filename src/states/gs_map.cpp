@@ -1,7 +1,6 @@
 #include <SFML/Graphics.hpp>
 
 #include <iostream>
-#include "paths.hpp"
 #include "game_state.hpp"
 #include "gs_map.hpp"
 #include "line.hpp"
