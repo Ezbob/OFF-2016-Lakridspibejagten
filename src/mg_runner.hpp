@@ -18,7 +18,7 @@ class MiniGameRunner : public GameState {
 	sf::Sprite back;
 	Runner runner;
 	std::vector<Stone> stones;
-	int score;
+	int score = 0;
 	sf::Text text;
 	sf::Font font;
 
