@@ -8,7 +8,12 @@
 
 using namespace sf;
 
-GameStateMap::GameStateMap(Game * g, node_graph gr, map<string,Vector2f> ps, vector<GameState*> mg) {
+GameStateMap::GameStateMap (
+	Game * g,
+	node_graph gr,
+	map<string,Vector2f> ps,
+	vector<GameState*> mg) {
+
 	game = g;
 	graph = gr;
 	positions = ps;
@@ -30,8 +35,9 @@ GameStateMap::GameStateMap(Game * g, node_graph gr, map<string,Vector2f> ps, vec
 	// start knude
 	current_node = positions.begin()->first;
 	target_node = current_node;
+	character = new animation({0,1, 2, 3, 4, 5}, character_texture);
 
-	character = new animation({0,1}, character_texture);
+
 }
 
 void GameStateMap::draw(const float dt) {
@@ -76,23 +82,25 @@ void GameStateMap::draw(const float dt) {
 	auto origin = positions[current_node];
 	auto target = positions[target_node];
 	auto path = target - origin;
-	path.x *= route_position;
-	path.y *= route_position;
+	path.x *= route_position / delay;
+	path.y *= route_position / delay;
 	path += origin;
-	character->setPosition(path);
-	character->update();
+
 	game->window.draw(*character);
+	character->setPosition(path + position);
 }
 
 void GameStateMap::update(const float dt) {
 
 	if (route_position >= delay) {
 		current_node = target_node;
-		route_position = 0.0;
 		auto r = rand() % (mini_games.size());
 		game->pushState(*(mini_games.begin() + r));
-	} else 
+		route_position = 0.0;
+	} else if (current_node != target_node)
 		route_position += dt;
+
+	character->update(dt);
 }
 
 void GameStateMap::handleInput() {
@@ -153,5 +161,5 @@ void GameStateMap::handleInput() {
 
 void GameStateMap::loadgame() {
 	game->pushState(this);
-}	
+}
 
