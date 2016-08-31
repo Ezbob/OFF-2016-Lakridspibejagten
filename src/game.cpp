@@ -46,7 +46,7 @@ void Game::gameloop() {
 }
 
 Game::Game() {
-	this->window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Jagten på lakridspiberne");
+	this->window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Jagten paa lakridspiberne");
 	this->window.setFramerateLimit(60);
 }
 

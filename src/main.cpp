@@ -16,7 +16,7 @@
 
 using namespace std;
 
-int mainGame() {
+int main() {
 	Game game;
 
 	// indlæs knuder

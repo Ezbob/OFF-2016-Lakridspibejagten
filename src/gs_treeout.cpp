@@ -72,7 +72,7 @@ void GameStateTreeout::update(const float dt) {
 			resources[i].update();
 			if (testCollision(*player, resources[i])) {
 				resources.erase(resources.begin() + i);
-				//addPoints
+				localHighscore += pointsPerResource;
 			}
 
 		}

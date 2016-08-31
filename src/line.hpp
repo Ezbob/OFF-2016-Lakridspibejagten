@@ -41,6 +41,9 @@ public:
 
 	void draw(sf::RenderTarget &target, sf::RenderStates states) const
 	{
+		// fjern advarsel om at states ikke bliver brugt
+		while (false) states = states;
+
 		target.draw(vertices, 4, sf::Quads);
 	}
 

@@ -94,10 +94,12 @@ public:
 	Player *player = new Player(385, 580, "");
 	std::vector<Resource> resources;
 	int localHighscore;
+	int pointsPerResource;
 	int paddleHitsRemaining;
 
 	GameStateTreeout(Game *g) {
 		game = g;
+		pointsPerResource = 50;
 		localHighscore = 0;
 		for (int i = 0; i < 50; i++) {
             resources.push_back(Resource(rand() % 600 + 100, rand() % 400 + 100, ""));
