@@ -15,6 +15,7 @@
 #include "mg_runner.hpp"
 #include "gs_treeout.hpp"
 #include "gs_description.hpp"
+#include "assets.hpp"
 
 using namespace std;
 
@@ -44,6 +45,20 @@ int main() {
 		nodes >> name >> x >> y;
 		positions[name] = Vector2f(x,y);
 	}
+
+/* Indlæs skriftyper */
+	assets::font_main.loadFromFile("assets/main_font.ttf");
+	assets::font_description.loadFromFile("assets/desc_font.ttf");
+
+/* Indlæs textures */
+	assets::world.loadFromFile("assets/map.jpg");
+
+	assets::background.loadFromFile("assets/tiling_background.png");
+	assets::background.setRepeated(true);
+	assets::background.setSmooth(true);
+
+	assets::ball.loadFromFile("assets/ball.png");
+	assets::runner.loadFromFile("assets/ani/run.png");
 
 #if 1
 	GameStateMap map(&game, graph, positions, 

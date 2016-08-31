@@ -2,19 +2,16 @@
 
 #include "game_state.hpp"
 #include "mock_gamestate.hpp"
-#include "paths.hpp"
+#include "assets.hpp"
 
 void GameStateMockMiniGame::draw(const float dt) {
 	sf::Text * text = new sf::Text();
-	sf::Font font;
-	font.loadFromFile(path::font);
-	//font.loadFromFile("DejaVuSansCondensed.ttf");
     text->setString("You have started a minigame\nPress any key to continue.");
     text->setCharacterSize(30);
     text->setStyle(sf::Text::Bold);
     text->setColor(sf::Color::Black);
     text->setPosition(200,200);
-    text->setFont(font);
+    text->setFont(assets::font_main);
     this->game->window.clear(sf::Color::White);
 	this->game->window.draw(*text);
 	delete text;

@@ -6,6 +6,7 @@ namespace assets {
 
 	sf::Texture ball;
 	sf::Texture runner;
-	sf::Texture backgro9und;
+	sf::Texture background;
 	sf::Texture world;
+	sf::Texture player_texture;
 }

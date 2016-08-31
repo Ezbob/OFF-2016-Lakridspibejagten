@@ -13,7 +13,7 @@ namespace assets {
 	extern sf::Texture background;
 	extern sf::Texture ball;
 	extern sf::Texture runner;
-
+	extern sf::Texture player_texture;
 }
 
 #endif

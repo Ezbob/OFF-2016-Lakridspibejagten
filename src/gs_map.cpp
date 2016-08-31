@@ -5,6 +5,7 @@
 #include "game_state.hpp"
 #include "gs_map.hpp"
 #include "line.hpp"
+#include "assets.hpp"
 
 using namespace sf;
 
@@ -18,15 +19,9 @@ GameStateMap::GameStateMap (
 	graph = gr;
 	positions = ps;
 
-	// load map sprite 
-	texture.loadFromFile(path::world);
-	texture.setSmooth(true);
-	sprite.setTexture(texture);
+	sprite.setTexture(assets::world);
 
 	// load character sprite
-	character_texture.loadFromFile(path::run);
-	character_texture.setSmooth(true);
-
 	position = sprite.getPosition();
 
 	// sæt minigames
@@ -35,7 +30,7 @@ GameStateMap::GameStateMap (
 	// start knude
 	current_node = positions.begin()->first;
 	target_node = current_node;
-	character = new animation({0,1, 2, 3, 4, 5}, character_texture);
+	character = new animation({0,1, 2, 3, 4, 5}, assets::runner);
 }
 
 void GameStateMap::draw(const float dt) {
@@ -49,9 +44,7 @@ void GameStateMap::draw(const float dt) {
 	// tegn kortet
 	game->window.draw(sprite);
 
-	Font node_font;
-	node_font.loadFromFile(path::font);
-	t->setFont(node_font);
+	t->setFont(assets::font_main);
 
 	// tegn alle knuder
 	t->setColor(Color::Black);
