@@ -22,8 +22,11 @@ void GameStateMap::draw(const float dt) {
 		t->setString(i.first);
 		t->setPosition(positions[i.first] + position);
 		game->window.draw(*t);
+
 		for (auto j : i.second) {
 			sfLine l(positions[i.first] + position, positions[j.first] + position);
+			if (i.first == current_node) l.setColor(Color::Red);
+			if (j.first == current_node) l.setColor(Color::Red);
 			game->window.draw(l);
 		}
 	}
@@ -88,10 +91,10 @@ void GameStateMap::handleInput() {
 
 	sprite.setPosition(position);
 	if (new_route < 11 && new_route < graph[current_node].size() + 1) {
-		std::cerr << "new route = " << new_route << "\n";
 		auto new_node = graph[current_node].begin();
-		for (size_t i = 0; i < new_route - 1; ++i)
-			++new_node;
+
+		for (size_t i = 0; i < new_route - 1; ++i) ++new_node;
+
 		current_node = new_node->first;
 		auto r = rand() % (mini_games.size());
 		game->pushState(*(mini_games.begin() + r));
