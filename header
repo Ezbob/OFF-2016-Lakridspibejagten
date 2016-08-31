@@ -1,0 +1,16 @@
+#!/bin/sh
+
+for A in $@; do
+    DIR=$(dirname $A)
+    A=$DIR/$(basename $A .h).h
+    if [ ! -d $DIR ] ; then
+        mkdir $DIR
+    fi;
+
+    ID=$(uuidgen -r | tr [=-=][:lower:] _[:upper:])
+    echo "#ifndef UUID_$ID" > $A
+    echo "#define UUID_$ID" >> $A
+    echo "" >> $A
+    echo "#endif" >> $A
+done
+
