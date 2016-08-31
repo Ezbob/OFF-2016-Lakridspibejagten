@@ -30,10 +30,8 @@ bool testCollision(Player &mPlayer, Resource &mResource)
 
 void testCollision(Resource &mResource, Ball &mBall)
 {
-	printf("Testing collision for ball and resource\n");
     if (!isIntersecting(mResource, mBall)) return;
     mResource.hit = true;
-    printf("Collision!\n");
     float overlapLeft = mBall.right() - mResource.left();
     float overlapRight = mResource.right() - mBall.left();
     float overlapTop = mBall.bottom() - mResource.top();
@@ -58,6 +56,7 @@ void GameStateTreeout::draw(const float dt) {
 	for (Resource r : resources) {
 		this->game->window.draw(r.shape);
 	}
+
 }
 
 void GameStateTreeout::win() {
@@ -70,7 +69,6 @@ void GameStateTreeout::update(const float dt) {
 	ball->update();
 	for (int i = resources.size() - 1; i >= 0; i--) {
 		if (resources[i].hit) {
-			printf("It's been hit.\n");
 			resources[i].update();
 			if (testCollision(*player, resources[i])) {
 				resources.erase(resources.begin() + i);
