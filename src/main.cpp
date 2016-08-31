@@ -3,6 +3,8 @@
 #include <string>
 #include <sstream>
 #include <map>
+#include <stdlib.h>
+#include <time.h>
 
 
 #include <SFML/System/Vector2.hpp>
@@ -61,6 +63,8 @@ int testMiniGame() {
 }
 
 int main() {
+	srand(time(NULL));
+
 	//return mainGame();
 	return testMiniGame();
 }
