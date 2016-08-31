@@ -1,7 +1,8 @@
-CXXFLAGS=--std=c++14 -O3 -Wall -Wpedantic -Wextra
+CXXFLAGS=--std=c++14 -O3 -Wall -Wpedantic -Wextra 
 SOURCE=$(shell find . -type f -iname *.cc)
 OBJECTS=$(patsubst %.cc,%.o,$(SOURCE))
 EXE=$(shell basename `pwd`)
+LIBS= -lsfml-system -lsfml-graphics -lsfml-window -lsfml-audio
 
 MACHINE=$(shell gcc -dumpmachine)
 
@@ -13,8 +14,9 @@ TARGET=$(EXE)$(EXTENSION)
 
 all: $(TARGET)
 
-$(TARGET): $(OBJECTS)
+$(TARGET): $(OBJECTS) $(LIBS)
 	$(CXX) -o $@ $^
 
 clean:
 	$(RM) $(TARGET) $(OBJECTS)
+	
