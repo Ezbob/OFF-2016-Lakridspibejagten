@@ -19,6 +19,4 @@ $(TARGET): $(OBJECTS) $(LIBS)
 
 clean:
 	$(RM) $(TARGET) $(OBJECTS)
-
-
-clang++ -o breakout -std=c++11 -O3 -lsfml-system -lsfml-graphics -lsfml-window -lsfml-audio breakout.cpp
+	
