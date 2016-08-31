@@ -4,20 +4,37 @@
 #include <SFML/Graphics.hpp>
 #include "object.hpp"
 
-class Runner : public object {
-	public:
-	sf::Vector2f velocity{0, 0};
-	sf::RectangleShape shape; // player sprite placeholder
+constexpr float GRAVITY{25};
 
-	Runner(float x = 50, float y = 550) {
+class Runner : public Object {
+	public:
+	sf::Vector2f velocity{30, 0}; 
+	sf::RectangleShape shape; // player sprite placeholder
+	sf::Clock clock, jClock;
+
+	float ground{600};	// ground level (can be updated)
+	float width{50},
+		  height{100};
+	float speed{.03};
+	float jump_force{0.25};
+	float force{0};
+	bool is_jumping = true;
+	bool do_jump = false;
+	bool charge_jump = false;
+
+	float wx{0};
+
+	Runner(float x=50, float y=100) {
 		shape.setPosition(x, y);
-		shape.setSize({50, 100});
+		shape.setSize({width, height});
 		shape.setFillColor(sf::Color::Red);
-		shape.setOrigin(25, 50);
+		shape.setOrigin(width/2, height/2);
 	}
 
-	void update();
-	void handleInput(sf::Keyboard::Key key);
+	void update(const float dt);
+	void handleInputPressed(sf::Keyboard::Key key);
+	void handleInputReleased(sf::Keyboard::Key key);
+	void debug();
 
 	float x()		 { return shape.getPosition().x; }
 	float y()		 { return shape.getPosition().y; }
@@ -25,6 +42,8 @@ class Runner : public object {
 	float right()	 { return x() + shape.getSize().x / 2; }
 	float top()		 { return y() - shape.getSize().y / 2; }
 	float bottom()	 { return y() + shape.getSize().y / 2; }
+	void setX(float x) { shape.setPosition(x, y()); }
+	void setY(float y) { shape.setPosition(x(), y); }
 };
 
 #endif
