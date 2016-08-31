@@ -4,6 +4,7 @@
 #include "game_state.hpp"
 #include "gs_treeout.hpp"
 #include <cmath>
+#include "gs_description.hpp"
 
 template<class T1, class T2>
 bool isIntersecting(T1 &mA, T2 &mB)
@@ -14,13 +15,15 @@ bool isIntersecting(T1 &mA, T2 &mB)
            mA.top() <= mB.bottom();
 }
 
-void testCollision(Player &mPlayer, Ball &mBall)
+bool testCollision(Player &mPlayer, Ball &mBall)
 {
-    if (!isIntersecting(mPlayer, mBall)) return;
+    if (!isIntersecting(mPlayer, mBall)) return false;
+    
     mBall.velocity.y = -ballVelocity;
 
     if (mBall.x() < mPlayer.x()) mBall.velocity.x = -ballVelocity;
     else mBall.velocity.x = ballVelocity;
+    return true;
 }
 
 bool testCollision(Player &mPlayer, Resource &mResource)
@@ -50,23 +53,58 @@ void testCollision(Resource &mResource, Ball &mBall)
 }
 
 void GameStateTreeout::draw(const float dt) {
-	this->game->window.clear(sf::Color::White);
+	// Set up font
+    sf::Font font;
+    font.loadFromFile("AmazDooMLeft.ttf");
+
+	// Set up paddle text
+	sf::Text paddleText;
+    std::string str = "Paddle hits left: " + std::to_string(this->paddleHitsRemaining) + "\n";
+    paddleText.setString(str);
+    paddleText.setCharacterSize(30);
+    paddleText.setStyle(sf::Text::Bold);
+    paddleText.setColor(sf::Color::Black);
+    paddleText.setPosition(450, 50);
+    paddleText.setFont(font);
+
+    // Set up point text
+   	sf::Text pointText;
+    str = "Points scored: " + std::to_string(this->localHighscore) + "\n";
+    pointText.setString(str);
+    pointText.setCharacterSize(30);
+    pointText.setStyle(sf::Text::Bold);
+    pointText.setColor(sf::Color::Black);
+    pointText.setPosition(450, 100);
+    pointText.setFont(font);
+
+    // clear
+    this->game->window.clear(sf::Color::White);
+	
+    // draw entities
 	this->game->window.draw(this->player->shape);
 	this->game->window.draw(this->ball->shape);
-	for (Resource r : resources) {
+	for (Resource r : resources)
 		this->game->window.draw(r.shape);
-	}
+	
+	// draw HUD/texts
+	this->game->window.draw(paddleText);
+	this->game->window.draw(pointText);
 
 }
 
-void GameStateTreeout::win() {
-
+void GameStateTreeout::end() {
+	this->game->currentScore += this->localHighscore;
+	game->popState();
 }
 
 void GameStateTreeout::update(const float dt) {
-	testCollision(*player, *ball);
+	if (paddleHitsRemaining <= 0)
+		end();
+	if (testCollision(*player, *ball))
+		this->paddleHitsRemaining -= 1;
 	player->update();
-	ball->update();
+	if (ball->update()) // Hit the bottom
+		this->paddleHitsRemaining -= 2;
 	for (int i = resources.size() - 1; i >= 0; i--) {
 		if (resources[i].hit) {
 			resources[i].update();
@@ -74,7 +112,6 @@ void GameStateTreeout::update(const float dt) {
 				resources.erase(resources.begin() + i);
 				localHighscore += pointsPerResource;
 			}
-
 		}
 		else 
 			testCollision(resources[i], *ball);
@@ -112,12 +149,11 @@ void GameStateTreeout::handleInput() {
 
 
 void GameStateTreeout::loadgame() {
-
-	game->pushState(this);
+	//game->pushState(new GameStateDescription(this->game, "As the ball hits RESOURCES, catch them to earn points. \n Each time the ball hits the bottom, two paddle hits are subtracted, \n each time it hits the paddle, one is subtracted. \n When it reaches zero, the game is over.\n"));
 }
 
 
-void Ball::update() {
+bool Ball::update() {
  	shape.move(velocity);
 	if (left() < 0)
 		velocity.x = ballVelocity;
@@ -125,8 +161,11 @@ void Ball::update() {
 		velocity.x = -ballVelocity;
  	if (top() < 0)
  		velocity.y = ballVelocity;
- 	else if(bottom() > windowHeight)
- 		velocity.y = -ballVelocity;
+ 	else if(bottom() > windowHeight){
+ 	 	velocity.y = -ballVelocity;
+ 		return true;
+	}
+	return false;
 }
 
 void Player::update() {

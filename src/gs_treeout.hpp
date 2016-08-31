@@ -51,7 +51,7 @@ public:
 		shape.setFillColor(sf::Color::Red);
 		shape.setOrigin(10.f, 10.f);
 	}
-	void update();
+	bool update();
 	float x() { return shape.getPosition().x; }
  	float y() { return shape.getPosition().y; }
  	float left() { return x() - shape.getRadius(); }
@@ -93,14 +93,12 @@ public:
 	Ball *ball = new Ball(0,0);
 	Player *player = new Player(385, 580, "");
 	std::vector<Resource> resources;
-	int localHighscore;
-	int pointsPerResource;
-	int paddleHitsRemaining;
+	int localHighscore = 0;
+	int pointsPerResource = 50;
+	int paddleHitsRemaining = 10;
 
 	GameStateTreeout(Game *g) {
 		game = g;
-		pointsPerResource = 50;
-		localHighscore = 0;
 		for (int i = 0; i < 50; i++) {
             resources.push_back(Resource(rand() % 600 + 100, rand() % 400 + 100, ""));
         }
@@ -112,5 +110,5 @@ public:
 	void init();
 	void loadgame();
 	void checkCollision();
-	void win();
+	void end();
 };
