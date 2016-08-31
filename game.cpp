@@ -4,6 +4,27 @@
 #include "game.hpp"
 #include "game_state.hpp"
 
+
+void Game::pushState(GameState* state) {
+	this->states.push(state);
+}
+
+void Game::popState() {
+	this->states.pop();
+}
+
+void Game::changeState(GameState* state) {
+	if (!this->states.empty())
+		popState();
+	pushState(state);
+}
+
+GameState* Game::peekState() {
+	if (this->states.empty())
+		return nullptr;
+	return this->states.top();
+}
+
 void Game::gameloop() {
 	sf::Clock clock;
 
@@ -11,10 +32,15 @@ void Game::gameloop() {
 		sf::Time elapsed = clock.restart();
 		float dt = elapsed.asSeconds();
 		
-		// handle input
-		// update
+		if (peekState() == nullptr)
+			continue;
+		peekState()->handleInput();
+		peekState()->update(dt);
+		
 		this->window.clear(sf::Color::Black);
-		// draw
+
+		peekState()->draw(dt);
+
 		this->window.display();
 	}
 }
@@ -25,5 +51,6 @@ Game::Game() {
 }
 
 Game::~Game() {
-	// clean up
-}	
+	while (!this->states.empty())
+		popState();
+}

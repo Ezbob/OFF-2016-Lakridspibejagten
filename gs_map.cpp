@@ -34,4 +34,9 @@ void GameStateMap::handleInput() {
 }
 
 void GameStateMap::loadgame() {
+	this->game->pushState(new GameStateMap(this->game));
 }	
+
+GameStateMap::GameStateMap(Game *game) {
+	this->game = game;
+}
