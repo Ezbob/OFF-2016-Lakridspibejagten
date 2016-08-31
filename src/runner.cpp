@@ -20,6 +20,12 @@ void Runner::update(const float dt) {
 		// Keep falling
 		velocity.y += GRAVITY*dt;
 
+		// Go to next ground level
+		if (bottom() < ground_levels[current_ground+1]) {
+			current_ground++;
+			ground = ground_levels[current_ground];
+		}
+
 		// If we hit the ground => stop falling 
 		if (bottom() > ground) {
 			velocity.y = 0;
@@ -64,6 +70,11 @@ void Runner::handleInputPressed(sf::Keyboard::Key key) {
 	}
 	else if (key == sf::Keyboard::Down) {
 		// std::cerr << "[KEY:down]" << std::endl;
+		if (current_ground > 0) {
+			current_ground--;
+			ground = ground_levels[current_ground];
+			is_jumping = true;
+		}
 	}
 	else if (key == sf::Keyboard::D) {
 		debug();
@@ -87,6 +98,8 @@ void Runner::debug() {
 
 	std::cerr << "top(" << top() << "), left(" << left() << "), ";
 	std::cerr << "bottom(" << bottom() << "), right(" << right() << ")" << std::endl;
+
+	std::cerr << "ground: " << ground << ", level: " << current_ground << std::endl;
 
 	//std::cerr << "jump: " << jump << std::endl;
 

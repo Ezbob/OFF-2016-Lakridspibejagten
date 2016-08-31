@@ -13,6 +13,8 @@ class Runner : public Object {
 	sf::Clock clock, jClock;
 
 	float ground{600};	// ground level (can be updated)
+	std::vector<float> ground_levels{600, 400, 0};
+	int current_ground;
 	float width{48},
 		  height{54};
 	float speed{.2};
