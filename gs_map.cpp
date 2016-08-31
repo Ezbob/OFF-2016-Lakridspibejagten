@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 
+#include <iostream>
+
 #include "game_state.hpp"
 #include "gs_map.hpp"
 #include "line.hpp"
@@ -10,33 +12,18 @@ void GameStateMap::draw(const float dt) {
 	game->window.setView(view);
 	game->window.clear(Color::Black);
 	game->window.draw(sprite);
-	CircleShape circle;
-	circle.setFillColor(Color::White);
+	Text * t = new Text();
+	Font f;
+	f.loadFromFile("/usr/share/wine/fonts/arial.ttf");
+	t->setFont(f);
 
-#if 0
-	auto delta = sprite.getPosition();
-	// Tegn kanter -- gør det nemmere at lave en tom form som knude
-	for (auto e : edges) {
-		sfLine line(*(e.from), *(e.to));
-		game->window.draw(line);
+	for (auto i : graph) {
+		t->setString(i.first);
+		t->setPosition(positions[i.first]);
+		game->window.draw(*t);
 	}
 
-	// Tegn kanter fra den knude som spilleren er i nu
-
-
-	// Tegn knuder 
-	for (auto n : nodes) {
-		circle.setPosition(n.x - delta.x, n.y - delta.y);
-		game->window.draw(circle);
-	}
-
-
-	// Tegn den knude spilleren er i -nu-
-	circle.setFillColor(Color::Red);
-	circle.setPosition(current_node.x - delta.x, n.y - delta.y);
-	game->window.draw(circle);
-#endif
-
+	delete t;
 }
 
 void GameStateMap::update(const float dt) {
@@ -51,6 +38,7 @@ void GameStateMap::handleInput() {
 	float scale = 1.0;
 	static float scale_x = 1.0;
 	static float scale_y = 1.0;
+
 	while (game->window.pollEvent(event)) {
 		switch (event.type) {
 			case Event::Closed:
