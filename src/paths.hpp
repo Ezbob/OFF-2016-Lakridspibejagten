@@ -5,7 +5,7 @@
 
 namespace path {
 	std::string const root = "assets/";
-	std::string const images = "imgs/";
+	std::string const images = "assets/ani/";
 	std::string const world = root + "map.jpg";
 	std::string const font = root + "AmazDooMLeft.ttf";
 	std::string const run = images + "run.jpg";
