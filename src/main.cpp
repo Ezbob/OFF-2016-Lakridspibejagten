@@ -18,7 +18,7 @@
 
 using namespace std;
 
-int mainGame() {
+int main() {
 	Game game;
 
 	// indlæs knuder
@@ -44,33 +44,24 @@ int mainGame() {
 		nodes >> name >> x >> y;
 		positions[name] = Vector2f(x,y);
 	}
+#if 0
+	GameStateMap map(&game, graph, positions, 
+		{
+			new GameStateTreeout(&game),
+			new MiniGameRunner(&game)
+		}
+	);
 
-	vector<GameState*> mini_games {
-		new GameStateMockMiniGame(&game)
-	};
-	GameStateMap map(&game, graph, positions, mini_games);
+	game.pushState(new GameStateDescription(&game, "You're done"));
 	game.pushState(&map);
+#endif
 
-	game.gameloop();
-
-	return 0;
-}
-
-int testMiniGame() {
-	Game game;
-
-	game.pushState(new GameStateDescription(&game, "Yaya"));
+	game.pushState(new GameStateDescription(&game, "Yala3\n"));
+	game.pushState(new MiniGameRunner(&game));
+	game.pushState(new GameStateDescription(&game, "Yala2\n"));
+	game.pushState(new GameStateDescription(&game, "Yala\n"));
 	game.pushState(new GameStateTreeout(&game));
-	game.pushState(new GameStateMockMiniGame(&game));
-	game.pushState(new GameStateDescription(&game, "Ja hallaa hvad klok er 'et?\n"));
 	game.gameloop();
 
 	return 0;
-}
-
-int main() {
-	srand(time(NULL));
-
-	//return mainGame();
-	return testMiniGame();
 }
