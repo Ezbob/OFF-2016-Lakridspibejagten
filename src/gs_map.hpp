@@ -6,7 +6,7 @@
 
 #include <map>
 #include <string>
-
+#include "animation.hpp"
 #include "game_state.hpp"
 
 using namespace std;
@@ -23,6 +23,10 @@ class GameStateMap : public GameState {
 	Sprite sprite;
 	Texture texture;
 	Vector2f position;
+
+	animation * character;
+	Texture character_texture;
+	Text * t = new Text();
 
 	static constexpr double delay = 0.5;
 	float scale = 1.0;

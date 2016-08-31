@@ -14,7 +14,7 @@
 
 using namespace std;
 
-int mainGame() {
+int main() {
 	Game game;
 
 	// indlæs knuder
@@ -51,16 +51,3 @@ int mainGame() {
 	return 0;
 }
 
-int testMiniGame() {
-	Game game;
-
-	game.pushState(new MiniGameRunner(&game));
-	game.gameloop();
-
-	return 0;
-}
-
-int main() {
-	//return mainGame();
-	return testMiniGame();
-}
