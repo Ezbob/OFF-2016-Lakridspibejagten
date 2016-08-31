@@ -2,34 +2,10 @@
 #define MiniGameRunner_HPP
 
 #include <iostream>
+#include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include "game_state.hpp"
-
-class Runner {
-	public:
-	sf::Vector2f velocity{0, 0};
-	sf::RectangleShape shape; // player sprite placeholder
-
-	Runner(float x = 50, float y = 550) {
-		shape.setPosition(x, y);
-		shape.setSize({50, 100});
-		shape.setFillColor(sf::Color::Red);
-		shape.setOrigin(25, 50);
-	}
-
-	void update() {
-	}
-	void handleInput(sf::Keyboard::Key key) {
-		if (key == sf::Keyboard::Up) {
-			// Jump
-			std::cerr << "up" << std::endl;
-		}
-		else if (key == sf::Keyboard::Down) {
-			// move down a level
-			std::cerr << "down" << std::endl;
-		}
-	}
-};
+#include "runner.hpp"
 
 class MiniGameRunner : public GameState {
 	private:
