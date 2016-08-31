@@ -7,6 +7,7 @@
 
 void Game::pushState(GameState* state) {
 	this->states.push(state);
+	state->reset();
 }
 
 void Game::popState() {

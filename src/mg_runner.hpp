@@ -29,6 +29,7 @@ class MiniGameRunner : public GameState {
 	virtual void update(const float dt);
 	virtual void handleInput();
 	virtual void testCollision(Stone& stone, Runner& runner);
+	void reset();
 
 };
 
