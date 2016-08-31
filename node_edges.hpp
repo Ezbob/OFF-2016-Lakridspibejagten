@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <memory>
 
 using namespace std;
@@ -19,8 +19,10 @@ private:
 	shared_ptr<node> to;
 
 public:
-	edge(int id, node *from, node *to);
-	~edge();
+	int get_id();
+	shared_ptr<node> get_from();
+	shared_ptr<node> get_to();
+	edge(int id, shared_ptr<node> from, shared_ptr<node> to);
 };
 
 
@@ -30,15 +32,19 @@ private:
 	int id;
 	int x, y;
 	string name;
-	vector<edge> connections;
-	map<string, double> weights;
+	vector<shared_ptr<edge>> connections;
+	unordered_map<string, double> weights;
 
 public:
 	double get_weight(string key);
 	void add_weight(string key, double value);
 
-	node(int id, int x, int y, vector<edge> connections);
-	~node();
+	int get_x();
+	int get_y();
+	string get_name();
+	vector<shared_ptr<edge>> get_connections();
+
+	node(int id, string name, int x, int y, vector<shared_ptr<edge>> connections);
 };
 
 #endif
