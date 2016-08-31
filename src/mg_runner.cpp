@@ -7,8 +7,10 @@ void MiniGameRunner::draw(const float dt) {
 
 	game->window.draw(back);
 	game->window.draw(runner.ani);
-	for (auto& stone : stones)
+	for (auto& stone : stones) {
+		game->window.draw(stone.rectShape);
 		game->window.draw(stone.sprite);
+	}
 
 	// Draw highscore
 	this->game->window.draw(text);
@@ -36,7 +38,8 @@ void MiniGameRunner::update(const float dt) {
 		stone.setVelocity(-runner.velocity.x/10, 0);
 	}
 	// Update background
-	back.setTextureRect(sf::IntRect(runner.wx*2, 0, 800, 600));
+	back_pos += runner.velocity.x * dt;
+	back.setTextureRect(sf::IntRect(back_pos, 0, 800, 600));
 
 	// Update score
 	score++;
@@ -59,6 +62,8 @@ void MiniGameRunner::handleInput() {
 			case sf::Event::KeyPressed:
 				if (event.key.code == sf::Keyboard::Escape)
 					game->window.close();
+				else if (event.key.code == sf::Keyboard::S)
+					game->window.setFramerateLimit(5);
 				runner.handleInputPressed(event.key.code);
 				break;
 
@@ -101,7 +106,6 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 	runner.scale(2.f, 2.f);
 	runner.speed = .05;
 	for (auto& stone : stones) {
-		stone.scale(2.f, 2.f);
 		stone.speed = 0.05;
 	}
 
