@@ -13,9 +13,9 @@ void GameStateMap::draw(const float dt) {
 	game->window.clear(Color::Black);
 	game->window.draw(sprite);
 	Text * t = new Text();
-	Font f;
-	f.loadFromFile("/usr/share/wine/fonts/arial.ttf");
-	t->setFont(f);
+	Font node_font;
+	node_font.loadFromFile("./AmazDooMLeft.ttf");
+	t->setFont(node_font);
 
 	for (auto i : graph) {
 		if (current_node == "") current_node = i.first;
@@ -33,6 +33,7 @@ void GameStateMap::draw(const float dt) {
 	t->setString(current_node);
 	t->setPosition(positions[current_node] + position);
 	game->window.draw(*t);
+
 	delete t;
 }
 
@@ -47,6 +48,7 @@ void GameStateMap::handleInput() {
 	float delta_y = 0;
 	static float scale = 1.0;
 
+	size_t new_route = 11;
 	while (game->window.pollEvent(event)) {
 		switch (event.type) {
 			case Event::Closed:
@@ -61,6 +63,12 @@ void GameStateMap::handleInput() {
 			case Event::KeyPressed:
 				if (event.key.code == Keyboard::Escape)
 					game->window.close();
+
+				if (event.key.code >= Keyboard::Num0 &&
+				    event.key.code <= Keyboard::Num9) {
+				    new_route = (event.key.code - Keyboard::Num0);
+				}
+
 			break;
 
 			default:
@@ -79,6 +87,14 @@ void GameStateMap::handleInput() {
 	position.y = std::min(position.y, 0.0f);
 
 	sprite.setPosition(position);
+	if (new_route < 11 && new_route < graph[current_node].size() + 1) {
+		std::cerr << "new route = " << new_route << "\n";
+		auto new_node = graph[current_node].begin();
+		for (size_t i = 0; i < new_route - 1; ++i)
+			++new_node;
+		current_node = new_node->first;
+	}
+	
 }
 
 void GameStateMap::loadgame() {
