@@ -173,3 +173,7 @@ void GameStateMap::loadgame() {
 	game->pushState(this);
 }
 
+void GameStateMap::reset() {
+	
+}
+

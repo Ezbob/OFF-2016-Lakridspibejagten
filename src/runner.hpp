@@ -13,6 +13,8 @@ class Runner : public Object {
 	sf::Clock clock, jClock;
 
 	float ground{600};	// ground level (can be updated)
+	std::vector<float> ground_levels{600, 400, 0};
+	int current_ground;
 	float width{48},
 		  height{54};
 	float speed{.2};
@@ -45,8 +47,8 @@ class Runner : public Object {
 
 	float x()		 { return ani.getPosition().x; }
 	float y()		 { return ani.getPosition().y; }
-	float left()	 { return x() - width / 2; }
-	float right()	 { return x() + width / 2; }
+	float left()	 { return x() - width / 4; }
+	float right()	 { return x() + width / 4; }
 	float top()		 { return y() - height / 2; }
 	float bottom()	 { return y() + height / 2; }
 	void setX(float x) { ani.setPosition({x, y()}); }

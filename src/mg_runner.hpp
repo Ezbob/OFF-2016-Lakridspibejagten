@@ -16,9 +16,10 @@ class MiniGameRunner : public GameState {
 	//sf::View view;
 	sf::Texture tex_back;
 	sf::Sprite back;
+	float back_pos{0.f};
 	Runner runner;
 	std::vector<Stone> stones;
-	int score;
+	int score = 0;
 	sf::Text text;
 	sf::Font font;
 
@@ -29,6 +30,7 @@ class MiniGameRunner : public GameState {
 	virtual void update(const float dt);
 	virtual void handleInput();
 	virtual void testCollision(Stone& stone, Runner& runner);
+	void reset();
 
 };
 
