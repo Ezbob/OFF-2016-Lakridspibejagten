@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics/Texture.hpp>
 #include "game_state.hpp"
+#include "paths.hpp"
+#include <string>
 
 class GameStateDescription : public GameState, public sf::Texture {
 
@@ -10,9 +12,9 @@ class GameStateDescription : public GameState, public sf::Texture {
 	sf::Font font;	
 	sf::Text text;
 
-	GameStateDescription(Game *g, char *text) {
+	GameStateDescription(Game *g, std::string text) {
 		game = g;
-    	this->font.loadFromFile("DejaVuSansCondensed.ttf");
+    	this->font.loadFromFile(path::font_description);
 		this->text.setString(text);
 	   	this->text.setCharacterSize(30);
     	this->text.setStyle(sf::Text::Bold);

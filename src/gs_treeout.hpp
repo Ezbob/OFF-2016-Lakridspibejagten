@@ -17,7 +17,7 @@ public:
 	bool pIsMovingLeft;
 	sf::Vector2f velocity;
 
-	Player(float x, float y, char *texture) {
+	Player(float x, float y, std::string texture) {
 		shape.setPosition(x,y);
 		if (!this->texture.loadFromFile(texture)) printf("Texture missing\n");
 		sprite.setTexture(this->texture);
@@ -67,7 +67,7 @@ public:
 	sf::Sprite sprite;
 	sf::CircleShape shape;
 
-	Resource(float x, float y, char *texture) {
+	Resource(float x, float y, std::string texture) {
 		shape.setPosition(x,y);
 		if (!this->texture.loadFromFile(texture)) printf("Texture missing\n");
 		this->sprite.setTexture(this->texture);

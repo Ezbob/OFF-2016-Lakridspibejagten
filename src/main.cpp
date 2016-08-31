@@ -13,6 +13,8 @@
 #include "mock_gamestate.hpp"
 #include "gs_map.hpp"
 #include "mg_runner.hpp"
+#include "gs_treeout.hpp"
+#include "gs_description.hpp"
 
 using namespace std;
 
@@ -43,8 +45,9 @@ int mainGame() {
 		positions[name] = Vector2f(x,y);
 	}
 
-	vector<GameState*> mini_games;
-	mini_games.push_back(new GameStateMockMiniGame(&game));
+	vector<GameState*> mini_games {
+		new GameStateMockMiniGame(&game)
+	};
 	GameStateMap map(&game, graph, positions, mini_games);
 	game.pushState(&map);
 
@@ -56,7 +59,10 @@ int mainGame() {
 int testMiniGame() {
 	Game game;
 
-	game.pushState(new MiniGameRunner(&game));
+	game.pushState(new GameStateDescription(&game, "Yaya"));
+	game.pushState(new GameStateTreeout(&game));
+	game.pushState(new GameStateMockMiniGame(&game));
+	game.pushState(new GameStateDescription(&game, "Ja hallaa hvad klok er 'et?\n"));
 	game.gameloop();
 
 	return 0;

@@ -5,6 +5,7 @@
 #include "gs_treeout.hpp"
 #include <cmath>
 #include "gs_description.hpp"
+#include "paths.hpp"
 
 template<class T1, class T2>
 bool isIntersecting(T1 &mA, T2 &mB)
@@ -55,7 +56,7 @@ void testCollision(Resource &mResource, Ball &mBall)
 void GameStateTreeout::draw(const float dt) {
 	// Set up font
     sf::Font font;
-    font.loadFromFile("AmazDooMLeft.ttf");
+    font.loadFromFile(path::font);
 
 	// Set up paddle text
 	sf::Text paddleText;
