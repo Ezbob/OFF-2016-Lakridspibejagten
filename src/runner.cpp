@@ -7,6 +7,12 @@ void printVector(sf::Vector2f vec, std::string name) {
 	std::cerr << name << "(" << vec.x << ", " << vec.y << ")" << std::endl;
 }
 
+void Runner::scale(float sx, float sy) {
+	ani.setScale({sx, sy});
+	width = width * sx;
+	height = height * sy;
+}
+
 void Runner::update(const float dt) {
 	int elapsed = jClock.getElapsedTime().asMilliseconds(); // since pressing UP
 
@@ -29,7 +35,7 @@ void Runner::update(const float dt) {
 	// Jump
 	if (do_jump) {
 		int jForce = std::min(elapsed, 200);
-		std::cerr << "jump force: " << jForce << std::endl;
+		//std::cerr << "jump force: " << jForce << std::endl;
 		velocity.y = -10 - jForce/50;
 
 		is_jumping = true;
@@ -37,24 +43,27 @@ void Runner::update(const float dt) {
 		charge_jump = false;
 	}
 
+	ani.update(dt, 0.1);
+
 	//velocity.x += speed;
 
-	shape.move({0, velocity.y});
+	ani.move({0, velocity.y});
 
 	// Update world coordinates
 	wx += velocity.x * dt;
+
 }
 
 void Runner::handleInputPressed(sf::Keyboard::Key key) {
 	if (key == sf::Keyboard::Up) {
-		std::cerr << "[KEY:up]" << std::endl;
+		// std::cerr << "[KEY:up]" << std::endl;
 		if (bottom() == ground && !is_jumping) {
 			jClock.restart();
 			charge_jump = true;
 		}
 	}
 	else if (key == sf::Keyboard::Down) {
-		std::cerr << "[KEY:down]" << std::endl;
+		// std::cerr << "[KEY:down]" << std::endl;
 	}
 	else if (key == sf::Keyboard::D) {
 		debug();
@@ -72,7 +81,7 @@ void Runner::debug() {
 
 	std::cerr << "------------------" << std::endl;
 
-	printVector(shape.getPosition(), "Position");
+	printVector(ani.getPosition(), "Position");
 	printVector(velocity, "Velocity");
 	std::cerr << "worldpos: " << wx << " (hor)" << std::endl;
 

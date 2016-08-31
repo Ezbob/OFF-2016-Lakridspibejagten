@@ -7,27 +7,33 @@
 class Stone : public Object {
 	public:
 
-	sf::CircleShape shape;
 	sf::Vector2f velocity{-5, 0};
+	sf::Texture tex;
+	sf::Sprite sprite;
+
+	float width{24},
+		  height{24};
 
 	Stone(float x, float y) {
-		shape.setPosition(x, y);
-		shape.setRadius(15);
-		shape.setFillColor(sf::Color::Blue);
-		shape.setOrigin(15, 15);
+		if (!tex.loadFromFile("assets/ani/rock1.png"))
+			std::cerr << "Error loading rock texture" << std::endl;
+		sprite.setTexture(tex);
+		sprite.setPosition({x, y});
+		sprite.setOrigin(width/2, height/2);
 	}
 
 	void update(const float dt);
+	void scale(float sx, float sy);
 	void setVelocity(float vx, float vy);
 	
-	float x()		 { return shape.getPosition().x; }
-	float y()		 { return shape.getPosition().y; }
-	float left()	 { return x() - shape.getRadius(); }
-	float right()	 { return x() + shape.getRadius(); }
-	float top()		 { return y() - shape.getRadius(); }
-	float bottom()	 { return y() + shape.getRadius(); }
-	void setX(float x) { shape.setPosition(x, y()); }
-	void setY(float y) { shape.setPosition(x(), y); }
+	float x()		 { return sprite.getPosition().x; }
+	float y()		 { return sprite.getPosition().y; }
+	float left()	 { return x() - width / 2; }
+	float right()	 { return x() + width / 2; }
+	float top()		 { return y() - height / 2; }
+	float bottom()	 { return y() + height / 2; }
+	void setX(float x) { sprite.setPosition({x, y()}); }
+	void setY(float y) { sprite.setPosition({x(), y}); }
 };
 
 #endif

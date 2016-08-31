@@ -13,7 +13,12 @@ class animation : public sf::Sprite {
 
 public:
 	animation(std::vector<int> frame_indices, sf::Texture& t);
+	void setupFrames(sf::Texture& t);
 	void update(double dt);
+	void update(double dt, double ts);
+	void nextFrame();
+	void setFrame(int findex);
+	int getFrame();
 };
 
 #endif
