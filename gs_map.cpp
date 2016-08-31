@@ -2,57 +2,79 @@
 
 #include "game_state.hpp"
 #include "gs_map.hpp"
+#include <iostream>
+
+using namespace sf;
 
 void GameStateMap::draw(const float dt) {
-	this->game->window.setView(this->view);
-	this->game->window.clear(sf::Color::Black);
-	// this->game->window.draw( /*background here*/ );
+	game->window.setView(view);
+	game->window.clear(Color::Black);
+	game->window.draw(sprite);
 }
 
 void GameStateMap::update(const float dt) {
-}
-
-
-void GameStateMap::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
-{
-	if (key == sf::Keyboard::Escape) {
-		this->game->window.close();
-		return;
-	}
-	if (key == sf::Keyboard::W)
-		// playerIsMovingUp = isPressed;
-		printf("Moving up.\n");
-	else if (key == sf::Keyboard::S)
-		//playerIsMovingDown = isPressed;
-		printf("Moving down.\n");
-	else if (key == sf::Keyboard::A)
-		//playerIsMovingLeft = isPressed;
-		printf("Moving left.\n");
-	else if (key == sf::Keyboard::D)
-		//playerIsMovingRight = isPressed;
-		printf("Moving right.\n");
+	
 }
 
 void GameStateMap::handleInput() {
-	sf::Event event;
-
-	while (this->game->window.pollEvent(event)) {
+	Event event;
+	constexpr float step_size = 5;
+	while (game->window.pollEvent(event)) {
 		switch (event.type) {
-			case sf::Event::Closed:
+			case Event::Closed:
 				game->window.close();
-				break;
-			case sf::Event::KeyPressed:
-				handlePlayerInput(event.key.code, true);
-				break;
-			case sf::Event::KeyReleased:
-				handlePlayerInput(event.key.code, false);
-				break;
+			break;
+
+			case Event::MouseWheelMoved:
+				if (event.mouseWheel.delta > 0)
+					scale *= 2.0;
+				if (event.mouseWheel.delta < 0)
+					scale /= 2.0;
+				sprite.setScale(Vector2f(scale,scale));
+			break;
+
+			case Event::KeyPressed:
+				switch (event.key.code) {
+				case Keyboard::Escape:
+					game->window.close();
+					break;
+				
+				case Keyboard::Left:
+					position.x -= step_size;
+					break;
+				
+				case Keyboard::Right:
+					position.x += step_size;
+					break;
+
+				case Keyboard::Up:
+					position.y -= step_size;
+					break;
+
+				case Keyboard::Down:
+					position.y += step_size;
+					break;
+
+				default:
+					break;
+				}
+			break;
+
 			default:
-				break;
+			break;
 		}
 	}
+
+#if 0
+	auto rectangle = texture.getSize();
+	position.x = std::max(std::min(0.0f, position.x), float(rectangle.x));
+	position.y = std::max(std::min(0.0f, position.y), float(rectangle.y));
+#endif
+	sprite.setPosition(position);
+
 }
 
 void GameStateMap::loadgame() {
 	game->pushState(this);
-}
+}	
+

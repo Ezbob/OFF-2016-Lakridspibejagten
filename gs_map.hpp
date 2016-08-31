@@ -4,22 +4,22 @@
 #include <SFML/Graphics/Texture.hpp>
 #include "game_state.hpp"
 
-class GameStateMap : public GameState, public sf::Texture {
+class GameStateMap : public GameState {
 	private:
-	
-	unsigned x;
-	unsigned y;
 	sf::View view;
-	
-	// ..
+	sf::Sprite sprite;
+	sf::Texture texture;
+	sf::Vector2f position;
+	float scale = 1.0;
+
 	
 	public:
 	
-	GameStateMap(Game * g, unsigned _x = 0, unsigned _y = 0) {
+	GameStateMap(Game * g) {
 		game = g;
-		x = _x;
-		y = _y;
-		loadFromFile("europa.jpg");
+		texture.loadFromFile("europa.jpg");
+		sprite.setTexture(texture);
+		position = sprite.getPosition();
 	}
 
 	virtual void draw(const float dt);
