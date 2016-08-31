@@ -156,6 +156,9 @@ void GameStateTreeout::handleInput() {
 	}
 }
 
+void GameStateTreeout::reset() {
+
+}
 
 void GameStateTreeout::loadgame() {
 	std::cerr << __func__ << " " << __LINE__ << "\n";
@@ -197,6 +200,7 @@ void Player::update() {
 		velocity.x = 0;
 	}
 }
+
 
 void Resource::update() {
 	std::cerr << __func__ << " " << __LINE__ << "\n";

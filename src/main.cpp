@@ -44,7 +44,8 @@ int main() {
 		nodes >> name >> x >> y;
 		positions[name] = Vector2f(x,y);
 	}
-#if 0
+
+#if 1
 	GameStateMap map(&game, graph, positions, 
 		{
 			new GameStateTreeout(&game),
@@ -54,13 +55,13 @@ int main() {
 
 	game.pushState(new GameStateDescription(&game, "You're done"));
 	game.pushState(&map);
-#endif
-
+#else
 	game.pushState(new GameStateDescription(&game, "Yala3\n"));
 	game.pushState(new MiniGameRunner(&game));
 	game.pushState(new GameStateDescription(&game, "Yala2\n"));
 	game.pushState(new GameStateDescription(&game, "Yala\n"));
 	game.pushState(new GameStateTreeout(&game));
+#endif
 	game.gameloop();
 
 	return 0;

@@ -1,5 +1,6 @@
 #include "mg_runner.hpp"
 #include "stone.hpp"
+#include "paths.hpp"
 
 void MiniGameRunner::draw(const float dt) {
 	//game->window.setView(view);
@@ -93,7 +94,7 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 		stones.emplace_back(800 + 800*i, 585);
 
 	// Highscore text
-	if (!font.loadFromFile("AmazDooMLeft.ttf"))
+	if (!font.loadFromFile(path::font))
 		std::cerr << "An error occoured loading font." << std::endl;
 	
 	text.setFont(font);
@@ -111,3 +112,7 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 
 }
 
+
+void MiniGameRunner::reset() {
+
+}
