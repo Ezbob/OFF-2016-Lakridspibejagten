@@ -16,32 +16,25 @@ typedef map<string, map<string, float>> node_graph;
 
  
 class GameStateMap : public GameState {
-
-
 	private:
-	sf::View view;
-	sf::Sprite sprite;
-	sf::Texture texture;
-	sf::Vector2f position;
+	
+	
+	View view;
+	Sprite sprite;
+	Texture texture;
+	Vector2f position;
+
+	constexpr double delay = 0.5;
 	float scale = 1.0;
 	node_graph graph;
 	map<string,Vector2f> positions;
 	string current_node;
+	string target_node;
+	double route_position;
 	vector<GameState*> mini_games;
 	public:
 	
-	GameStateMap(Game * g, node_graph gr, map<string,Vector2f> ps, vector<GameState*> mg) {
-		game = g;
-		graph = gr;
-		positions = ps;
-		texture.loadFromFile("europa.jpg");
-		texture.setSmooth(true);
-		sprite.setTexture(texture);
-		position = sprite.getPosition();
-		mini_games = mg;
-
-	}
-
+	GameStateMap(Game * g, node_graph gr, map<string,Vector2f> ps, vector<GameState*> mg);
 	virtual void draw(const float dt);
 	virtual void update(const float dt);
 	virtual void handleInput();

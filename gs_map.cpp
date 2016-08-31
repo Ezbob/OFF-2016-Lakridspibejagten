@@ -8,6 +8,22 @@
 
 using namespace sf;
 
+GameStateMap::GameStateMap(Game * g, node_graph gr, map<string,Vector2f> ps, vector<GameState*> mg) {
+	game = g;
+	graph = gr;
+	positions = ps;
+	texture.loadFromFile("europa.jpg");
+	texture.setSmooth(true);
+	sprite.setTexture(texture);
+	position = sprite.getPosition();
+	mini_games = mg;
+	current_node = positions.begin()->first;
+	target_node = current_node;
+	std::cerr << current_node << "\n";
+	std::cerr << positions.begin()->first << "\n";
+
+}
+
 void GameStateMap::draw(const float dt) {
 	game->window.setView(view);
 	game->window.clear(Color::Black);
@@ -18,7 +34,6 @@ void GameStateMap::draw(const float dt) {
 	t->setFont(node_font);
 
 	for (auto i : graph) {
-		if (current_node == "") current_node = i.first;
 		t->setString(i.first);
 		t->setPosition(positions[i.first] + position);
 		game->window.draw(*t);
@@ -41,7 +56,14 @@ void GameStateMap::draw(const float dt) {
 }
 
 void GameStateMap::update(const float dt) {
-	
+	std::cout << route_position << " " << current_node << " " << target_node << "\n";
+	if (target_node != current_node) route_position += dt;
+	if (route_position >= delay) {
+		current_node = target_node;
+		route_position = 0.0;
+		auto r = rand() % (mini_games.size());
+		game->pushState(*(mini_games.begin() + r));
+	}
 }
 
 void GameStateMap::handleInput() {
@@ -49,7 +71,6 @@ void GameStateMap::handleInput() {
 	constexpr float step_size = 5;
 	float delta_x = 0;
 	float delta_y = 0;
-	static float scale = 1.0;
 
 	size_t new_route = 11;
 	while (game->window.pollEvent(event)) {
@@ -90,16 +111,12 @@ void GameStateMap::handleInput() {
 	position.y = std::min(position.y, 0.0f);
 
 	sprite.setPosition(position);
-	if (new_route < 11 && new_route < graph[current_node].size() + 1) {
+	if (target_node == current_node && new_route < graph[current_node].size() + 1) {
 		auto new_node = graph[current_node].begin();
 
 		for (size_t i = 0; i < new_route - 1; ++i) ++new_node;
-
-		current_node = new_node->first;
-		auto r = rand() % (mini_games.size());
-		game->pushState(*(mini_games.begin() + r));
+		target_node = new_node->first;
 	}
-	
 }
 
 void GameStateMap::loadgame() {
