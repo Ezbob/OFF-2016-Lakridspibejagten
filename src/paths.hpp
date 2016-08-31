@@ -8,7 +8,7 @@ namespace path {
 	std::string const images = "imgs/";
 	std::string const world = root + "map.jpg";
 	std::string const font = root + "AmazDooMLeft.ttf";
-	std::string const run = images + "run.jpg";
+	std::string const run = images + "run.png";
 }
 
 #endif
