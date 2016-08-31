@@ -11,6 +11,8 @@ class MiniGameRunner : public GameState {
 	private:
 	
 	sf::View view;
+	sf::Texture tex_back;
+	sf::Sprite back;
 	Runner runner;
 
 	public:
