@@ -1,6 +1,6 @@
 CXXFLAGS=--std=c++14 -O3 -Wall -Wpedantic -Wextra 
-SOURCE=$(shell find . -type f -iname *.cc)
-OBJECTS=$(patsubst %.cc,%.o,$(SOURCE))
+SOURCE=$(shell find . -type f -iname *.cpp)
+OBJECTS=$(patsubst %.cpp,%.o,$(SOURCE))
 EXE=$(shell basename `pwd`)
 LIBS= -lsfml-system -lsfml-graphics -lsfml-window -lsfml-audio
 
