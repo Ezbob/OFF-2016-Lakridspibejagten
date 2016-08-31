@@ -2,7 +2,7 @@
 
 #include "game_state.hpp"
 #include "gs_map.hpp"
-#include <iostream>
+#include "line.hpp"
 
 using namespace sf;
 
@@ -10,6 +10,33 @@ void GameStateMap::draw(const float dt) {
 	game->window.setView(view);
 	game->window.clear(Color::Black);
 	game->window.draw(sprite);
+	CircleShape circle;
+	circle.setFillColor(Color::White);
+
+#if 0
+	auto delta = sprite.getPosition();
+	// Tegn kanter -- gør det nemmere at lave en tom form som knude
+	for (auto e : edges) {
+		sfLine line(*(e.from), *(e.to));
+		game->window.draw(line);
+	}
+
+	// Tegn kanter fra den knude som spilleren er i nu
+
+
+	// Tegn knuder 
+	for (auto n : nodes) {
+		circle.setPosition(n.x - delta.x, n.y - delta.y);
+		game->window.draw(circle);
+	}
+
+
+	// Tegn den knude spilleren er i -nu-
+	circle.setFillColor(Color::Red);
+	circle.setPosition(current_node.x - delta.x, n.y - delta.y);
+	game->window.draw(circle);
+#endif
+
 }
 
 void GameStateMap::update(const float dt) {
@@ -19,6 +46,8 @@ void GameStateMap::update(const float dt) {
 void GameStateMap::handleInput() {
 	Event event;
 	constexpr float step_size = 5;
+	float delta_x = 0;
+	float delta_y = 0;
 	while (game->window.pollEvent(event)) {
 		switch (event.type) {
 			case Event::Closed:
@@ -34,30 +63,8 @@ void GameStateMap::handleInput() {
 			break;
 
 			case Event::KeyPressed:
-				switch (event.key.code) {
-				case Keyboard::Escape:
+				if (event.key.code == Keyboard::Escape)
 					game->window.close();
-					break;
-				
-				case Keyboard::Left:
-					position.x -= step_size;
-					break;
-				
-				case Keyboard::Right:
-					position.x += step_size;
-					break;
-
-				case Keyboard::Up:
-					position.y -= step_size;
-					break;
-
-				case Keyboard::Down:
-					position.y += step_size;
-					break;
-
-				default:
-					break;
-				}
 			break;
 
 			default:
@@ -65,13 +72,14 @@ void GameStateMap::handleInput() {
 		}
 	}
 
-#if 0
-	auto rectangle = texture.getSize();
-	position.x = std::max(std::min(0.0f, position.x), float(rectangle.x));
-	position.y = std::max(std::min(0.0f, position.y), float(rectangle.y));
-#endif
-	sprite.setPosition(position);
+	if (Keyboard::isKeyPressed(Keyboard::Up)) delta_y = step_size;
+	if (Keyboard::isKeyPressed(Keyboard::Down)) delta_y = -step_size;
+	if (Keyboard::isKeyPressed(Keyboard::Left)) delta_x = step_size;
+	if (Keyboard::isKeyPressed(Keyboard::Right)) delta_x = -step_size;
 
+	position.x += delta_x;
+	position.y += delta_y;
+	sprite.setPosition(position);
 }
 
 void GameStateMap::loadgame() {
