@@ -1,6 +1,6 @@
-Start     276 164
-Cirkus    466 178
-Skov      448 262
-Arcade    320 368
+Start     250 110
+Cirkus    450 120
+Skov      420 255
+Arcade    300 330
 Fest      306 474
 
