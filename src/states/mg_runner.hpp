@@ -29,7 +29,7 @@ class MiniGameRunner : public GameState {
 	int num_stones{2};
 	Pibe pibe;
 	Gave gave;
-	float goalline{100};//2000};
+	float goalline{2000};
 	bool got_gift{false};
 	sf::Clock clock1;
 
