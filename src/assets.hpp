@@ -18,6 +18,7 @@ namespace assets {
 	extern sf::Texture player_texture;
 	extern sf::Texture rock;
 	extern sf::Texture pibe;
+	extern sf::Texture gave;
 
 	extern sf::Sprite ball_sprite;
 	extern sf::Sprite runner_sprite;
@@ -26,6 +27,7 @@ namespace assets {
 	extern sf::Sprite player_sprite;
 	extern sf::Sprite rock_sprite;
 	extern sf::Sprite pibe_sprite;
+	extern sf::Sprite gave_sprite;
 	extern animation * runner_animation;
 }
 

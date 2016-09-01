@@ -12,6 +12,7 @@ class Pibe : public Object {
 	sf::Sprite sprite;
 
 	float speed{.002};
+	bool active{true};
 
 	Pibe(float x=0, float y=0) : Object({50.f,30.f}) {
 		sprite.setTexture(assets::pibe);
@@ -23,6 +24,7 @@ class Pibe : public Object {
 	void update(const float dt);
 	void draw(sf::RenderWindow &window);
 	void reset();
+	void setInactive();
 
 	void setX(float nx) {
 		sprite.setPosition({nx, y()});
@@ -33,6 +35,16 @@ class Pibe : public Object {
 		Object::setPosition({x(), ny});
 	}
 
+};
+
+class Gave : public Pibe {
+	public:
+	
+	Gave(float x=0, float y=0) : Pibe(x,y)  {
+		Object::setSize({30.f,30.f});
+		sprite.setTexture(assets::gave);
+		sprite.setTextureRect(sf::IntRect(30, 0, 60, 30));
+	}
 };
 
 #endif

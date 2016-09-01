@@ -23,6 +23,8 @@ class MiniGameRunner : public GameState {
 	sf::Font font;
 	int num_stones{2};
 	Pibe pibe;
+	Gave gave;
+	float goalline{1000};
 
 	public:
 
@@ -32,6 +34,7 @@ class MiniGameRunner : public GameState {
 	virtual void handleInput();
 	virtual void testCollision(Stone& stone, Runner& runner);
 	virtual void testCollision(Pibe& pibe, Runner& runner);
+	virtual void testCollision(Gave& gave, Runner& runner);
 	virtual void reset();
 
 };

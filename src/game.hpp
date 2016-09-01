@@ -3,6 +3,7 @@
 
 #include <stack>
 #include <SFML/Graphics.hpp>
+#include "animation.hpp"
 
 constexpr int WINDOW_WIDTH{800}, WINDOW_HEIGHT{600};
 
@@ -12,10 +13,12 @@ class Game {
 	public:
 	
 	int score_pibe{0};
-	int score_gaver{0};
+	bool score_gave{false};
 	int children{20};
 	sf::Text text_pibe;
+	sf::Text text_gave;
 	sf::Sprite icon_pibe;
+	sf::Sprite icon_gave;
 	int currentScore{0}; // deprecated
 
 	std::stack<GameState*> states;
