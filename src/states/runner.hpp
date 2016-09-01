@@ -22,6 +22,7 @@ class Runner : public Object {
 	bool is_jumping = true;
 	bool do_jump = false;
 	bool charge_jump = false;
+	bool stopped{false};
 
 	float wx{0};
 
@@ -42,6 +43,7 @@ class Runner : public Object {
 	void handleInputReleased(sf::Keyboard::Key key);
 	void debug();
 	void draw(sf::RenderWindow &window);
+	void stop();
 
 	void setX(float nx) {
 		Object::setPosition({nx, y()});

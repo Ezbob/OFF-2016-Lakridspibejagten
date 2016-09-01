@@ -73,7 +73,7 @@ Game::Game() {
 	text_pibe.setCharacterSize(30);
 	text_pibe.setStyle(sf::Text::Bold);
 	text_pibe.setColor(sf::Color::Black);
-	text_pibe.setPosition(50, 10);
+	text_pibe.setPosition(65, 10);
 }
 
 Game::~Game() {
