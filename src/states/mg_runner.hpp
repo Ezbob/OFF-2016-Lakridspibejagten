@@ -21,6 +21,7 @@ class MiniGameRunner : public GameState {
 	int score = 0;
 	sf::Text text;
 	sf::Font font;
+	int num_stones{2};
 
 	public:
 

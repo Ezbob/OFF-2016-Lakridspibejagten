@@ -26,8 +26,9 @@ void Stone::reset() {
 	scale(sc, sc);
 
 	// New position
-	int pos = 800 + (rand()%200);
+	int pos = startpos.x + (rand()%200);
 	setX(pos); // random pos in range [800,1000)
+	setY( ground_levels[rand()%2]-height() );
 }
 
 void Stone::scale(float sx, float sy) {

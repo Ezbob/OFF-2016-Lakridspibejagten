@@ -82,8 +82,8 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 
 	back.setTexture(assets::background, true);
 
-	for (int i=0; i<1; i++)
-		stones.emplace_back(800 + 800*i, 585);
+	for (int i=0; i<num_stones; i++)
+		stones.emplace_back(800 + 400*i, 600);
 
 	text.setFont(assets::font_main);
 	text.setString("Highscore: ");
@@ -96,6 +96,7 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 	runner.speed = .05;
 	for (auto& stone : stones) {
 		stone.speed = 0.05;
+		stone.reset();
 	}
 
 }
