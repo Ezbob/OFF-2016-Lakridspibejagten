@@ -19,6 +19,7 @@ class Game {
 	sf::Text text_gave;
 	sf::Sprite icon_pibe;
 	sf::Sprite icon_gave;
+	bool game_has_ended{false};
 
 	std::stack<GameState*> states;
 	sf::RenderWindow window;

@@ -1,6 +1,6 @@
 Start     100 100
-Slikbutik 200 200
-Konditor  300 300
-BR        400 400
+Cirkus    200 200
+Skov      300 300
+Arcade    400 400
 Fest      500 500
 

@@ -1,12 +1,13 @@
 #include "gs_description.hpp"
 
 void GameStateDescription::draw(const float dt) {
-	this->game->window.clear(sf::Color::White);
-	this->game->window.draw(this->text);
+	game->window.clear(sf::Color::White);
+	game->window.draw(back);
+	game->window.draw(textLeft);
 }
 
 void GameStateDescription::update(const float dt) {
-
+	return;
 }
 
 void GameStateDescription::handleInput() {
@@ -24,6 +25,3 @@ void GameStateDescription::handleInput() {
 	}
 }
 
-void GameStateDescription::loadgame() {
-
-}
