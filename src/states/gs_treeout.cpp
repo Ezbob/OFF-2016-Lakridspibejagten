@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <cmath>
+#include <unistd.h>
 
 #include "game_state.hpp"
 #include "gs_treeout.hpp"
@@ -24,10 +25,9 @@ bool testCollision(Player &mPlayer, Ball &mBall)
     if (!isIntersecting(mPlayer, mBall)) return false;
     
     mBall.velocity.y = -ballVelocity;
-
-    if (mBall.x() < mPlayer.x()) mBall.velocity.x = -ballVelocity;
-    else mBall.velocity.x = ballVelocity;
-    return true;
+	float xdiff = mBall.x() - mPlayer.x();
+    mBall.velocity.x = xdiff / (paddleWidth/2.f) * ballVelocity;
+	return true;
 }
 
 bool testCollision(Player &mPlayer, Resource &mResource)
@@ -35,25 +35,18 @@ bool testCollision(Player &mPlayer, Resource &mResource)
 	return isIntersecting(mPlayer, mResource);
 }
 
+bool testCollision(Player &mPlayer, Gift &mGift)
+{
+	return isIntersecting(mPlayer, mGift);
+}
+
 void testCollision(Resource &mResource, Ball &mBall)
 {
     if (!isIntersecting(mResource, mBall)) return;
     mResource.hit = true;
-    float overlapLeft = mBall.right() - mResource.left();
-    float overlapRight = mResource.right() - mBall.left();
-    float overlapTop = mBall.bottom() - mResource.top();
-    float overlapBottom = mResource.bottom() - mBall.top();
 
-    bool ballFromLeft = fabs(overlapLeft) < fabs(overlapRight);
-    bool ballFromTop = fabs(overlapTop) < fabs(overlapBottom);
-
-    float minOverlapX = ballFromLeft ? overlapLeft : overlapRight;
-    float minOverlapY = ballFromTop ? overlapTop : overlapBottom;
-
-    if (fabs(minOverlapX) < fabs(minOverlapY))
-        mBall.velocity.x = ballFromLeft ? -ballVelocity : ballVelocity;
-    else
-        mBall.velocity.y = ballFromTop ? -ballVelocity : ballVelocity;
+	float xdiff = mBall.x() - mResource.x();
+    mBall.velocity.x = xdiff / (pipeWidth/2.f) * ballVelocity;
 }
 
 void GameStateTreeout::draw(const float dt) {
@@ -69,22 +62,40 @@ void GameStateTreeout::draw(const float dt) {
 	for (Resource r : resources) {
 		this->game->window.draw(r.sprite);
 	}
+	if (gift->active) {
+		this->game->window.draw(this->gift->sprite);
+	}
 	
 	// draw HUD/texts
-	// Draw remaining lives
+	for (int i = 0; i < this->lives; i++) {
+		sf::CircleShape life;
+		life.setPosition(500 + i * 50, 560);
+		life.setRadius(12.f);
+		life.setFillColor(sf::Color::Blue);
+		life.setOrigin(10.f, 10.f);
+		this->game->window.draw(life);
+	}
 }
 
 void GameStateTreeout::end() {
+	sf::Clock clock;
+	clock.restart();
+	while (clock.getElapsedTime().asSeconds() < 1);
 	game->popState();
 }
 
 void GameStateTreeout::update(const float dt) {
-	if (paddleHitsRemaining <= 0)
-		end();
+	if (resources.size() <= 0 && game->score_gave == false) {
+		gift->active = true;
+	}
+	if (gift->active)
+		gift->update();
 	testCollision(*player, *ball);
+	if (testCollision(*player, *gift)) {
+		this->game->score_gave = true;
+		end();
+	}
 	player->update(dt);
-	if (ball->update()) // Hit the bottom
-		this->paddleHitsRemaining -= 1;
 	for (int i = resources.size() - 1; i >= 0; i--) {
 		if (resources[i].hit) {
 			resources[i].update();
@@ -92,10 +103,27 @@ void GameStateTreeout::update(const float dt) {
 				resources.erase(resources.begin() + i);
 				game->score_pibe += pointsPerResource;
 			}
+			if (resources[i].y() > 600)
+				resources.erase(resources.begin() + i);
 		}
 		else 
 			testCollision(resources[i], *ball);
 	}
+	if (ball->update()) {
+		lives--;
+		if (lives >= 0)
+			ball->reset(player->x(), player->y());
+		else
+			end();
+	}
+}
+
+void Ball::reset(float x, float y) {
+	shape.setPosition(x, y - 30);
+	velocity.y = -ballVelocity;
+	sf::Clock clock;
+	clock.restart();
+	while (clock.getElapsedTime().asMilliseconds() < 500);
 }
 
 void Player::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
@@ -145,7 +173,6 @@ bool Ball::update() {
  	if (top() < 0)
  		velocity.y = ballVelocity;
  	else if(bottom() > windowHeight){
- 	 	velocity.y = -ballVelocity;
  		return true;
 	}
 	return false;
@@ -153,17 +180,30 @@ bool Ball::update() {
 
 void Player::update(const float dt) {
 	ani.move(velocity);
+	shape.move(velocity);
 	float upd = std::max(0.05, .5/(velocity.x));
 	ani.update(dt, upd);
-	shape.move(velocity);
 	if (pIsMovingLeft
 		&& left() > 0 + paddleWidth/2)
 	{
+		if (isFacingRight == true)
+		{	
+			printf("trying to flip\n");
+			sprite.setOrigin({ sprite.getLocalBounds().width, 0 });
+			sprite.setScale({ -1, 1 });
+			isFacingRight = false;
+		}
 		velocity.x = -paddleVelocity;
 	}
 	else if (pIsMovingRight
 		&& right() < windowWidth - paddleWidth/2)
 	{
+		if (isFacingRight == false)
+		{	
+			printf("trying to flip\n");
+			sprite.setScale(-1.0f, 1.0f);
+			isFacingRight = true;
+		}
 		velocity.x = paddleVelocity;
 	}
 	else
@@ -174,6 +214,12 @@ void Player::update(const float dt) {
 
 
 void Resource::update() {
+	sf::Vector2f v{0.f, 5.f};
+	shape.move(v);
+	sprite.move(v);
+}
+
+void Gift::update() {
 	sf::Vector2f v{0.f, 5.f};
 	shape.move(v);
 	sprite.move(v);

@@ -1,5 +1,4 @@
-Start Kryds   10
-Kryds Konditor 10
-Kryds Slikbutik 10
-Slikbutik Fest 10
-Konditor Fest 10
+Start Slikbutik   10
+Slikbutik Konditor 10
+Konditor BR 10
+BR Fest 10
