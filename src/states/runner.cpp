@@ -5,7 +5,7 @@
 
 
 int clamp(int a, int min, int max) {
-	return a < min ? min : a > max ? max : a;
+	return (a < min) ? min : ((a > max) ? max : a);
 }
 
 void printVector(sf::Vector2f vec, std::string name) {
