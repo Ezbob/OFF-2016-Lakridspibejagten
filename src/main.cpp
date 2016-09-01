@@ -45,7 +45,7 @@ int main() {
 	string end = "";
 	
 	assets::font_main.loadFromFile("assets/main_font.ttf");
-	assets::font_description.loadFromFile("assets/desc_font.ttf");
+	assets::font_description.loadFromFile("assets/main_font.ttf");
 	/* Indlæs textures */
 	assets::world.loadFromFile("assets/map.jpg");
 
@@ -92,7 +92,7 @@ int main() {
 	// Create music
 	sf::Music music;
 	// Open it from an audio file
-	if (music.openFromFile("assets/musik.ogg")) {
+	if (music.openFromFile("assets/musik.wav")) {
 		music.setLoop(true);
 		music.play();
 	}
