@@ -12,6 +12,7 @@ void MiniGameRunner::draw(const float dt) {
 		stone.draw(game->window);
 	}
 	pibe.draw(game->window);
+	gave.draw(game->window);
 }
 
 template<class T1, class T2> bool isIntersecting(T1& mA, T2& mB) {
@@ -36,6 +37,19 @@ void MiniGameRunner::testCollision(Pibe& pibe, Runner& runner) {
 	pibe.reset();
 }
 
+void MiniGameRunner::testCollision(Gave& gave, Runner& runner) {
+	if (!isIntersecting(gave, runner)) 
+		return;
+
+	// Collision
+	game->score_gave = true;
+	gave.setX(-100);
+	auto r = game->icon_gave.getTextureRect();
+	r.left += 30;
+	game->icon_gave.setTextureRect(r);
+	gave.setInactive();
+}
+
 void MiniGameRunner::update(const float dt) {
 	runner.update(dt);
 	for (auto& stone : stones) {
@@ -44,10 +58,17 @@ void MiniGameRunner::update(const float dt) {
 		//stone.setVelocity(-runner.velocity.x/10, 0);
 	}
 	pibe.update(dt);
+	gave.update(dt);
 	testCollision(pibe, runner);
+	testCollision(gave, runner);
 	// Update background
 	back_pos += runner.velocity.x * dt;
 	back.setTextureRect(sf::IntRect(back_pos, 0, 800, 600));
+	// Finished?
+	if (runner.wx > goalline && !gave.active && !game->score_gave) {
+		std::cerr << "gave?" << std::endl;
+		gave.reset();
+	}
 }
 
 void MiniGameRunner::handleInput() {
@@ -93,6 +114,9 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 	for (auto& stone : stones) {
 		stone.reset();
 	}
+
+	gave.setX(-100);
+	gave.setInactive();
 
 	//pibe.reset();
 }

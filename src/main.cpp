@@ -49,6 +49,7 @@ int main() {
 	assets::runner.loadFromFile("assets/ani/run.png");
 	assets::rock.loadFromFile("assets/imgs/rock1.png");
 	assets::pibe.loadFromFile("assets/imgs/pibe.png");
+	assets::gave.loadFromFile("assets/imgs/gave.png");
 
 	// Create game
 	Game game;
@@ -91,6 +92,7 @@ int main() {
 	assets::player_sprite.setTexture(assets::player_texture);
 	assets::rock_sprite.setTexture(assets::rock);
 	assets::pibe_sprite.setTexture(assets::pibe);
+	assets::gave_sprite.setTexture(assets::gave);
 	assets::runner_animation = new animation({0,1,2,3,4,5}, assets::runner);
 
 #if 1
