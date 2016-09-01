@@ -14,7 +14,7 @@ public:
 	GameStateDescription(Game *g, std::string t) {
 		game = g;
 
-		textLeft.setString("Du skal til fest!\nDe unge mangler lakridspiber,\nog der er en der fortjener en gave!\n\nEn lange rejse venter dig. Afsted!\n\n[Tryk <Space> for at starte.]");
+		textLeft.setString(L"Du skal til fest!\nBørnene mangler lakridspiber,\nog der er en der fortjener en gave!\n\nEn lange rejse venter dig. Afsted!\n\n[Tryk <Space> for at starte.]");
 		textLeft.setPosition({10, 400});
 		textLeft.setFont(assets::font_main);
 		textLeft.setCharacterSize(20);

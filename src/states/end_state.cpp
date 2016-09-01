@@ -15,7 +15,7 @@ end_state::end_state(Game * g) {
 	back.setScale({2.f,2.f});
 
 	textTop.setFont(assets::font_main);
-	textTop.setString("Paa rejsen har du samlet:");
+	textTop.setString(L"På rejsen har du samlet:");
 	textTop.setPosition({30,100});
 	textTop.setColor(sf::Color::Black);
 
@@ -52,61 +52,23 @@ bool end_state::has_won() {
 	game->text_pibe.setPosition({450,200});
 	game->text_pibe.setCharacterSize(50);
 
+	std::wstring str = L"til " + std::to_string(game->children) + L" børn.";
 	if (game->score_pibe >= game->children && game->score_gave) {
 		// Won
 		std::cerr << "won: piber = " << game->score_pibe << " / " << game->children << " = children" << std::endl;
 		std::cerr << "won: gave?" << game->score_gave << std::endl;
-		textBottom.setString("til 10 born.\nFedest, nu er alle glade!\n\n[Tryk en vilkaarlig tast.]");
+		textBottom.setString(str + L"\nFedest, nu er alle glade!\n\n[Tryk en vilkårlig tast.]");
 		return true;
 	}
 	// Lose 
 	std::cerr << "lose: piber = " << game->score_pibe << " / " << game->children << " = children" << std::endl;
 	std::cerr << "lose: gave?" << game->score_gave << std::endl;
-	textBottom.setString("til 10 born.\nEj, det er ikke god stil!\n\n[Tryk en vilkaarlig tast.]");
+	textBottom.setString(str + L"\nEj, det er ikke god stil!\n\n[Tryk en vilkårlig tast.]");
 	return false;
 }
 
 void end_state::draw_texture(float const dt) {
 	game->window.draw(back);
-
-	//game->window.draw(back);
-	/*
-	int glade_unger = (game->score_pibe % game->children);
-
-	Text t;
-
-	t.setString("Spillet er slut!\n");
-
-	if (game->score_gave == 0) {
-		t.setString(t.getString() + "\n\nDu kommer til festen uden en gave --det er ikke god stil");
-	}
-
-	if (game->children > game->score_pibe) {
-		t.setString(t.getString() + "\n\nDu fik ikke nok piber til alle ungerne!");
-	}
-
-	if (game->score_pibe % game->children)
-		t.setString(t.getString() + "\n\nNogen af ungerne er sure over at der var andre der fik flere lakridspiber end de selv gjorde.");
-
-	t.setString(t.getString() + "\nPiber: " + to_string(game->score_pibe));
-	t.setString(t.getString() + "\nGaver: " + to_string(game->score_gave));
-	t.setString(t.getString() + "\nGlade unger: " + to_string(glade_unger));	
-	t.setFont(assets::font_main);
-
-	size_t width = 0;
-
-	t.setPosition(0,0);
-	for (size_t i = 0; i < t.getString().getSize(); ++i)
-		width = max(width, size_t(t.findCharacterPos(i).x));
-	
-	auto size = game->window.getSize();
-	size.x = size.x/ 2 - width / 2;
-	size.y /= 2;
-	auto str = t.getString();
-	auto p = t.findCharacterPos(t.getString().getSize());
-	t.setPosition(size.x,size.y - p.y / 2);
-	game->window.draw(t);
-	*/
 }
 
 void end_state::update(float const dt) {

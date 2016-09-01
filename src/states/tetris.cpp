@@ -108,9 +108,11 @@ void GameStateTetris::draw_matrix(GameStateTetris::matrix block, size_t x, size_
 }
 
 void GameStateTetris::draw(const float dt) {
-	RectangleShape r;
+	game->window.clear(Color::White);
 	draw_matrix(world, x_offset, y_offset, Color::Blue);
 	draw_matrix(current_block, x * tile_dim.x + x_offset, y * tile_dim.y + y_offset, Color::Red);
+	draw_matrix(next_block, (world_width + 2) * tile_dim.x + x_offset, (world_height / 2 - 2) * tile_dim.y + y_offset, Color::Red);
+
 }
 
 bool collides(GameStateTetris::matrix block, GameStateTetris::matrix world, size_t x, size_t y) {
@@ -124,8 +126,8 @@ bool collides(GameStateTetris::matrix block, GameStateTetris::matrix world, size
 void GameStateTetris::update(const float dt) {
 
 	static double time = 0.0;
-	static double delay = 1.0;
-	static double input_delay = 0.5;
+	static double delay = 0.8;
+	static double input_delay = 0.10;
 	static double input_time = 0.0;
 
 	auto dimensions = game->window.getSize();
@@ -153,9 +155,8 @@ void GameStateTetris::update(const float dt) {
 				settled = true;
 		}
 
-
 		if (!settled) {
-			if (slide != 0 && !collides(current_block, world, x + slide, y))
+			if (!collides(current_block, world, x + slide, y))
 				x += slide;
 
 			if (rotation) {
@@ -169,10 +170,6 @@ void GameStateTetris::update(const float dt) {
 					current_block = b;
 			}
 		}
-
-		slide = 0;
-		down = 0;
-		rotation = 0;
 	}
 
 	if (time > delay) {
@@ -202,6 +199,11 @@ void GameStateTetris::update(const float dt) {
 		next_block = new_block();
 	}
 
+	if (settled) delay *= 0.95;
+
+	slide = 0;
+	down = 0;
+	rotation = 0;
 	get_new_block = false;
 	settled = false;
 }
@@ -211,6 +213,7 @@ void GameStateTetris::handleInput() {
 
 	while (game->window.pollEvent(e));
 
+	if (is_key_pressed(Keyboard::Escape)) game->popState();
 	if (is_key_pressed(Keyboard::Right)) slide = 1;
 	if (is_key_pressed(Keyboard::Left))  slide = -1;
 	if (is_key_pressed(Keyboard::Up))    rotation = 1;
