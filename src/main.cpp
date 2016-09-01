@@ -76,7 +76,7 @@ int main() {
 	assets::rock.loadFromFile("assets/imgs/rock1.png");
 
 #if 1
-	GameStateMap map(&game, graph, positions, node_games);
+	GameStateMap map(&game, graph, positions, node_games, "Odense", "Nyborg");
 
 	
 	game.pushState(new GameStateDescription(&game, "You're done"));

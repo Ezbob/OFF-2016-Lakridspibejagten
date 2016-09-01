@@ -11,10 +11,14 @@ GameStateMap::GameStateMap (
 	Game * g,
 	node_graph gr,
 	map<string,Vector2f> ps,
-	map<string, GameState*> mg) :
+	map<string, GameState*> mg,
+	string start, string target) :
 	character({0,1,2,3,4,5}, assets::runner),
 	graph(gr),
-	positions(ps)
+	positions(ps),
+	current_node(start),
+	target_node(start),
+	end_node(target)
 	{
 	game = g;
 	sprite.setTexture(assets::world);
@@ -24,10 +28,6 @@ GameStateMap::GameStateMap (
 
 	// sæt minigames
 	mini_games = mg;
-
-	// start knude
-	current_node = positions.begin()->first;
-	target_node = current_node;
 }
 
 void GameStateMap::draw(const float dt) {
@@ -107,7 +107,10 @@ void GameStateMap::handleInput() {
 	float delta_y = 0;
 
 	size_t new_route = 11;
-
+	if (current_node == end_node) {
+		game->popState();
+		return;
+	}
 	while (game->window.pollEvent(event)) {
 		switch (event.type) {
 			case Event::Closed:
