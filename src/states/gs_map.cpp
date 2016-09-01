@@ -48,23 +48,39 @@ void GameStateMap::draw(const float dt) {
 
 	for (auto i : graph) {
 		auto from = positions[i.first];
+		t->setString(i.first);
+		t->setPosition(0,0);
+		auto a = t->findCharacterPos(t->getString().getSize());
 
 		// tegn alle kanter imellem knuderne
 		for (auto j : i.second) {
+			t->setString(j.first);
+			t->setPosition(0,0);
+			auto b = t->findCharacterPos(t->getString().getSize());
 			auto to = positions[j.first];
+			if (from.y < to.y) continue;
 			Color edge_color = base_color;
-
 /**
 	TODO: Gør start/end lidt mindre, så linjerne ikke rammer teksten
 */
 			auto start = from;
 			auto end = to;
+
 			if (i.first == current_node || j.first == current_node)
 				edge_color = current_color;
 
 			if (j.second < 0) edge_color = inactive_color;
 
+			start.y -= 5;
+			if (from.x < to.x) start.x += a.x / 2;
+
+			end.y += t->getCharacterSize() + 5;
+			if (to.x < from.x) end.x += b.x / 2;
+
 			sfLine l(start, end);
+			
+			
+			
 			l.setColor(edge_color);
 			game->window.draw(l);
 		}
@@ -79,6 +95,7 @@ void GameStateMap::draw(const float dt) {
 		for (auto p : graph[i.first]) if (p.second < 0) node_color = inactive_color;
 		t->setString(i.first);
 		t->setPosition(i.second);
+		auto p = t->findCharacterPos(t->getString().getSize());
 		if (i.first == current_node) node_color = current_color;
 		if (i.first == end_node) node_color = target_color;
 		t->setColor(node_color);
