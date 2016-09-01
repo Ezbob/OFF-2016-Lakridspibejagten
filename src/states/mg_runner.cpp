@@ -86,7 +86,7 @@ void MiniGameRunner::update(const float dt) {
 	// Quit
 	if (got_gift) {
 		std::cerr << "[elapsed:" << clock1.getElapsedTime().asMilliseconds() << "]" << std::endl;
-		if (clock1.getElapsedTime().asMilliseconds() > 2000) {
+		if (clock1.getElapsedTime().asSeconds() > 2) {
 			std::cerr << "[finito -> pop]" << std::endl;
 			game->popState();
 		}

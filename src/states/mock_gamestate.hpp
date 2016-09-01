@@ -13,5 +13,4 @@ class GameStateMockMiniGame : public GameState, public sf::Texture {
 	virtual void draw(const float dt);
 	virtual void update(const float dt);
 	virtual void handleInput();
-	void loadgame();
 };

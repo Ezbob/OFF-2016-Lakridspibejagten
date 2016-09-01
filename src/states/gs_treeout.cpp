@@ -93,6 +93,9 @@ void GameStateTreeout::update(const float dt) {
 	testCollision(*player, *ball);
 	if (testCollision(*player, *gift)) {
 		this->game->score_gave = true;
+		auto r = game->icon_gave.getTextureRect();
+		r.left += 30;
+		game->icon_gave.setTextureRect(r);
 		end();
 	}
 	player->update(dt);
@@ -209,7 +212,7 @@ void Player::update(const float dt) {
 	else
 	{
 		velocity.x = 0;
-	}
+	} 
 }
 
 
