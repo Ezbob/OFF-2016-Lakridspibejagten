@@ -19,7 +19,6 @@ class Game {
 	sf::Text text_gave;
 	sf::Sprite icon_pibe;
 	sf::Sprite icon_gave;
-	int currentScore{0}; // deprecated
 
 	std::stack<GameState*> states;
 	sf::RenderWindow window;
