@@ -12,6 +12,7 @@ void Pibe::update(const float dt) {
 
 void Pibe::reset() {
 	setX(800 + rand()%1600);
+	setY( ground_levels[rand()%2]-height() );
 }
 
 void Pibe::draw(sf::RenderWindow &window) {

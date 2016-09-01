@@ -94,8 +94,7 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 		stone.reset();
 	}
 
-	pibe.setX(500);
-	pibe.setY(320);
+	pibe.reset();
 }
 
 
