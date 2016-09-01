@@ -27,14 +27,14 @@ class Runner : public Object {
 	sf::Texture tex;
 	animation ani;
 
-	Runner(float x=400, float y=100) : Object({48,56}), ani({0,1,2,3,4,5},tex) {
+	Runner(float x=400, float y=100) : Object({48-30,56-5}), ani({0,1,2,3,4,5},tex) {
 		if (!tex.loadFromFile("assets/ani/run.png"))
 			std::cerr << "Error loading running texture" << std::endl;
 		ani.setTexture(tex);
 		ani.setupFrames(tex);
-		ani.setOrigin(width()/2, height()/2);
 		setX(x);
 		setY(y);
+		ani.setOrigin(width()/2, height()/2);
 	}
 
 	void scale(float sx, float sy);

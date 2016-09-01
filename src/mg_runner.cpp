@@ -89,8 +89,8 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 		std::cerr << "An error occoured loading an asset." << std::endl;
 	}
 
-	for (int i=0; i<1; i++)
-		stones.emplace_back(800 + 800*i, 585);
+	for (int i=0; i<num_stones; i++)
+		stones.emplace_back(800 + 400*i, 600);
 
 	// Highscore text
 	if (!font.loadFromFile(path::font))
@@ -107,6 +107,7 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 	runner.speed = .05;
 	for (auto& stone : stones) {
 		stone.speed = 0.05;
+		stone.reset();
 	}
 
 }
