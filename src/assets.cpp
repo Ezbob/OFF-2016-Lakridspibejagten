@@ -9,4 +9,5 @@ namespace assets {
 	sf::Texture background;
 	sf::Texture world;
 	sf::Texture player_texture;
+	sf::Texture rock;
 }

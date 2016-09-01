@@ -59,6 +59,7 @@ int main() {
 
 	assets::ball.loadFromFile("assets/ball.png");
 	assets::runner.loadFromFile("assets/ani/run.png");
+	assets::rock.loadFromFile("assets/imgs/rock1.png");
 
 #if 1
 	GameStateMap map(&game, graph, positions, 

@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "object.hpp"
+#include "assets.hpp"
 
 class Stone : public Object {
 	public:
@@ -18,9 +19,9 @@ class Stone : public Object {
 	sf::Vector2f startpos;
 
 	Stone(float x, float y) : Object ({24, 12}), startpos(x,y) {
-		if (!tex.loadFromFile("assets/imgs/rock1.png"))
-			std::cerr << "Error loading rock texture" << std::endl;
-		sprite.setTexture(tex);
+		//if (!tex.loadFromFile("assets/imgs/rock1.png"))
+		//	std::cerr << "Error loading rock texture" << std::endl;
+		sprite.setTexture(assets::rock);
 		setX(x);
 		setY(y);
 		sprite.setOrigin(width()/2, height()/2);
