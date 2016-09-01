@@ -69,14 +69,30 @@ void GameStateTreeout::draw(const float dt) {
 	}
 	
 	// draw HUD/texts
-	for (int i = 0; i < this->lives; i++) {
-		sf::CircleShape life;
-		life.setPosition(500 + i * 50, 560);
-		life.setRadius(12.f);
-		life.setFillColor(sf::Color::Red);
-		life.setOrigin(10.f, 10.f);
+	sf::CircleShape life;
+	life.setRadius(12.f);
+	life.setFillColor(sf::Color::Red);
+	if (this->lives >= 5) {
+		life.setPosition(744, 531);
 		this->game->window.draw(life);
 	}
+	if (this->lives >= 4) {
+		life.setPosition(770, 543);
+		this->game->window.draw(life);
+	} 
+	if (this->lives >= 3) {
+		life.setPosition(751, 554);
+		this->game->window.draw(life);
+	}
+	if (this->lives >= 2) {
+		life.setPosition(772, 566);
+		this->game->window.draw(life);
+	}
+	if (this->lives >= 1) {
+		life.setPosition(750, 576);
+		this->game->window.draw(life);
+	}
+	this->game->window.draw(this->basket);
 }
 
 void GameStateTreeout::end() {

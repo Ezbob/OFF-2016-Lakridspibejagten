@@ -21,6 +21,7 @@ namespace assets {
 	sf::Texture story_start;
 	sf::Texture story_win;
 	sf::Texture story_lose;
+	sf::Texture basket;
 
 	sf::Sprite ball_sprite;
 	sf::Sprite runner_sprite;
@@ -36,6 +37,7 @@ namespace assets {
 	sf::Sprite catcher_sprite;
 	sf::Sprite background_sprite_treeout;
 	sf::Sprite story_start_sprite;
+	sf::Sprite basket_sprite;
 
 	animation * runner_animation;
 	animation * catcher_animation;
