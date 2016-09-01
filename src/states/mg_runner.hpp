@@ -9,6 +9,7 @@
 #include "game_state.hpp"
 #include "runner.hpp"
 #include "stone.hpp"
+#include "pibe.hpp"
 
 class MiniGameRunner : public GameState {
 	private:
@@ -22,6 +23,7 @@ class MiniGameRunner : public GameState {
 	sf::Text text;
 	sf::Font font;
 	int num_stones{2};
+	Pibe pibe;
 
 	public:
 

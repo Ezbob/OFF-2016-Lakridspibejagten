@@ -15,6 +15,7 @@ namespace assets {
 	extern sf::Texture runner;
 	extern sf::Texture player_texture;
 	extern sf::Texture rock;
+	extern sf::Texture pibe;
 }
 
 #endif

@@ -10,4 +10,5 @@ namespace assets {
 	sf::Texture world;
 	sf::Texture player_texture;
 	sf::Texture rock;
+	sf::Texture pibe;
 }

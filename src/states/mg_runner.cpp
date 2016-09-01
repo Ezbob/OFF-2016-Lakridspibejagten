@@ -5,12 +5,13 @@
 void MiniGameRunner::draw(const float dt) {
 	game->window.clear(sf::Color::White);
 
-	// Draw background, runner, stones
+	// Draw background, runner, stones, pibe
 	game->window.draw(back);
 	runner.draw(game->window);
 	for (auto& stone : stones) {
 		stone.draw(game->window);
 	}
+	pibe.draw(game->window);
 
 	// Draw highscore
 	this->game->window.draw(text);
@@ -37,6 +38,7 @@ void MiniGameRunner::update(const float dt) {
 		testCollision(stone, runner);
 		stone.setVelocity(-runner.velocity.x/10, 0);
 	}
+	pibe.update(dt);
 	// Update background
 	back_pos += runner.velocity.x * dt;
 	back.setTextureRect(sf::IntRect(back_pos, 0, 800, 600));
@@ -99,6 +101,8 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 		stone.reset();
 	}
 
+	pibe.setX(500);
+	pibe.setY(500);
 }
 
 

@@ -10,10 +10,24 @@ class Pibe : public Object {
 
 	sf::Sprite sprite;
 
-	Pibe(float x, float y) : Object({50.f,30.f}) {
+	Pibe(float x=0, float y=0) : Object({50.f,30.f}) {
+		sprite.setTexture(assets::pibe);
+		setX(x);
+		setY(y);
+		sprite.setOrigin(width()/2, height()/2);
 	}
 
 	void update(const float dt);
+	void draw(sf::RenderWindow &window);
+
+	void setX(float nx) {
+		sprite.setPosition({nx, y()});
+		Object::setPosition({nx, y()});
+	}
+	void setY(float ny) {
+		sprite.setPosition({x(), ny});
+		Object::setPosition({x(), ny});
+	}
 
 };
 
