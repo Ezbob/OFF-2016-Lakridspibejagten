@@ -19,7 +19,6 @@ class MiniGameRunner : public GameState {
 	float back_pos{0.f};
 	Runner runner;
 	std::vector<Stone> stones;
-	int score = 0;
 	sf::Text text;
 	sf::Font font;
 	int num_stones{2};

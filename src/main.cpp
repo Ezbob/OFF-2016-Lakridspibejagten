@@ -75,7 +75,7 @@ int main() {
 	assets::runner.loadFromFile("assets/ani/run.png");
 	assets::rock.loadFromFile("assets/imgs/rock1.png");
 
-#if 1
+#if 0
 	GameStateMap map(&game, graph, positions, node_games);
 
 	

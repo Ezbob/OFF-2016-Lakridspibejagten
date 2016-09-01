@@ -12,9 +12,6 @@ void MiniGameRunner::draw(const float dt) {
 		stone.draw(game->window);
 	}
 	pibe.draw(game->window);
-
-	// Draw highscore
-	this->game->window.draw(text);
 }
 
 template<class T1, class T2> bool isIntersecting(T1& mA, T2& mB) {
@@ -27,7 +24,6 @@ void MiniGameRunner::testCollision(Stone& stone, Runner& runner) {
 		return;
 
 	// Collision
-	std::cerr << "GAME OVER with score " << score << std::endl;
 	game->popState();
 }
 
@@ -42,10 +38,6 @@ void MiniGameRunner::update(const float dt) {
 	// Update background
 	back_pos += runner.velocity.x * dt;
 	back.setTextureRect(sf::IntRect(back_pos, 0, 800, 600));
-
-	// Update score
-	score++;
-	text.setString("Highscore: " + std::to_string(score));
 }
 
 void MiniGameRunner::handleInput() {
@@ -86,13 +78,6 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 
 	for (int i=0; i<num_stones; i++)
 		stones.emplace_back(800 + 400*i, 600);
-
-	text.setFont(assets::font_main);
-	text.setString("Highscore: ");
-	text.setCharacterSize(30);
-	text.setColor(sf::Color::Black);
-	text.setStyle(sf::Text::Bold);
-	text.setPosition(10,10);
 
 	runner.scale(2.f, 2.f);
 	runner.speed = .05;
