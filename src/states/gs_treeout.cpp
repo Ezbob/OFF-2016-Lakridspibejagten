@@ -64,6 +64,8 @@ void GameStateTreeout::draw(const float dt) {
 	}
 	if (gift->active) {
 		this->game->window.draw(this->gift->sprite);
+		if (localDebug)
+			this->game->window.draw(this->gift->shape);
 	}
 	
 	// draw HUD/texts
@@ -189,24 +191,11 @@ void Player::update(const float dt) {
 	if (pIsMovingLeft
 		&& left() > 0 + paddleWidth/2)
 	{
-		if (isFacingRight == true)
-		{	
-			printf("trying to flip\n");
-			sprite.setOrigin({ sprite.getLocalBounds().width, 0 });
-			sprite.setScale({ -1, 1 });
-			isFacingRight = false;
-		}
 		velocity.x = -paddleVelocity;
 	}
 	else if (pIsMovingRight
 		&& right() < windowWidth - paddleWidth/2)
 	{
-		if (isFacingRight == false)
-		{	
-			printf("trying to flip\n");
-			sprite.setScale(-1.0f, 1.0f);
-			isFacingRight = true;
-		}
 		velocity.x = paddleVelocity;
 	}
 	else

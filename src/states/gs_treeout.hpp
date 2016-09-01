@@ -20,7 +20,6 @@ public:
 	sf::RectangleShape shape;
 	bool pIsMovingRight;
 	bool pIsMovingLeft;
-	bool isFacingRight = true;
 	sf::Vector2f velocity;
 
 	Player(float x, float y):ani({0,1,2,3,4,5}, assets::catcher) {
@@ -108,11 +107,14 @@ public:
 		sprite.setTexture(assets::gave);
 		sprite.setTextureRect(sf::IntRect(30, 0, 60, 30));
 		hit = true;
-		sprite.setPosition(x, y);
+		sprite.setPosition(x-8, y-16);
 		sf::Vector2f v{pipeWidth/2, pipeHeight};
 		shape.setSize(v);
 		shape.setFillColor(sf::Color::Cyan);
 		shape.setOrigin(10.f, 10.f);
+		shape.setScale({2.f,2.f});
+		sprite.setOrigin(10.f, 10.f);
+		sprite.setScale({2.f,2.f});
 	}
 
 	void update();
