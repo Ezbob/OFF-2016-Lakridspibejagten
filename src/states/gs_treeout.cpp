@@ -71,7 +71,7 @@ void GameStateTreeout::draw(const float dt) {
 		sf::CircleShape life;
 		life.setPosition(500 + i * 50, 560);
 		life.setRadius(12.f);
-		life.setFillColor(sf::Color::Blue);
+		life.setFillColor(sf::Color::Red);
 		life.setOrigin(10.f, 10.f);
 		this->game->window.draw(life);
 	}
