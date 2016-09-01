@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <algorithm>
 #include <string>
 #include "assets.hpp"
 
@@ -17,17 +18,35 @@ void end_state::draw(float const dt) {
 	Text t;
 
 	t.setString("Spillet er slut!\n");
-	t.setString(t.getString() + "Piber: " + to_string(game->score_pibe) + "\n");
-	t.setString(t.getString() + "Gaver: " + to_string(game->score_gave)+ "\n");
-	t.setString(t.getString() + "Glade unger: " + to_string(glade_unger));	
+
+	if (game->score_gave == 0) {
+		t.setString(t.getString() + "\n\nDu kommer til festen uden en gave --det er ikke god stil");
+	}
+
+	if (game->children > game->score_pibe) {
+		t.setString(t.getString() + "\n\nDu fik ikke nok piber til alle ungerne!");
+	}
+
+	if (game->score_pibe % game->children)
+		t.setString(t.getString() + "\n\nNogen af ungerne er sure over at der var andre der fik flere lakridspiber end de selv gjorde.");
+
+	t.setString(t.getString() + "\nPiber: " + to_string(game->score_pibe));
+	t.setString(t.getString() + "\nGaver: " + to_string(game->score_gave));
+	t.setString(t.getString() + "\nGlade unger: " + to_string(glade_unger));	
 	t.setFont(assets::font_main);
 
+	size_t width = 0;
+
+	t.setPosition(0,0);
+	for (size_t i = 0; i < t.getString().getSize(); ++i)
+		width = max(width, size_t(t.findCharacterPos(i).x));
+	
 	auto size = game->window.getSize();
-	size.x /= 2;
+	size.x = size.x/ 2 - width / 2;
 	size.y /= 2;
 	auto str = t.getString();
 	auto p = t.findCharacterPos(t.getString().getSize());
-	t.setPosition(size.x - p.x / 2,size.y - p.y / 2);
+	t.setPosition(size.x,size.y - p.y / 2);
 	game->window.draw(t);
 }
 
@@ -41,7 +60,7 @@ void end_state::handleInput() {
 		switch(event.type ) {
 			case Event::Closed:
 			case Event::KeyPressed:
-				game->window.close();
+				if (event.key.code == Keyboard::Escape) game->window.close();
 			default:
 				break;
 		}
