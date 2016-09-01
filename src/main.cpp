@@ -42,10 +42,6 @@ int main() {
 	/* Indlæs textures */
 	assets::world.loadFromFile("assets/map.jpg");
 
-	assets::background.loadFromFile("assets/tiling_background.png");
-	assets::background.setRepeated(true);
-	assets::background.setSmooth(true);
-
 	assets::ball.loadFromFile("assets/ball.png");
 	assets::runner.loadFromFile("assets/ani/run.png");
 	assets::catcher.loadFromFile("assets/ani/catch.png");
@@ -58,7 +54,6 @@ int main() {
 	assets::ball_sprite.setTexture(assets::ball);
 	assets::catcher_sprite.setTexture(assets::catcher);
 	assets::runner_sprite.setTexture(assets::runner);
-	assets::background_sprite.setTexture(assets::background);
 	assets::world_sprite.setTexture(assets::world);
 	assets::player_sprite.setTexture(assets::player_texture);
 	assets::rock_sprite.setTexture(assets::rock);
