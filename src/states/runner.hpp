@@ -29,13 +29,13 @@ class Runner : public Object {
 	sf::Texture tex;
 	animation ani;
 
-	Runner(float x=400, float y=100) : Object({48-30,56-5}), ani({0,1,2,3,4,5},assets::runner) {
+	Runner(float x=200, float y=100) : Object({48-30,56-5}), ani({0,1,2,3,4,5},assets::runner) {
 		ani.setTexture(assets::runner);
 		ani.setupFrames(assets::runner);
 		setX(x);
 		setY(y);
 		ani.setOrigin(width()/2, height()/2);
-		setOrigin(width(), height()/2);
+		setOrigin(-width()/4, height()/2);
 	}
 
 	void scale(float sx, float sy);

@@ -81,6 +81,7 @@ void MiniGameRunner::update(const float dt) {
 	if (runner.wx > goalline && !gave.active && !game->score_gave) {
 		std::cerr << "gave?" << std::endl;
 		gave.reset();
+		gave.setY(250);
 	}
 	// Quit
 	if (got_gift) {
@@ -142,6 +143,8 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 		stone.reset();
 	}
 
+	gave.sprite.setScale({2.f,2.f});
+	gave.setScale({2.f,2.f});
 	gave.setX(-100);
 	gave.setY(300);
 	gave.setInactive();
