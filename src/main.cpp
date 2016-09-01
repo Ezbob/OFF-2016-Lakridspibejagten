@@ -47,7 +47,7 @@ int main() {
 	assets::font_main.loadFromFile("assets/main_font.ttf");
 	assets::font_description.loadFromFile("assets/main_font.ttf");
 	/* Indlæs textures */
-	assets::world.loadFromFile("assets/map.jpg");
+	assets::world.loadFromFile("assets/imgs/island.png");
 
 // backgrounds
 	assets::back_sky.loadFromFile("assets/imgs/back_sky.png");
@@ -132,13 +132,12 @@ int main() {
 		node_games[i.first] = new_game_state(&game, count++);//positions[i.first].x + positions[i.first].y);
 	}
 
-#if 0
+#if 1
 	GameStateMap map(&game, graph, positions, node_games, first, end);
-
-	//game.pushState(new end_state(&game));
 	game.pushState(&map);
-	game.pushState(new GameStateDescription(&game, "lorem ipsum"));
+	game.pushState(new GameStateDescription(&game, "Beskrivelse"));
 #else
+	// DEBUG
 	//game.pushState(new GameStateDescription(&game, "Yala3\n"));
 	//game.pushState(new MiniGameRunner(&game));
 	//game.pushState(new GameStateDescription(&game, "Yala2\n"));

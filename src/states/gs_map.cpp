@@ -27,6 +27,8 @@ GameStateMap::GameStateMap (
 	game = g;
 	// sæt minigames
 	mini_games = mg;
+
+	assets::world_sprite.setScale({2.f,2.f});
 }
 
 void GameStateMap::draw(const float dt) {

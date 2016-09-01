@@ -13,11 +13,22 @@ end_state::end_state(Game * g) {
 	game = g;
 
 	back.setScale({2.f,2.f});
+
+	textTop.setFont(assets::font_main);
+	textTop.setString("Paa rejsen har du samlet:");
+	textTop.setPosition({30,100});
+	textTop.setColor(sf::Color::Black);
+
+	textBottom.setFont(assets::font_main);
+	textBottom.setString("");
+	textBottom.setPosition({30,400});
+	textBottom.setColor(sf::Color::Black);
+	textBottom.setCharacterSize(26);
 }
 
 void end_state::draw_summary(float const dt) {
-	//std::cerr << "state: " << state << std::endl;
-	// draw summary
+	game->window.draw(textTop);
+	game->window.draw(textBottom);
 }
 
 void end_state::draw(float const dt) {
@@ -31,24 +42,28 @@ void end_state::draw(float const dt) {
 
 bool end_state::has_won() {
 	// Move icons and text to center
-	game->icon_gave.setPosition({200,400});
-	game->icon_gave.setScale({2.f,2.f});
+	game->icon_gave.setPosition({200,250});
+	game->icon_gave.setScale({4.f,4.f});
 
-	game->icon_pibe.setPosition({200,200});
+	game->icon_pibe.setPosition({200,150});
 	game->icon_pibe.setTexture(assets::pibe);
-	game->icon_pibe.setScale({2.f,2.f});
-	game->text_pibe.setPosition({300,200});
+	game->icon_pibe.setScale({4.f,4.f});
+
+	game->text_pibe.setPosition({450,200});
+	game->text_pibe.setCharacterSize(50);
 
 	if (game->score_pibe >= game->children && game->score_gave) {
 		// Won
 		std::cerr << "won: piber = " << game->score_pibe << " / " << game->children << " = children" << std::endl;
 		std::cerr << "won: gave?" << game->score_gave << std::endl;
+		textBottom.setString("til 10 born.\nFedest, nu er alle glade!\n\n[Tryk en vilkaarlig tast.]");
 		return true;
 	}
 	// Lose 
 	std::cerr << "lose: piber = " << game->score_pibe << " / " << game->children << " = children" << std::endl;
 	std::cerr << "lose: gave?" << game->score_gave << std::endl;
-	return true;
+	textBottom.setString("til 10 born.\nEj, det er ikke god stil!\n\n[Tryk en vilkaarlig tast.]");
+	return false;
 }
 
 void end_state::draw_texture(float const dt) {
@@ -111,10 +126,12 @@ void end_state::handleInput() {
 	while (game->window.pollEvent(event)) {
 		switch(event.type ) {
 			case Event::Closed:
+				game->window.close();
+				break;
 			case Event::KeyPressed:
-				if (event.key.code == Keyboard::Escape)
+				if (show_texture) {
 					game->window.close();
-				if (event.key.code == Keyboard::Space) {
+				} else {
 					show_texture = true;
 					game->icon_pibe.setPosition({-100,-100});
 					game->icon_gave.setPosition({-100,-100});
