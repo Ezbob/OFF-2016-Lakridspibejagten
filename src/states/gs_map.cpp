@@ -56,22 +56,6 @@ void GameStateMap::draw(const float dt) {
 			auto start = from;
 			auto end = to;
 
-			if (start.x < end.x) {
-				start.x += 10;
-				end.x -= 10;
-			} else {
-				start.x -= 10;
-				end.x += 10;
-			}
-		
-			if (start.y < end.y) {
-				start.y += 10;
-				end.y -= 10;
-			} else {
-				start.y -= 10;
-				end.y += 10;
-			}
-			
 			if (i.first == current_node || j.first == current_node)
 				edge_color = Color::Red;
 
@@ -94,6 +78,7 @@ void GameStateMap::draw(const float dt) {
 		t->setColor(node_color);
 		game->window.draw(*t);
 	}
+
 /******************************************************************************/
 /* Tegn løberen                                                               */
 /******************************************************************************/
