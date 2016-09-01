@@ -99,7 +99,7 @@ public:
 
 	GameStateTreeout(Game *g) {
 		game = g;
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < 20; i++) {
             resources.push_back(Resource(rand() % 600 + 100, rand() % 400 + 100));
         }
 	}
