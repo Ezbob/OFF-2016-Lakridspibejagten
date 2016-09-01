@@ -5,7 +5,7 @@ STATES=$(wildcard src/states/*.cpp)
 OBS=$(patsubst src/states/%,%,$(STATES)) $(patsubst src/%,%,$(SOURCE))
 OBJECTS=$(patsubst %.cpp,%.o,$(OBS))
 EXE=$(shell basename `pwd`)
-LIBS=-lsfml-system -lsfml-graphics -lsfml-window
+LIBS=-lsfml-system -lsfml-graphics -lsfml-window -lsfml-audio
 
 MACHINE=$(shell gcc -dumpmachine)
 

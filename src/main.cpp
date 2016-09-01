@@ -8,6 +8,7 @@
 
 
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Audio.hpp>
 
 #include "game.hpp"
 #include "states/mock_gamestate.hpp"
@@ -65,6 +66,15 @@ int main() {
 
 	// Create game
 	Game game;
+
+	// Create music
+	sf::Music music;
+	// Open it from an audio file
+	if (music.openFromFile("assets/musik.ogg"))
+	{
+    	music.setLoop(true);
+    	music.play();
+    }
 
 	// indlæs knuder
 	fstream arcs("arcs.txt");
