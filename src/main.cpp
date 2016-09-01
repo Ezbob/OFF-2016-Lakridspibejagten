@@ -38,7 +38,7 @@ int main() {
 	string end = "";
 	
 	assets::font_main.loadFromFile("assets/main_font.ttf");
-	assets::font_description.loadFromFile("assets/desc_font.ttf");
+	assets::font_description.loadFromFile("assets/main_font.ttf");
 	/* Indlæs textures */
 	assets::world.loadFromFile("assets/map.jpg");
 
