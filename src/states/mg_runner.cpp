@@ -1,6 +1,6 @@
 #include "mg_runner.hpp"
 #include "stone.hpp"
-#include "paths.hpp"
+#include "assets.hpp"
 
 void MiniGameRunner::draw(const float dt) {
 	//game->window.setView(view);
@@ -81,23 +81,12 @@ void MiniGameRunner::handleInput() {
 MiniGameRunner::MiniGameRunner(Game *game) {
 	this->game = game;
 
-	// Load background
-	if (tex_back.loadFromFile("assets/tiling_background.png")) {
-		tex_back.setRepeated(true);
-		tex_back.setSmooth(true);
-		back.setTexture(tex_back, true);
-	} else {
-		std::cerr << "An error occoured loading an asset." << std::endl;
-	}
+	back.setTexture(assets::background, true);
 
 	for (int i=0; i<1; i++)
 		stones.emplace_back(800 + 800*i, 585);
 
-	// Highscore text
-	if (!font.loadFromFile(path::font))
-		std::cerr << "An error occoured loading font." << std::endl;
-	
-	text.setFont(font);
+	text.setFont(assets::font_main);
 	text.setString("Highscore: ");
 	text.setCharacterSize(30);
 	text.setColor(sf::Color::Black);

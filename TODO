@@ -1,0 +1,14 @@
+
+Mainmap:
+	skriv valgmuligheder i bunden af skærmen
+
+Graf:
+	Tilknyt en kommentar til hver knude
+
+Gamestate:
+	Lav en reset/init funktion så de kan nulstilles
+
+Assets:
+	Flyt alle fonte, texture og ligenende ud i globale variable -- indlæs
+	dem i main()
+

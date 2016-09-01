@@ -1,8 +1,7 @@
-VPATH=src src/states
-CXXFLAGS=-std=c++14 -O3 -Wall -Wpedantic -Wextra -Isrc/states -Isrc 
+VPATH=src
+CXXFLAGS=-std=c++14 -O3 -Wall -Wpedantic -Wextra 
 SOURCE=$(wildcard src/*.cpp)
-STATES=$(wildcard src/states/*.cpp)
-OBS=$(patsubst src/%,%,$(SOURCE)) $(patsubst src/states/%,%,$(STATES))
+OBS=$(patsubst src/%,%,$(SOURCE))
 OBJECTS=$(patsubst %.cpp,%.o,$(OBS))
 EXE=$(shell basename `pwd`)
 LIBS= -lsfml-system -lsfml-graphics -lsfml-window -lsfml-audio
