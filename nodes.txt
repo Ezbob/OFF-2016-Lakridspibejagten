@@ -1,5 +1,6 @@
-Start 100 100
-Kryds 200 200
-Slikbutik 300 200
-Konditor  200 300
-Fest    300 300
+Start     100 100
+Slikbutik 200 200
+Konditor  300 300
+BR        400 400
+Fest      500 500
+
