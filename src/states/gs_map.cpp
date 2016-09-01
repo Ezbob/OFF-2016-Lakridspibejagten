@@ -48,13 +48,13 @@ void GameStateMap::draw(const float dt) {
 /* Tegn grafen                                                                */
 /******************************************************************************/
 
+#if 0		// tegn alle kanter imellem knuderne
 	for (auto i : graph) {
 		auto from = positions[i.first];
 		t->setString(i.first);
 		t->setPosition(0,0);
 		auto a = t->findCharacterPos(t->getString().getSize());
 
-		// tegn alle kanter imellem knuderne
 		for (auto j : i.second) {
 			t->setString(j.first);
 			t->setPosition(0,0);
@@ -104,6 +104,7 @@ void GameStateMap::draw(const float dt) {
 		game->window.draw(*t);
 	}
 
+#endif
 /******************************************************************************/
 /* Tegn løberen                                                               */
 /******************************************************************************/

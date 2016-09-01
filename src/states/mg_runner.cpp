@@ -24,37 +24,39 @@ template<class T1, class T2> bool isIntersecting(T1& mA, T2& mB) {
 		&& mA.bottom() >= mB.top() && mA.top() <= mB.bottom();
 }
 
-void MiniGameRunner::testCollision(Stone& stone, Runner& runner) {
-	if (!isIntersecting(stone, runner) && !got_gift)
+void MiniGameRunner::testCollision(Stone& mStone, Runner& mRunner) {
+	if (!isIntersecting(mStone, mRunner))
 		return;
 
 	// Collision
 	game->popState();
 }
 
-void MiniGameRunner::testCollision(Pibe& pibe, Runner& runner) {
-	if (!isIntersecting(pibe, runner)) 
+void MiniGameRunner::testCollision(Pibe& mPibe, Runner& mRunner) {
+	if (!isIntersecting(mPibe, mRunner)) 
 		return;
 
 	// Collision
 	game->score_pibe++;
-	pibe.reset();
+	mPibe.reset();
 }
 
-void MiniGameRunner::testCollision(Gave& gave, Runner& runner) {
-	if (!isIntersecting(gave, runner)) 
+void MiniGameRunner::testCollision(Gave& mGave, Runner& mRunner) {
+	if (!isIntersecting(mGave, mRunner) || game->score_gave) 
 		return;
 
 	// Collision
-	game->score_gave = true;
+	//got_gift = true;
 	gave.setX(-100);
-	auto r = game->icon_gave.getTextureRect();
-	r.left += 30;
-	game->icon_gave.setTextureRect(r);
 	gave.setInactive();
-	got_gift = true;
 	clock1.restart();
-	runner.stop();
+	std::cerr << "got here" << std::endl;
+
+	game->score_gave = true;
+	auto r = game->icon_gave.getTextureRect();
+	r.left = 30;
+	//sf::IntRect r(30, 0, 30, 30);
+	game->icon_gave.setTextureRect(r);
 }
 
 void MiniGameRunner::update(const float dt) {
@@ -84,8 +86,8 @@ void MiniGameRunner::update(const float dt) {
 		gave.setY(250);
 	}
 	// Quit
-	if (got_gift) {
-		std::cerr << "[elapsed:" << clock1.getElapsedTime().asMilliseconds() << "]" << std::endl;
+	if (game->score_gave) {
+		//std::cerr << "[elapsed:" << clock1.getElapsedTime().asMilliseconds() << "]" << std::endl;
 		if (clock1.getElapsedTime().asSeconds() > 2) {
 			std::cerr << "[finito -> pop]" << std::endl;
 			game->popState();

@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 
+#include <iostream>
 #include "game.hpp"
 #include "game_state.hpp"
 #include "assets.hpp"
@@ -52,7 +53,6 @@ void Game::drawHighscore(sf::RenderWindow &window) {
 	window.draw(icon_pibe);
 	text_pibe.setString(std::to_string(score_pibe));
 	window.draw(text_pibe);
-
 	window.draw(icon_gave);
 }
 

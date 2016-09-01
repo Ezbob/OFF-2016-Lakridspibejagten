@@ -134,6 +134,7 @@ public:
 	Ball *ball = new Ball(300,400);
 	Player *player = new Player(385, 580);
 	Gift *gift = new Gift(385,200);
+	sf::Sprite basket;
 	std::vector<Resource> resources;
 	int localHighscore = 0;
 	int pointsPerResource = 1;
@@ -141,6 +142,10 @@ public:
 
 	GameStateTreeout(Game *g) {
 		game = g;
+		basket.setTexture(assets::basket);
+		basket.setPosition(740, 520);
+		basket.setScale({1.5f,1.5f});
+		basket.setOrigin(10.f, 10.f);
 		background = assets::background_sprite_treeout;
 		for (int i = 0; i < 4; i++)
 			resources.push_back(Resource(rand() % 550 + 150, 88));

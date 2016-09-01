@@ -60,10 +60,10 @@ auto new_matrix = [] (size_t m, size_t n) {
 GameStateTetris::matrix new_block() {
 	auto m = new_matrix(4,4);
 	size_t b = rand() % 7;
-
+	int c = color[rand() % 3 + 2];
 	for (size_t i = 0; i < 4; ++i)
 	for (size_t j = 0; j < 4; ++j)
-		m[i][j] = blocks[b][i][j];
+		m[i][j] = blocks[b][i][j] * c;
 
 	return m;
 }
@@ -78,8 +78,8 @@ void GameStateTetris::reset() {
 
 	/* lav en dummy kant */
 	for (size_t i = 0; i < world_height; ++i) {
-		world[0][i] = 1;
-		world[world_width - 1][i] = 1;
+		world[0][i] =  0x0000ffff;
+		world[world_width - 1][i] = 0x0000ffff;
 	}
 	
 	for (size_t i = 0; i < world_width; ++i)
@@ -88,30 +88,33 @@ void GameStateTetris::reset() {
 	current_block = new_block();
 	next_block = new_block();
 
-	x = world_width / 2;
+	x = world_width / 2 - 2;
 	y = 0;
 	settled = false;
 	get_new_block = false;
 }
 
-void GameStateTetris::draw_matrix(GameStateTetris::matrix block, size_t x, size_t y, sf::Color c) {
+void GameStateTetris::draw_matrix(GameStateTetris::matrix block, int x, int y) {
 
 	sf::RectangleShape rectangle;
 
 	for (size_t i = 0; i < block.size(); ++i)
 	for (size_t j = 0; j < block[i].size(); ++j) {
-		rectangle.setPosition(x + i * tile_dim.x, y + j * tile_dim.y);
-		rectangle.setSize(tile_dim);
-		rectangle.setFillColor(c);
-		if (block[i][j]) game->window.draw(rectangle);
+		if (block[i][j]) {
+			rectangle.setPosition(x + i * tile_dim.x, y + j * tile_dim.y);
+			rectangle.setSize(tile_dim);
+			rectangle.setFillColor(Color(block[i][j]));
+			game->window.draw(rectangle);
+
+		}
 	}
 }
 
 void GameStateTetris::draw(const float dt) {
 	game->window.clear(Color::White);
-	draw_matrix(world, x_offset, y_offset, Color::Blue);
-	draw_matrix(current_block, x * tile_dim.x + x_offset, y * tile_dim.y + y_offset, Color::Red);
-	draw_matrix(next_block, (world_width + 2) * tile_dim.x + x_offset, (world_height / 2 - 2) * tile_dim.y + y_offset, Color::Red);
+	draw_matrix(world, x_offset, y_offset);
+	draw_matrix(current_block, x * tile_dim.x + x_offset, y * tile_dim.y + y_offset);
+	draw_matrix(next_block, (world_width + 2) * tile_dim.x + x_offset, (world_height / 2 - 2) * tile_dim.y + y_offset);
 
 }
 
@@ -188,13 +191,15 @@ void GameStateTetris::update(const float dt) {
 	if (settled) {
 		if (y == 0) game->popState();
 		get_new_block = true;
-		game->score_pibe += settle(world, current_block, x, y);
-		x = world_width / 2;
-		y = 0;
+		auto increase = settle(world, current_block, x, y);
+		game->score_gave |= (increase > 1);
+		game->score_pibe += increase;
 	}
 
 	// lav en ny blok
 	if (get_new_block) {
+		x = world_width / 2 - 2;
+		y = 0;
 		current_block = next_block;
 		next_block = new_block();
 	}
