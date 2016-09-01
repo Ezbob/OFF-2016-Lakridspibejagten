@@ -94,7 +94,7 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 		stone.reset();
 	}
 
-	pibe.reset();
+	//pibe.reset();
 }
 
 

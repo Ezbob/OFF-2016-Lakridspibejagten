@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include "object.hpp"
 #include "assets.hpp"
-#include <vector>
 
 class Pibe : public Object {
 	public:
@@ -13,7 +12,6 @@ class Pibe : public Object {
 	sf::Sprite sprite;
 
 	float speed{.002};
-	std::vector<float> ground_levels{500, 300, 0};
 
 	Pibe(float x=0, float y=0) : Object({50.f,30.f}) {
 		sprite.setTexture(assets::pibe);
