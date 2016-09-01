@@ -1,3 +1,4 @@
+
 #include "assets.hpp"
 
 namespace assets {
@@ -11,4 +12,13 @@ namespace assets {
 	sf::Texture player_texture;
 	sf::Texture rock;
 	sf::Texture pibe;
+
+	sf::Sprite ball_sprite;
+	sf::Sprite runner_sprite;
+	sf::Sprite background_sprite;
+	sf::Sprite world_sprite;
+	sf::Sprite player_sprite;
+	sf::Sprite rock_sprite;
+	sf::Sprite pibe_sprite;
+	animation * runner_animation;
 }

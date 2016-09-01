@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include "animation.hpp"
 
 namespace assets {
 
@@ -16,6 +18,16 @@ namespace assets {
 	extern sf::Texture player_texture;
 	extern sf::Texture rock;
 	extern sf::Texture pibe;
+
+	extern sf::Sprite ball_sprite;
+	extern sf::Sprite runner_sprite;
+	extern sf::Sprite background_sprite;
+	extern sf::Sprite world_sprite;
+	extern sf::Sprite player_sprite;
+	extern sf::Sprite rock_sprite;
+	extern sf::Sprite pibe_sprite;
+	extern animation * runner_animation;
 }
+
 
 #endif
