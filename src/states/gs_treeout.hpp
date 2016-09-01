@@ -9,6 +9,8 @@
 constexpr float ballVelocity = 8.f;
 constexpr int windowWidth = 800, windowHeight = 600;
 constexpr float paddleWidth = 24.f, paddleHeight = 20.f, paddleVelocity = 9.f;
+constexpr float pipeWidth = 48.f, pipeHeight = 20.f;
+
 
 class Player {
 public:
@@ -69,25 +71,26 @@ public:
 	bool hit;
 	sf::Texture texture;
 	sf::Sprite sprite;
-	sf::CircleShape shape;
+	sf::RectangleShape shape;
 
 	Resource(float x, float y) {
-		shape.setPosition(x,y);
+		shape.setPosition(x+12,y+18);
 		sprite.setTexture(assets::pibe);
 		hit = false;
 		sprite.setPosition(x, y);
-		shape.setRadius(10.f);
+		sf::Vector2f v{pipeWidth, pipeHeight};
+		shape.setSize(v);
 		shape.setFillColor(sf::Color::Cyan);
 		shape.setOrigin(10.f, 10.f);
 	}
 
 	void update();
- 	float x() { return shape.getPosition().x; }
+	float x() { return shape.getPosition().x; }
  	float y() { return shape.getPosition().y; }
- 	float left() { return x() - shape.getRadius(); }
- 	float right() { return x() + shape.getRadius(); }
- 	float top() { return y() - shape.getRadius(); }
- 	float bottom() { return y() + shape.getRadius(); }
+ 	float left() { return x() - shape.getSize().x / 2.f; }
+ 	float right() { return x() + shape.getSize().x / 2.f; }
+ 	float top() { return y() - shape.getSize().y / 2.f; }
+ 	float bottom() { return y() + shape.getSize().y / 2.f; }
 };
 
 class GameStateTreeout : public GameState, public sf::Texture {
