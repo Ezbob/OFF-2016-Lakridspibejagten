@@ -29,9 +29,11 @@ void GameStateMap::draw(const float dt) {
 	// fjern advarsel om at dt ikke bliver brugt
 	while (false) { auto i = dt; i = i;}
 
+
 	// gør vinduet klar
 	game->window.clear(Color::Black);
 	
+	auto size = game->window.getSize();
 	// tegn kortet
 	game->window.draw(assets::world_sprite);
 
@@ -42,37 +44,79 @@ void GameStateMap::draw(const float dt) {
 /******************************************************************************/
 	t->setColor(Color::Black);
 	for (auto i : graph) {
-
-		t->setString(i.first);
-		auto p = positions[i.first] + position;
-		t->setPosition(p);
-
-		if (i.first == current_node) t->setColor(Color::White);
-		else t->setColor(Color::Black);
-		auto edge_color = i.first == current_node ? Color::Blue : Color::Red;
-		game->window.draw(*t);
-
 		auto from = positions[i.first];
 
 		// tegn alle kanter imellem knuderne
 		for (auto j : i.second) {
 			auto to = positions[j.first];
-
+			Color edge_color = Color::Blue;
+/**
+	TODO: Gør start/end lidt mindre, så linjerne ikke rammer teksten
+*/
 			auto start = from;
 			auto end = to;
-			if (start.x < end.x) continue;
 
-			sfLine l(start, end);
+			if (start.x < end.x) {
+				start.x += 10;
+				end.x -= 10;
+			} else {
+				start.x -= 10;
+				end.x += 10;
+			}
+		
+			if (start.y < end.y) {
+				start.y += 10;
+				end.y -= 10;
+			} else {
+				start.y -= 10;
+				end.y += 10;
+			}
+			
+			if (i.first == current_node || j.first == current_node)
+				edge_color = Color::Red;
+
+			sfLine l(start + position, end + position);
 			l.setColor(edge_color);
 			game->window.draw(l);
 		}
 	}
 
 /******************************************************************************/
+/* Tegn knuder                                                                */
+/******************************************************************************/
+
+	for (auto i : positions) {
+		Color node_color = Color::Blue;
+		t->setString(i.first);
+		t->setPosition(i.second);
+		if (i.first == current_node) node_color = Color::Red;
+		if (i.first == end_node) node_color = Color::Green;
+		t->setColor(node_color);
+		game->window.draw(*t);
+	}
+/******************************************************************************/
 /* Tegn løberen                                                               */
 /******************************************************************************/
 	game->window.draw(*assets::runner_animation);
 
+
+/******************************************************************************/
+/* Tegn valgmulighed                                                          */
+/******************************************************************************/
+	t->setString("");
+	t->setCharacterSize(25);
+	t->setPosition(10, size.y - t->getCharacterSize() - 5);
+	int n = 0;
+
+	for (auto i : graph[current_node]) {
+		++n;
+		t->setColor(Color::Blue);
+		t->setString(std::to_string(n) + ": " + i.first);
+		game->window.draw(*t);
+		auto p = t->findCharacterPos(t->getString().getSize());
+		p.x += 10;
+		t->setPosition(p);
+	}
 }
 
 void GameStateMap::update(const float dt) {
@@ -95,7 +139,7 @@ void GameStateMap::update(const float dt) {
 	path.y *= route_position / delay;
 	path += origin;
 	assets::runner_animation->setPosition(path + position);
-	assets::runner_animation->update(dt);
+	assets::runner_animation->update(dt, 0.3);
 }
 
 void GameStateMap::handleInput() {
