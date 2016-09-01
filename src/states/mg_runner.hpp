@@ -14,9 +14,14 @@
 class MiniGameRunner : public GameState {
 	private:
 	
-	sf::Texture tex_back;
-	sf::Sprite back;
-	float back_pos{0.f};
+	sf::Sprite back_sky,
+			   back_mountains,
+			   back_grass,
+			   back_trees;
+	float back_pos_sky{0.f},
+		  back_pos_mountains{0.f},
+		  back_pos_grass{0.f},
+		  back_pos_trees{0.f};
 	Runner runner;
 	std::vector<Stone> stones;
 	sf::Text text;

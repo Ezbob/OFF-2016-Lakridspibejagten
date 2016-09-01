@@ -5,8 +5,12 @@
 void MiniGameRunner::draw(const float dt) {
 	game->window.clear(sf::Color::White);
 
-	// Draw background, runner, stones, pibe
-	game->window.draw(back);
+	// Draw backgrounds
+	game->window.draw(back_sky);
+	game->window.draw(back_mountains);
+	game->window.draw(back_trees);
+	game->window.draw(back_grass);
+	// runner, stones, pibe
 	runner.draw(game->window);
 	for (auto& stone : stones) {
 		stone.draw(game->window);
@@ -63,9 +67,16 @@ void MiniGameRunner::update(const float dt) {
 	gave.update(dt);
 	testCollision(pibe, runner);
 	testCollision(gave, runner);
-	// Update background
-	back_pos += runner.velocity.x * dt;
-	back.setTextureRect(sf::IntRect(back_pos, 0, 800, 600));
+	// Update backgrounds
+	back_pos_sky += 25 * dt / 10;
+	back_sky.setTextureRect(sf::IntRect(back_pos_sky, 0, 400, 300));
+	back_pos_mountains += 15 * dt / 5;
+	back_mountains.setTextureRect(sf::IntRect(back_pos_mountains, 0, 400, 300));
+	//back_pos_trees += runner.velocity.x * dt;
+	//back_trees.setTextureRect(sf::IntRect(back_pos_trees, 0, 400, 300));
+	back_pos_grass += runner.velocity.x * dt;
+	back_grass.setTextureRect(sf::IntRect(back_pos_grass, 0, 400, 300));
+
 	// Finished?
 	if (runner.wx > goalline && !gave.active && !game->score_gave) {
 		std::cerr << "gave?" << std::endl;
@@ -115,7 +126,14 @@ void MiniGameRunner::handleInput() {
 MiniGameRunner::MiniGameRunner(Game *game) {
 	this->game = game;
 
-	back.setTexture(assets::background, true);
+	back_sky.setTexture(assets::back_sky, true);
+	back_sky.setScale({2.f,2.f});
+	back_mountains.setTexture(assets::back_mountains, true);
+	back_mountains.setScale({2.f,2.f});
+	back_trees.setTexture(assets::back_trees, true);
+	back_trees.setScale({2.f,2.f});
+	back_grass.setTexture(assets::back_grass, true);
+	back_grass.setScale({2.f,2.f});
 
 	for (int i=0; i<num_stones; i++)
 		stones.emplace_back(800 + 400*i, 600);
@@ -126,6 +144,7 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 	}
 
 	gave.setX(-100);
+	gave.setY(300);
 	gave.setInactive();
 
 	//pibe.reset();

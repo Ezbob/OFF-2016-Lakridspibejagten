@@ -41,9 +41,19 @@ int main() {
 	/* Indlæs textures */
 	assets::world.loadFromFile("assets/map.jpg");
 
-	assets::background.loadFromFile("assets/tiling_background.png");
-	assets::background.setRepeated(true);
-	assets::background.setSmooth(true);
+	// backgrounds
+	assets::back_sky.loadFromFile("assets/imgs/back_sky.png");
+	assets::back_sky.setRepeated(true);
+	assets::back_sky.setSmooth(true);
+	assets::back_mountains.loadFromFile("assets/imgs/back_mountains.png");
+	assets::back_mountains.setRepeated(true);
+	assets::back_mountains.setSmooth(true);
+	assets::back_trees.loadFromFile("assets/imgs/back_trees.png");
+	assets::back_trees.setRepeated(true);
+	assets::back_trees.setSmooth(true);
+	assets::back_grass.loadFromFile("assets/imgs/back_grass.png");
+	assets::back_grass.setRepeated(true);
+	assets::back_grass.setSmooth(true);
 
 	assets::ball.loadFromFile("assets/ball.png");
 	assets::runner.loadFromFile("assets/ani/run.png");
@@ -84,10 +94,12 @@ int main() {
 	map<string, GameState*> node_games;
 	for (auto i : positions) node_games[i.first] = new_game_state(&game, positions[i.first].x + positions[i.first].y);
 
-
 	assets::ball_sprite.setTexture(assets::ball);
 	assets::runner_sprite.setTexture(assets::runner);
-	assets::background_sprite.setTexture(assets::background);
+	assets::back_sky_sprite.setTexture(assets::back_sky);
+	assets::back_mountains_sprite.setTexture(assets::back_mountains);
+	assets::back_trees_sprite.setTexture(assets::back_trees);
+	assets::back_grass_sprite.setTexture(assets::back_grass);
 	assets::world_sprite.setTexture(assets::world);
 	assets::player_sprite.setTexture(assets::player_texture);
 	assets::rock_sprite.setTexture(assets::rock);
