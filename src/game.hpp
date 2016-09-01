@@ -11,7 +11,12 @@ class GameState;
 class Game {
 	public:
 	
-	int currentScore;
+	int score_pibe{0};
+	int score_gaver{0};
+	int children{20};
+	sf::Text text_pibe;
+	sf::Sprite icon_pibe;
+	int currentScore{0}; // deprecated
 
 	std::stack<GameState*> states;
 	sf::RenderWindow window;
@@ -22,6 +27,7 @@ class Game {
 	GameState* peekState();
 
 	void gameloop();
+	void drawHighscore(sf::RenderWindow &window);
 
 	Game();
 	~Game();

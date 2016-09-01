@@ -32,11 +32,12 @@ class GameStateMap : public GameState {
 	map<string,Vector2f> positions;
 	string current_node;
 	string target_node;
+	string end_node;
 	double route_position;
 	map<string, GameState*> mini_games;
 	public:
 	
-	GameStateMap(Game * g, node_graph gr, map<string,Vector2f> ps, map<string, GameState*> mg);
+	GameStateMap(Game * g, node_graph gr, map<string,Vector2f> ps, map<string, GameState*> mg, string start, string target);
 	virtual void draw(const float dt);
 	virtual void update(const float dt);
 	virtual void handleInput();
