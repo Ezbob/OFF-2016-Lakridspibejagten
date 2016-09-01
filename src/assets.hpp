@@ -14,6 +14,7 @@ namespace assets {
 	extern sf::Texture ball;
 	extern sf::Texture runner;
 	extern sf::Texture player_texture;
+	extern sf::Texture rock;
 }
 
 #endif
