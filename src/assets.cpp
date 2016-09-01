@@ -19,6 +19,8 @@ namespace assets {
 	sf::Texture catcher;
 	sf::Texture background_texture_treeout;
 	sf::Texture story_start;
+	sf::Texture story_win;
+	sf::Texture story_lose;
 
 	sf::Sprite ball_sprite;
 	sf::Sprite runner_sprite;

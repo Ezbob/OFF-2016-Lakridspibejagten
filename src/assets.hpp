@@ -25,6 +25,8 @@ namespace assets {
 	extern sf::Texture catcher;
 	extern sf::Texture background_texture_treeout;
 	extern sf::Texture story_start;
+	extern sf::Texture story_win;
+	extern sf::Texture story_lose;
 
 	extern sf::Sprite catcher_sprite;
 	extern sf::Sprite ball_sprite;

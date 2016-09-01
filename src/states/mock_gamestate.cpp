@@ -37,6 +37,3 @@ void GameStateMockMiniGame::handleInput() {
 	}
 }
 
-void GameStateMockMiniGame::loadgame() {
-	game->pushState(this);
-}

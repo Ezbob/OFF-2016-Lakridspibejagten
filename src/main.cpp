@@ -33,7 +33,8 @@ GameState * new_game_state(Game * g, int r) {
 	switch (r) {
 		case 2: return new GameStateTreeout(g);
 		case 4:	return new MiniGameRunner(g);
-		case 1: return new GameStateDescription(g, "Lorem ipsum");
+		case 1: return new GameStateMockMiniGame(g);//GameStateDescription(g, "Lorem ipsum");
+		case 3: return new end_state(g);
 		default:return NULL;
 	}
 }
@@ -69,6 +70,8 @@ int main() {
 	assets::gave.loadFromFile("assets/imgs/gave.png");
 	assets::background_texture_treeout.loadFromFile("assets/imgs/gallery.png");
 	assets::story_start.loadFromFile("assets/imgs/story_start.png");
+	assets::story_win.loadFromFile("assets/imgs/story_win.png");
+	assets::story_lose.loadFromFile("assets/imgs/story_lose.png");
 
 
 	assets::ball_sprite.setTexture(assets::ball);
@@ -129,10 +132,10 @@ int main() {
 		node_games[i.first] = new_game_state(&game, count++);//positions[i.first].x + positions[i.first].y);
 	}
 
-#if 1
+#if 0
 	GameStateMap map(&game, graph, positions, node_games, first, end);
 
-	game.pushState(new end_state(&game));
+	//game.pushState(new end_state(&game));
 	game.pushState(&map);
 	game.pushState(new GameStateDescription(&game, "lorem ipsum"));
 #else
@@ -140,7 +143,8 @@ int main() {
 	//game.pushState(new MiniGameRunner(&game));
 	//game.pushState(new GameStateDescription(&game, "Yala2\n"));
 	//game.pushState(new GameStateDescription(&game, "Yala\n"));
-	game.pushState(new GameStateTreeout(&game));
+	//game.pushState(new GameStateTreeout(&game));
+	game.pushState(new end_state(&game));
 #endif
 	game.gameloop();
 
