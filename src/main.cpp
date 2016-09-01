@@ -54,17 +54,30 @@ int main() {
 	assets::gave.loadFromFile("assets/imgs/gave.png");
 	assets::background_texture_treeout.loadFromFile("assets/imgs/gallery.png");
 
+
+	assets::ball_sprite.setTexture(assets::ball);
+	assets::catcher_sprite.setTexture(assets::catcher);
+	assets::runner_sprite.setTexture(assets::runner);
+	assets::background_sprite.setTexture(assets::background);
+	assets::world_sprite.setTexture(assets::world);
+	assets::player_sprite.setTexture(assets::player_texture);
+	assets::rock_sprite.setTexture(assets::rock);
+	assets::pibe_sprite.setTexture(assets::pibe);
+	assets::gave_sprite.setTexture(assets::gave);
+	assets::background_sprite_treeout.setTexture(assets::background_texture_treeout);
+	assets::runner_animation = new animation({0,1,2,3,4,5}, assets::runner);
+	assets::catcher_animation = new animation({0,1,2,3,4,5}, assets::catcher);
+
 	// Create game
 	Game game;
 
 	// Create music
 	sf::Music music;
 	// Open it from an audio file
-	if (music.openFromFile("assets/musik.ogg"))
-	{
-    	music.setLoop(true);
-    	music.play();
-    }
+	if (music.openFromFile("assets/musik.ogg")) {
+		music.setLoop(true);
+		music.play();
+	}
 
 	// indlæs knuder
 	fstream arcs("arcs.txt");
@@ -96,21 +109,7 @@ int main() {
 	map<string, GameState*> node_games;
 	for (auto i : positions) node_games[i.first] = new_game_state(&game, positions[i.first].x + positions[i.first].y);
 
-
-	assets::ball_sprite.setTexture(assets::ball);
-	assets::catcher_sprite.setTexture(assets::catcher);
-	assets::runner_sprite.setTexture(assets::runner);
-	assets::background_sprite.setTexture(assets::background);
-	assets::world_sprite.setTexture(assets::world);
-	assets::player_sprite.setTexture(assets::player_texture);
-	assets::rock_sprite.setTexture(assets::rock);
-	assets::pibe_sprite.setTexture(assets::pibe);
-	assets::gave_sprite.setTexture(assets::gave);
-	assets::background_sprite_treeout.setTexture(assets::background_texture_treeout);
-	assets::runner_animation = new animation({0,1,2,3,4,5}, assets::runner);
-	assets::catcher_animation = new animation({0,1,2,3,4,5}, assets::catcher);
-
-#if 0
+#if 1
 	GameStateMap map(&game, graph, positions, node_games, first, end);
 
 	game.pushState(new end_state(&game));
