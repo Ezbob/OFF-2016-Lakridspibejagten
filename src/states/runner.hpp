@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "object.hpp"
 #include "animation.hpp"
+#include "assets.hpp"
 
 constexpr float GRAVITY{25};
 
@@ -27,9 +28,7 @@ class Runner : public Object {
 	sf::Texture tex;
 	animation ani;
 
-	Runner(float x=400, float y=100) : Object({48-30,56-5}), ani({0,1,2,3,4,5},tex) {
-		if (!tex.loadFromFile("assets/ani/run.png"))
-			std::cerr << "Error loading running texture" << std::endl;
+	Runner(float x=400, float y=100) : Object({48-30,56-5}), ani({0,1,2,3,4,5},assets::runner) {
 		ani.setTexture(tex);
 		ani.setupFrames(tex);
 		setX(x);

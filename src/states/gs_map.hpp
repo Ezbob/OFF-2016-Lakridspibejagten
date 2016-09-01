@@ -19,7 +19,6 @@ class GameStateMap : public GameState {
 	private:
 	
 	
-	View view;
 	Sprite sprite;
 	Texture texture;
 	Vector2f position;

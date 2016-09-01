@@ -3,6 +3,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <vector>
 #include "game_state.hpp"
+#include "assets.hpp"
 
 constexpr float ballVelocity = 8.f;
 constexpr int windowWidth = 800, windowHeight = 600;
@@ -17,10 +18,9 @@ public:
 	bool pIsMovingLeft;
 	sf::Vector2f velocity;
 
-	Player(float x, float y, std::string texture) {
+	Player(float x, float y, sf::Texture& texture) {
 		shape.setPosition(x,y);
-		if (!this->texture.loadFromFile(texture)) printf("Texture missing\n");
-		sprite.setTexture(this->texture);
+		sprite.setTexture(texture);
 		pIsMovingLeft = false;
 		pIsMovingRight = false;
 		shape.setPosition(x, y);
@@ -67,10 +67,9 @@ public:
 	sf::Sprite sprite;
 	sf::CircleShape shape;
 
-	Resource(float x, float y, std::string texture) {
+	Resource(float x, float y, sf::Texture& texture) {
 		shape.setPosition(x,y);
-		if (!this->texture.loadFromFile(texture)) printf("Texture missing\n");
-		this->sprite.setTexture(this->texture);
+		this->sprite.setTexture(texture);
 		this->hit = false;
 		shape.setRadius(10.f);
 		shape.setFillColor(sf::Color::Cyan);
@@ -91,7 +90,7 @@ class GameStateTreeout : public GameState, public sf::Texture {
 public:
 
 	Ball *ball = new Ball(0,0);
-	Player *player = new Player(385, 580, "");
+	Player *player = new Player(385, 580, assets::player_texture);
 	std::vector<Resource> resources;
 	int localHighscore = 0;
 	int pointsPerResource = 50;
@@ -100,7 +99,7 @@ public:
 	GameStateTreeout(Game *g) {
 		game = g;
 		for (int i = 0; i < 50; i++) {
-            resources.push_back(Resource(rand() % 600 + 100, rand() % 400 + 100, ""));
+            resources.push_back(Resource(rand() % 600 + 100, rand() % 400 + 100, assets::ball));
         }
 	}
 

@@ -1,9 +1,9 @@
 #pragma once
 
 #include <SFML/Graphics/Texture.hpp>
-#include "game_state.hpp"
-#include "paths.hpp"
 #include <string>
+#include "game_state.hpp"
+#include "assets.hpp"
 
 class GameStateDescription : public GameState, public sf::Texture {
 
@@ -14,13 +14,13 @@ class GameStateDescription : public GameState, public sf::Texture {
 
 	GameStateDescription(Game *g, std::string text) {
 		game = g;
-    	this->font.loadFromFile(path::font_description);
+
 		this->text.setString(text);
 	   	this->text.setCharacterSize(30);
     	this->text.setStyle(sf::Text::Bold);
     	this->text.setColor(sf::Color::Black);
     	this->text.setPosition(50, 200);
-    	this->text.setFont(font);
+    	this->text.setFont(assets::font_main);
 
 	}
 
