@@ -3,6 +3,11 @@
 #include <cmath>
 #include "runner.hpp"
 
+
+int clamp(int a, int min, int max) {
+	return a < min ? min : a > max ? max : a;
+}
+
 void printVector(sf::Vector2f vec, std::string name) {
 	std::cerr << name << "(" << vec.x << ", " << vec.y << ")" << std::endl;
 }
@@ -25,8 +30,9 @@ void Runner::update(const float dt) {
 		velocity.y += GRAVITY*dt;
 
 		// Go to next ground level
-		if (bottom() < ground_levels[current_ground+1]) {
-			current_ground++;
+		
+		if (bottom() < ground_levels[clamp(current_ground + 1, 0, ground_levels.size() - 1)]) {
+			current_ground = clamp(current_ground + 1, 0, ground_levels.size() - 1);
 			ground = ground_levels[current_ground];
 		}
 
@@ -76,12 +82,14 @@ void Runner::handleInputPressed(sf::Keyboard::Key key) {
 	}
 	else if (key == sf::Keyboard::Down) {
 		// std::cerr << "[KEY:down]" << std::endl;
+
 		if (current_ground > 0) {
-			current_ground--;
+			current_ground = clamp(current_ground - 1, 0, ground_levels.size() - 1);
 			ground = ground_levels[current_ground];
 			is_jumping = true;
 		}
 	}
+	
 	else if (key == sf::Keyboard::D) {
 		debug();
 	}
