@@ -22,14 +22,20 @@
 using namespace std;
 
 GameState * new_game_state(Game * g, int r) {
+	/*
 	static auto mini_game_count = 2;
 	r = rand();	
 	switch(r % mini_game_count) {
 		case 0: return new MiniGameRunner(g); break;
 		case 1: return new GameStateTreeout(g); break;
 	}
-
-	return 0;
+	*/
+	switch (r) {
+		case 2: return new GameStateTreeout(g);
+		case 4:	return new MiniGameRunner(g);
+		case 1: return new GameStateDescription(g, "Lorem ipsum");
+		default:return NULL;
+	}
 }
 
 int main() {
@@ -62,6 +68,7 @@ int main() {
 	assets::pibe.loadFromFile("assets/imgs/pibe.png");
 	assets::gave.loadFromFile("assets/imgs/gave.png");
 	assets::background_texture_treeout.loadFromFile("assets/imgs/gallery.png");
+	assets::story_start.loadFromFile("assets/imgs/story_start.png");
 
 
 	assets::ball_sprite.setTexture(assets::ball);
@@ -113,15 +120,21 @@ int main() {
 		std::cerr << first << " " << end << "\n";
 	}
 
-	std::cerr << first << " " << end << "\n";
+	int count = 0;
+
+	//std::cerr << first << " " << end << "\n";
 	map<string, GameState*> node_games;
-	for (auto i : positions) node_games[i.first] = new_game_state(&game, positions[i.first].x + positions[i.first].y);
+	//for (auto i : positions) node_games[i.first] = new_game_state(&game, positions[i.first].x + positions[i.first].y);
+	for (auto i : positions) {
+		node_games[i.first] = new_game_state(&game, count++);//positions[i.first].x + positions[i.first].y);
+	}
 
 #if 1
 	GameStateMap map(&game, graph, positions, node_games, first, end);
 
 	game.pushState(new end_state(&game));
 	game.pushState(&map);
+	game.pushState(new GameStateDescription(&game, "lorem ipsum"));
 #else
 	//game.pushState(new GameStateDescription(&game, "Yala3\n"));
 	//game.pushState(new MiniGameRunner(&game));
