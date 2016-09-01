@@ -12,12 +12,12 @@ GameStateMap::GameStateMap (
 	Game * g,
 	node_graph gr,
 	map<string,Vector2f> ps,
-	vector<GameState*> mg) {
-
+	vector<GameState*> mg) :
+	character({0,1,2,3,4,5}, assets::runner),
+	graph(gr),
+	positions(ps)
+	{
 	game = g;
-	graph = gr;
-	positions = ps;
-
 	sprite.setTexture(assets::world);
 
 	// load character sprite
@@ -29,7 +29,6 @@ GameStateMap::GameStateMap (
 	// start knude
 	current_node = positions.begin()->first;
 	target_node = current_node;
-	character = new animation({0,1, 2, 3, 4, 5}, assets::runner);
 }
 
 void GameStateMap::draw(const float dt) {
@@ -44,12 +43,19 @@ void GameStateMap::draw(const float dt) {
 
 	t->setFont(assets::font_main);
 
-	// tegn alle knuder
+/******************************************************************************/
+/* Tegn grafen                                                                */
+/******************************************************************************/
 	t->setColor(Color::Black);
 	for (auto i : graph) {
+
 		t->setString(i.first);
 		auto p = positions[i.first] + position;
 		t->setPosition(p);
+
+		if (i.first == current_node) t->setColor(Color::White);
+		else t->setColor(Color::Black);
+		auto edge_color = i.first == current_node ? Color::Blue : Color::Red;
 		game->window.draw(*t);
 
 		auto from = positions[i.first];
@@ -61,25 +67,16 @@ void GameStateMap::draw(const float dt) {
 			auto start = from;
 			auto end = to;
 			if (start.x < end.x) continue;
-			
-			
-			sfLine l(start, end);
 
-			// skift farve, hvis en af siderne er den nuværende knude
-			if (i.first == current_node) l.setColor(Color::Red);
-			if (j.first == current_node) l.setColor(Color::Red);
+			sfLine l(start, end);
+			l.setColor(edge_color);
 			game->window.draw(l);
 		}
 	}
-	
 
-	t->setColor(Color::White);
-	t->setString(current_node);
-	t->setPosition(positions[current_node] + position);
-
-	game->window.draw(*t);
-
-	// tegn karakteren
+/******************************************************************************/
+/* Tegn manden                                                                */
+/******************************************************************************/
 	auto origin = positions[current_node];
 	auto target = positions[target_node];
 	auto path = target - origin;
@@ -87,8 +84,8 @@ void GameStateMap::draw(const float dt) {
 	path.y *= route_position / delay;
 	path += origin;
 
-	game->window.draw(*character);
-	character->setPosition(path + position);
+	game->window.draw(character);
+	character.setPosition(path + position);
 }
 
 void GameStateMap::update(const float dt) {
@@ -101,7 +98,7 @@ void GameStateMap::update(const float dt) {
 	} else if (current_node != target_node)
 		route_position += dt;
 
-	character->update(dt);
+	character.update(dt);
 }
 
 void GameStateMap::handleInput() {

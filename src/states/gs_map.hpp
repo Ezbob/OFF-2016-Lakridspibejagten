@@ -8,6 +8,7 @@
 #include <string>
 #include "animation.hpp"
 #include "game_state.hpp"
+#include "assets.hpp"
 
 using namespace std;
 using namespace sf;
@@ -23,8 +24,7 @@ class GameStateMap : public GameState {
 	Texture texture;
 	Vector2f position;
 
-	animation * character;
-	Texture character_texture;
+	animation character;
 	Text * t = new Text();
 
 	static constexpr double delay = 0.5;
