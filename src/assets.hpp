@@ -22,7 +22,9 @@ namespace assets {
 	extern sf::Texture rock;
 	extern sf::Texture pibe;
 	extern sf::Texture gave;
+	extern sf::Texture catcher;
 
+	extern sf::Sprite catcher_sprite;
 	extern sf::Sprite ball_sprite;
 	extern sf::Sprite runner_sprite;
 	extern sf::Sprite back_sky_sprite;
@@ -35,6 +37,7 @@ namespace assets {
 	extern sf::Sprite pibe_sprite;
 	extern sf::Sprite gave_sprite;
 	extern animation * runner_animation;
+	extern animation * catcher_animation;
 }
 
 

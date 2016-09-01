@@ -57,6 +57,7 @@ int main() {
 
 	assets::ball.loadFromFile("assets/ball.png");
 	assets::runner.loadFromFile("assets/ani/run.png");
+	assets::catcher.loadFromFile("assets/ani/catch.png");
 	assets::rock.loadFromFile("assets/imgs/rock1.png");
 	assets::pibe.loadFromFile("assets/imgs/pibe.png");
 	assets::gave.loadFromFile("assets/imgs/gave.png");

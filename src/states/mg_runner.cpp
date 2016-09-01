@@ -107,9 +107,7 @@ void MiniGameRunner::handleInput() {
 
 			case sf::Event::KeyPressed:
 				if (event.key.code == sf::Keyboard::Escape)
-					game->window.close();
-				else if (event.key.code == sf::Keyboard::S)
-					game->window.setFramerateLimit(5);
+					game->popState();
 				runner.handleInputPressed(event.key.code);
 				break;
 
