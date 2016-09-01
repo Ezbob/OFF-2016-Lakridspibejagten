@@ -30,7 +30,6 @@ void Runner::update(const float dt) {
 		velocity.y += GRAVITY*dt;
 
 		// Go to next ground level
-		
 		if (bottom() < ground_levels[clamp(current_ground + 1, 0, ground_levels.size() - 1)]) {
 			current_ground = clamp(current_ground + 1, 0, ground_levels.size() - 1);
 			ground = ground_levels[current_ground];
@@ -58,10 +57,9 @@ void Runner::update(const float dt) {
 		charge_jump = false;
 	}
 
-	float upd = std::max(0.05, .5/log(velocity.x));
-	ani.update(dt, upd);
-
 	if (!stopped) {
+		float upd = std::max(0.05, .5/log(velocity.x));
+		ani.update(dt, upd);
 		velocity.x += speed;
 		Object::move({0, velocity.y});
 		ani.move({0, velocity.y});
@@ -69,7 +67,6 @@ void Runner::update(const float dt) {
 
 	// Update world coordinates
 	wx += velocity.x * dt;
-
 }
 
 void Runner::handleInputPressed(sf::Keyboard::Key key) {
@@ -103,7 +100,7 @@ void Runner::handleInputReleased(sf::Keyboard::Key key) {
 
 void Runner::stop() {
 	stopped = true;
-	velocity.x = 0;
+	//velocity.x = 0;
 }
 
 void Runner::debug() {

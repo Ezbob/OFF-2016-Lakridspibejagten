@@ -13,9 +13,9 @@ class Runner : public Object {
 	sf::Vector2f velocity{50, 0}; 
 	sf::Clock clock, jClock;
 
-	float ground{600};	// ground level (can be updated)
+	float ground{400};	// ground level (can be updated)
 	std::vector<float> ground_levels{580, 400, 0};
-	int current_ground;
+	int current_ground{1};
 	float speed{.2};
 	float jump_force{0.25};
 	float force{0};
