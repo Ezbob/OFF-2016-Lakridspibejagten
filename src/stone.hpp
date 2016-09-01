@@ -10,22 +10,18 @@ class Stone : public Object {
 	public:
 
 	sf::Vector2f velocity{-5, 0};
-	sf::Texture tex;
 	sf::Sprite sprite;
 
-	float speed{.2};
+	float speed{.002};
 	std::vector<float> ground_levels{600, 400, 0};
 
 	sf::Vector2f startpos;
 
 	Stone(float x, float y) : Object ({24, 12}), startpos(x,y) {
-		//if (!tex.loadFromFile("assets/imgs/rock1.png"))
-		//	std::cerr << "Error loading rock texture" << std::endl;
 		sprite.setTexture(assets::rock);
 		setX(x);
 		setY(y);
 		sprite.setOrigin(width()/2, height()/2);
-		//scale(2.f, 2.f);
 	}
 
 	void update(const float dt);

@@ -27,14 +27,24 @@ void MiniGameRunner::testCollision(Stone& stone, Runner& runner) {
 	game->popState();
 }
 
+void MiniGameRunner::testCollision(Pibe& pibe, Runner& runner) {
+	if (!isIntersecting(pibe, runner)) 
+		return;
+
+	// Collision
+	game->score_pibe++;
+	pibe.reset();
+}
+
 void MiniGameRunner::update(const float dt) {
 	runner.update(dt);
 	for (auto& stone : stones) {
 		stone.update(dt);
 		testCollision(stone, runner);
-		stone.setVelocity(-runner.velocity.x/10, 0);
+		//stone.setVelocity(-runner.velocity.x/10, 0);
 	}
 	pibe.update(dt);
+	testCollision(pibe, runner);
 	// Update background
 	back_pos += runner.velocity.x * dt;
 	back.setTextureRect(sf::IntRect(back_pos, 0, 800, 600));
@@ -87,7 +97,7 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 	}
 
 	pibe.setX(500);
-	pibe.setY(500);
+	pibe.setY(320);
 }
 
 
