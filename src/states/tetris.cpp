@@ -94,7 +94,7 @@ void GameStateTetris::reset() {
 	get_new_block = false;
 }
 
-void GameStateTetris::draw_matrix(GameStateTetris::matrix block, size_t x, size_t y) {
+void GameStateTetris::draw_matrix(GameStateTetris::matrix block, int x, int y) {
 
 	sf::RectangleShape rectangle;
 
