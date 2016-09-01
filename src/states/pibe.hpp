@@ -8,7 +8,10 @@
 class Pibe : public Object {
 	public:
 
+	sf::Vector2f velocity{-5, 0};
 	sf::Sprite sprite;
+
+	float speed{.002};
 
 	Pibe(float x=0, float y=0) : Object({50.f,30.f}) {
 		sprite.setTexture(assets::pibe);
@@ -19,6 +22,7 @@ class Pibe : public Object {
 
 	void update(const float dt);
 	void draw(sf::RenderWindow &window);
+	void reset();
 
 	void setX(float nx) {
 		sprite.setPosition({nx, y()});

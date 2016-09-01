@@ -31,6 +31,22 @@ GameState * new_game_state(Game * g) {
 }
 
 int main() {
+	/* Indlæs skriftyper */
+	assets::font_main.loadFromFile("assets/main_font.ttf");
+	assets::font_description.loadFromFile("assets/desc_font.ttf");
+	/* Indlæs textures */
+	assets::world.loadFromFile("assets/map.jpg");
+
+	assets::background.loadFromFile("assets/tiling_background.png");
+	assets::background.setRepeated(true);
+	assets::background.setSmooth(true);
+
+	assets::ball.loadFromFile("assets/ball.png");
+	assets::runner.loadFromFile("assets/ani/run.png");
+	assets::rock.loadFromFile("assets/imgs/rock1.png");
+	assets::pibe.loadFromFile("assets/imgs/pibe.png");
+
+	// Create game
 	Game game;
 
 	// indlæs knuder
@@ -46,7 +62,6 @@ int main() {
 		graph[to][from] = weight;
 	}
 
-
 	// indlæs positioner 
 	fstream nodes("nodes.txt");
 	map<string, Vector2f> positions;
@@ -60,20 +75,6 @@ int main() {
 	map<string, GameState*> node_games;
 	for (auto i : positions) node_games[i.first] = new_game_state(&game);
 
-/* Indlæs skriftyper */
-	assets::font_main.loadFromFile("assets/main_font.ttf");
-	assets::font_description.loadFromFile("assets/desc_font.ttf");
-
-/* Indlæs textures */
-	assets::world.loadFromFile("assets/map.jpg");
-
-	assets::background.loadFromFile("assets/tiling_background.png");
-	assets::background.setRepeated(true);
-	assets::background.setSmooth(true);
-
-	assets::ball.loadFromFile("assets/ball.png");
-	assets::runner.loadFromFile("assets/ani/run.png");
-	assets::rock.loadFromFile("assets/imgs/rock1.png");
 
 	assets::ball_sprite.setTexture(assets::ball);
 	assets::runner_sprite.setTexture(assets::runner);
@@ -87,15 +88,14 @@ int main() {
 #if 1
 	GameStateMap map(&game, graph, positions, node_games, "Odense", "Nyborg");
 
-	
 	game.pushState(new GameStateDescription(&game, "You're done"));
 	game.pushState(&map);
 #else
-	game.pushState(new GameStateDescription(&game, "Yala3\n"));
+	//game.pushState(new GameStateDescription(&game, "Yala3\n"));
 	game.pushState(new MiniGameRunner(&game));
-	game.pushState(new GameStateDescription(&game, "Yala2\n"));
-	game.pushState(new GameStateDescription(&game, "Yala\n"));
-	game.pushState(new GameStateTreeout(&game));
+	//game.pushState(new GameStateDescription(&game, "Yala2\n"));
+	//game.pushState(new GameStateDescription(&game, "Yala\n"));
+	//game.pushState(new GameStateTreeout(&game));
 #endif
 	game.gameloop();
 

@@ -14,7 +14,7 @@ void Stone::update(const float dt) {
 		reset();
 	}
 
-	velocity.x += speed;
+	velocity.x -= speed;
 
 	Object::move(velocity);
 	sprite.move(velocity);

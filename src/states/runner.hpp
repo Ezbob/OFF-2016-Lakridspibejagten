@@ -29,8 +29,8 @@ class Runner : public Object {
 	animation ani;
 
 	Runner(float x=400, float y=100) : Object({48-30,56-5}), ani({0,1,2,3,4,5},assets::runner) {
-		ani.setTexture(tex);
-		ani.setupFrames(tex);
+		ani.setTexture(assets::runner);
+		ani.setupFrames(assets::runner);
 		setX(x);
 		setY(y);
 		ani.setOrigin(width()/2, height()/2);
