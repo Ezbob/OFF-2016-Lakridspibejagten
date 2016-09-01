@@ -32,7 +32,7 @@ bool testCollision(Player &mPlayer, Ball &mBall)
 
 bool testCollision(Player &mPlayer, Resource &mResource)
 {
-	    return isIntersecting(mPlayer, mResource);
+	return isIntersecting(mPlayer, mResource);
 }
 
 void testCollision(Resource &mResource, Ball &mBall)
@@ -67,7 +67,6 @@ void GameStateTreeout::draw(const float dt) {
 		this->game->window.draw(this->player->shape);
 	this->game->window.draw(this->ball->shape);
 	for (Resource r : resources) {
-		this->game->window.draw(r.shape);
 		this->game->window.draw(r.sprite);
 	}
 	
@@ -154,7 +153,7 @@ bool Ball::update() {
 
 void Player::update(const float dt) {
 	ani.move(velocity);
-	float upd = std::max(0.05, .5/log(velocity.x));
+	float upd = std::max(0.05, .5/(velocity.x));
 	ani.update(dt, upd);
 	shape.move(velocity);
 	if (pIsMovingLeft
