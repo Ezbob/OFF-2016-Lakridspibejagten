@@ -55,7 +55,7 @@ void Game::drawHighscore(sf::RenderWindow &window) {
 }
 
 Game::Game() {
-	this->window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Jagten på lakridspiberne");
+	this->window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Lakridspibejagten");
 	this->window.setFramerateLimit(60);
 
 	icon_pibe.setTexture(assets::pibe);

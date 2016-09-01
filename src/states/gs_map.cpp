@@ -97,7 +97,7 @@ void GameStateMap::draw(const float dt) {
 	for (auto i : graph[current_node]) {
 		++n;
 		t->setColor(Color::Blue);
-		if (mini_games[i.first] == nullptr) t->setColor(Color(0x1f,0x1f, 0x1f));
+		if (i.second < 0) t->setColor(Color::White);
 		t->setString(std::to_string(n) + ": " + i.first);
 		game->window.draw(*t);
 		auto p = t->findCharacterPos(t->getString().getSize());
@@ -178,10 +178,12 @@ void GameStateMap::handleInput() {
 
 	// flyt til en anden knude
 	if (target_node == current_node && new_route < graph[current_node].size() + 1) {
+
 		auto new_node = graph[current_node].begin();
 
 		for (size_t i = 0; i < new_route - 1; ++i) ++new_node;
-		target_node = new_node->first;
+		if (new_node->second >= 0)
+			target_node = new_node->first;
 	}
 }
 
