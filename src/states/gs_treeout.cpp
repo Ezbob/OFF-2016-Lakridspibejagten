@@ -11,6 +11,8 @@
 
 #define localDebug 0
 
+bool activateBall = false;
+
 template<class T1, class T2>
 bool isIntersecting(T1 &mA, T2 &mB)
 {
@@ -130,7 +132,9 @@ void GameStateTreeout::update(const float dt) {
 		else 
 			testCollision(resources[i], *ball);
 	}
-	if (ball->update()) {
+	if (activateBall == false)
+		ball->shape.setPosition({player->x() - 5, player->y()-40});
+	else if (ball->update()) {
 		lives--;
 		if (lives >= 0)
 			ball->reset(player->x(), player->y());
@@ -142,6 +146,7 @@ void GameStateTreeout::update(const float dt) {
 void Ball::reset(float x, float y) {
 	shape.setPosition(x, y - 30);
 	velocity.y = -ballVelocity;
+	activateBall = false;
 	sf::Clock clock;
 	clock.restart();
 	while (clock.getElapsedTime().asMilliseconds() < 500);
@@ -149,6 +154,8 @@ void Ball::reset(float x, float y) {
 
 void Player::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 {
+	if (key == sf::Keyboard::Up || key == sf::Keyboard::Space)
+		activateBall = true;
 	if (key == sf::Keyboard::Left)
 		pIsMovingLeft = isPressed;
 	else if (key == sf::Keyboard::Right)
@@ -188,7 +195,6 @@ void GameStateTreeout::loadgame() {
 bool Ball::update() {
   	shape.move(velocity);
 	if (left() < 0)
-		//velocity.x = ballVelocity;
 		velocity.x = fabs(velocity.x);
 	else if (right() > windowWidth)
 		velocity.x = -fabs(velocity.x);
