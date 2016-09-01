@@ -14,6 +14,7 @@ namespace assets {
 	sf::Texture pibe;
 	sf::Texture gave;
 	sf::Texture catcher;
+	sf::Texture background_texture_treeout;
 
 	sf::Sprite ball_sprite;
 	sf::Sprite runner_sprite;
@@ -24,6 +25,7 @@ namespace assets {
 	sf::Sprite pibe_sprite;
 	sf::Sprite gave_sprite;
 	sf::Sprite catcher_sprite;
+	sf::Sprite background_sprite_treeout;
 
 	animation * runner_animation;
 	animation * catcher_animation;

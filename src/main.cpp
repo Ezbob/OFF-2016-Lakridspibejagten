@@ -51,6 +51,7 @@ int main() {
 	assets::rock.loadFromFile("assets/imgs/rock1.png");
 	assets::pibe.loadFromFile("assets/imgs/pibe.png");
 	assets::gave.loadFromFile("assets/imgs/gave.png");
+	assets::background_texture_treeout.loadFromFile("assets/imgs/gallery.png");
 
 	// Create game
 	Game game;
@@ -87,6 +88,7 @@ int main() {
 
 
 	assets::ball_sprite.setTexture(assets::ball);
+	assets::catcher_sprite.setTexture(assets::catcher);
 	assets::runner_sprite.setTexture(assets::runner);
 	assets::background_sprite.setTexture(assets::background);
 	assets::world_sprite.setTexture(assets::world);
@@ -94,19 +96,21 @@ int main() {
 	assets::rock_sprite.setTexture(assets::rock);
 	assets::pibe_sprite.setTexture(assets::pibe);
 	assets::gave_sprite.setTexture(assets::gave);
+	assets::background_sprite_treeout.setTexture(assets::background_texture_treeout);
 	assets::runner_animation = new animation({0,1,2,3,4,5}, assets::runner);
+	assets::catcher_animation = new animation({0,1,2,3,4,5}, assets::catcher);
 
-#if 1
+#if 0
 	GameStateMap map(&game, graph, positions, node_games, first, end);
 
 	game.pushState(new end_state(&game));
 	game.pushState(&map);
 #else
 	//game.pushState(new GameStateDescription(&game, "Yala3\n"));
-	game.pushState(new MiniGameRunner(&game));
+	//game.pushState(new MiniGameRunner(&game));
 	//game.pushState(new GameStateDescription(&game, "Yala2\n"));
 	//game.pushState(new GameStateDescription(&game, "Yala\n"));
-	//game.pushState(new GameStateTreeout(&game));
+	game.pushState(new GameStateTreeout(&game));
 #endif
 	game.gameloop();
 
