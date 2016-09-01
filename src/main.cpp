@@ -82,7 +82,7 @@ int main() {
 	// Create music
 	sf::Music music;
 	// Open it from an audio file
-	if (music.openFromFile("assets/musik.ogg")) {
+	if (music.openFromFile("assets/musik.wav")) {
 		music.setLoop(true);
 		music.play();
 	}

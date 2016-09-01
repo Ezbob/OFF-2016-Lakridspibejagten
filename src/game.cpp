@@ -59,6 +59,8 @@ void Game::drawHighscore(sf::RenderWindow &window) {
 Game::Game() {
 	this->window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Lakridspibejagten");
 	this->window.setFramerateLimit(60);
+	this->window.setVerticalSyncEnabled(true);	
+
 
 	icon_gave.setTexture(assets::gave);
 	icon_gave.setPosition({10,50});
