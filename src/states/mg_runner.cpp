@@ -51,12 +51,7 @@ void MiniGameRunner::testCollision(Gave& mGave, Runner& mRunner) {
 	gave.setInactive();
 	clock1.restart();
 	std::cerr << "got here" << std::endl;
-
-	game->score_gave = true;
-	auto r = game->icon_gave.getTextureRect();
-	r.left = 30;
-	//sf::IntRect r(30, 0, 30, 30);
-	game->icon_gave.setTextureRect(r);
+	game->score_gave |= true;
 }
 
 void MiniGameRunner::update(const float dt) {

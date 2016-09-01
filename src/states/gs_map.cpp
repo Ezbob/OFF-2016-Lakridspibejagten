@@ -104,11 +104,9 @@ void GameStateMap::draw(const float dt) {
 		game->window.draw(*t);
 	}
 
-#endif
 /******************************************************************************/
 /* Tegn løberen                                                               */
 /******************************************************************************/
-	game->window.draw(*assets::runner_animation);
 
 
 /******************************************************************************/
@@ -134,6 +132,8 @@ void GameStateMap::draw(const float dt) {
 		p.x += 10;
 		t->setPosition(p);
 	}
+#endif
+	game->window.draw(*assets::runner_animation);
 }
 
 void GameStateMap::update(const float dt) {
@@ -145,9 +145,12 @@ void GameStateMap::update(const float dt) {
 		if (mini_games[current_node]) game->pushState(mini_games[current_node]);
 		mini_games[current_node] = nullptr;
 		route_position = 0.0;
+		target_node = graph[current_node].begin()->first;
 	} else if (current_node != target_node)
 		route_position += dt;
-
+	else {
+		route_position = 0;
+	}
 /******************************************************************************/
 /* Opdater løberen                                                            */
 /******************************************************************************/
