@@ -64,7 +64,7 @@ void GameStateTreeout::draw(const float dt) {
     paddleText->setCharacterSize(30);
     paddleText->setStyle(sf::Text::Bold);
     paddleText->setColor(sf::Color::Black);
-    paddleText->setPosition(450, 50);
+    paddleText->setPosition(500, 50);
     paddleText->setFont(assets::font_main);
 
     // Set up point text
@@ -75,7 +75,7 @@ void GameStateTreeout::draw(const float dt) {
     pointText->setCharacterSize(30);
     pointText->setStyle(sf::Text::Bold);
     pointText->setColor(sf::Color::Black);
-    pointText->setPosition(450, 100);
+    pointText->setPosition(500, 80);
     pointText->setFont(assets::font_main);
 
     // clear

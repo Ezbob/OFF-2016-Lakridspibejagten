@@ -55,10 +55,11 @@ void Runner::update(const float dt) {
 	float upd = std::max(0.05, .5/log(velocity.x));
 	ani.update(dt, upd);
 
-	velocity.x += speed;
-
-	Object::move({0, velocity.y});
-	ani.move({0, velocity.y});
+	if (!stopped) {
+		velocity.x += speed;
+		Object::move({0, velocity.y});
+		ani.move({0, velocity.y});
+	}
 
 	// Update world coordinates
 	wx += velocity.x * dt;
@@ -90,6 +91,11 @@ void Runner::handleInputReleased(sf::Keyboard::Key key) {
 		do_jump = true;
 		charge_jump = false;
 	}
+}
+
+void Runner::stop() {
+	stopped = true;
+	velocity.x = 0;
 }
 
 void Runner::debug() {
