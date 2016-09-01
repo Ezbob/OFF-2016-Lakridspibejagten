@@ -42,6 +42,19 @@ int main() {
 	/* Indlæs textures */
 	assets::world.loadFromFile("assets/map.jpg");
 
+// backgrounds
+	assets::back_sky.loadFromFile("assets/imgs/back_sky.png");
+	assets::back_sky.setRepeated(true);
+	assets::back_sky.setSmooth(true);
+	assets::back_mountains.loadFromFile("assets/imgs/back_mountains.png");
+	assets::back_mountains.setRepeated(true);
+	assets::back_mountains.setSmooth(true);
+	assets::back_trees.loadFromFile("assets/imgs/back_trees.png");
+	assets::back_trees.setRepeated(true);
+	assets::back_trees.setSmooth(true);
+	assets::back_grass.loadFromFile("assets/imgs/back_grass.png");
+	assets::back_grass.setRepeated(true);
+	assets::back_grass.setSmooth(true);
 	assets::ball.loadFromFile("assets/ball.png");
 	assets::runner.loadFromFile("assets/ani/run.png");
 	assets::catcher.loadFromFile("assets/ani/catch.png");
