@@ -76,6 +76,15 @@ int main() {
 	for (auto i : positions) node_games[i.first] = new_game_state(&game);
 
 
+	assets::ball_sprite.setTexture(assets::ball);
+	assets::runner_sprite.setTexture(assets::runner);
+	assets::background_sprite.setTexture(assets::background);
+	assets::world_sprite.setTexture(assets::world);
+	assets::player_sprite.setTexture(assets::player_texture);
+	assets::rock_sprite.setTexture(assets::rock);
+	assets::pibe_sprite.setTexture(assets::pibe);
+	assets::runner_animation = new animation({0,1,2,3,4,5}, assets::runner);
+
 #if 1
 	GameStateMap map(&game, graph, positions, node_games, "Odense", "Nyborg");
 

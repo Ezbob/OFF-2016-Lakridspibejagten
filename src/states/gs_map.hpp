@@ -17,17 +17,10 @@ typedef map<string, map<string, float>> node_graph;
  
 class GameStateMap : public GameState {
 	private:
-	
-	
-	Sprite sprite;
-	Texture texture;
 	Vector2f position;
-
-	animation character;
 	Text * t = new Text();
 
 	static constexpr double delay = 0.5;
-	float scale = 1.0;
 	node_graph graph;
 	map<string,Vector2f> positions;
 	string current_node;

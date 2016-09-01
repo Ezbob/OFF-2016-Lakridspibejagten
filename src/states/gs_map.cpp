@@ -13,7 +13,6 @@ GameStateMap::GameStateMap (
 	map<string,Vector2f> ps,
 	map<string, GameState*> mg,
 	string start, string target) :
-	character({0,1,2,3,4,5}, assets::runner),
 	graph(gr),
 	positions(ps),
 	current_node(start),
@@ -21,11 +20,7 @@ GameStateMap::GameStateMap (
 	end_node(target)
 	{
 	game = g;
-	sprite.setTexture(assets::world);
-
-	// load character sprite
-	position = sprite.getPosition();
-
+	position = assets::world_sprite.getPosition();
 	// sæt minigames
 	mini_games = mg;
 }
@@ -38,7 +33,7 @@ void GameStateMap::draw(const float dt) {
 	game->window.clear(Color::Black);
 	
 	// tegn kortet
-	game->window.draw(sprite);
+	game->window.draw(assets::world_sprite);
 
 	t->setFont(assets::font_main);
 
@@ -74,17 +69,10 @@ void GameStateMap::draw(const float dt) {
 	}
 
 /******************************************************************************/
-/* Tegn manden                                                                */
+/* Tegn løberen                                                               */
 /******************************************************************************/
-	auto origin = positions[current_node];
-	auto target = positions[target_node];
-	auto path = target - origin;
-	path.x *= route_position / delay;
-	path.y *= route_position / delay;
-	path += origin;
+	game->window.draw(*assets::runner_animation);
 
-	game->window.draw(character);
-	character.setPosition(path + position);
 }
 
 void GameStateMap::update(const float dt) {
@@ -97,7 +85,17 @@ void GameStateMap::update(const float dt) {
 	} else if (current_node != target_node)
 		route_position += dt;
 
-	character.update(dt);
+/******************************************************************************/
+/* Opdater løberen                                                            */
+/******************************************************************************/
+	auto origin = positions[current_node];
+	auto target = positions[target_node];
+	auto path = target - origin;
+	path.x *= route_position / delay;
+	path.y *= route_position / delay;
+	path += origin;
+	assets::runner_animation->setPosition(path + position);
+	assets::runner_animation->update(dt);
 }
 
 void GameStateMap::handleInput() {
@@ -115,11 +113,6 @@ void GameStateMap::handleInput() {
 		switch (event.type) {
 			case Event::Closed:
 				game->window.close();
-			break;
-
-			case Event::MouseWheelMoved:
-				if (event.mouseWheel.delta > 0) scale *= 2.0;
-				if (event.mouseWheel.delta < 0) scale /= 2.0;
 			break;
 
 			case Event::KeyPressed:
@@ -148,7 +141,7 @@ void GameStateMap::handleInput() {
 	position.y += delta_y;
 	position.x = std::min(position.x, 0.0f);
 	position.y = std::min(position.y, 0.0f);
-	sprite.setPosition(position);
+	assets::world_sprite.setPosition(position);
 
 	// flyt til en anden knude
 	if (target_node == current_node && new_route < graph[current_node].size() + 1) {
