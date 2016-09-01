@@ -13,7 +13,6 @@
 class MiniGameRunner : public GameState {
 	private:
 	
-	//sf::View view;
 	sf::Texture tex_back;
 	sf::Sprite back;
 	float back_pos{0.f};

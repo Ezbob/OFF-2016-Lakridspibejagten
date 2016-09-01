@@ -11,7 +11,6 @@ void Stone::draw(sf::RenderWindow &window) {
 
 void Stone::update(const float dt) {
 	if (x() < 0) {
-		//std::cerr << "new pos: " << pos << std::endl;
 		reset();
 	}
 
@@ -19,7 +18,6 @@ void Stone::update(const float dt) {
 
 	Object::move(velocity);
 	sprite.move(velocity);
-	//rectShape.move(velocity);
 }
 
 void Stone::reset() {
@@ -30,16 +28,11 @@ void Stone::reset() {
 	// New position
 	int pos = 800 + (rand()%200);
 	setX(pos); // random pos in range [800,1000)
-	//rectShape.setPosition({pos, y()});
 }
 
 void Stone::scale(float sx, float sy) {
 	Object::setScale({sx, sy});
 	sprite.setScale({sx, sy});
-	//width = width * sx;
-	//height = height * sy;
-	// Bounding box
-	//rectShape.setScale({sx ,sy});
 }
 
 void Stone::setVelocity(float vx, float vy) {

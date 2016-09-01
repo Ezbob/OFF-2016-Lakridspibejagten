@@ -3,11 +3,10 @@
 #include "paths.hpp"
 
 void MiniGameRunner::draw(const float dt) {
-	//game->window.setView(view);
 	game->window.clear(sf::Color::White);
 
+	// Draw background, runner, stones
 	game->window.draw(back);
-
 	runner.draw(game->window);
 	for (auto& stone : stones) {
 		stone.draw(game->window);
@@ -18,8 +17,6 @@ void MiniGameRunner::draw(const float dt) {
 }
 
 template<class T1, class T2> bool isIntersecting(T1& mA, T2& mB) {
-	std::cerr << "pos(mA): (" << mA.x() << ", " << mA.y() << ")" << std::endl;
-	std::cerr << "pos(mB): (" << mB.x() << ", " << mB.y() << ")" << std::endl;
 	return mA.right() >= mB.left() && mA.left() <= mB.right()
 		&& mA.bottom() >= mB.top() && mA.top() <= mB.bottom();
 }

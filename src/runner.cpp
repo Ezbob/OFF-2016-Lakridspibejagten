@@ -45,7 +45,6 @@ void Runner::update(const float dt) {
 	// Jump
 	if (do_jump) {
 		int jForce = std::min(elapsed, 200);
-		//std::cerr << "jump force: " << jForce << std::endl;
 		velocity.y = -10 - jForce/50;
 
 		is_jumping = true;
@@ -106,8 +105,6 @@ void Runner::debug() {
 	std::cerr << "bottom(" << bottom() << "), right(" << right() << ")" << std::endl;
 
 	std::cerr << "ground: " << ground << ", level: " << current_ground << std::endl;
-
-	//std::cerr << "jump: " << jump << std::endl;
 
 	std::cerr << "Elapsed time: " << elapsed.asMilliseconds() << " ms";
 	std::cerr << "\t(" << elapsed.asSeconds() << " sec)" << std::endl;

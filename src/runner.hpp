@@ -15,8 +15,6 @@ class Runner : public Object {
 	float ground{600};	// ground level (can be updated)
 	std::vector<float> ground_levels{600, 400, 0};
 	int current_ground;
-	//float width{48},
-	//	  height{54};
 	float speed{.2};
 	float jump_force{0.25};
 	float force{0};
@@ -26,7 +24,6 @@ class Runner : public Object {
 
 	float wx{0};
 
-	int frame{0};
 	sf::Texture tex;
 	animation ani;
 
@@ -35,7 +32,6 @@ class Runner : public Object {
 			std::cerr << "Error loading running texture" << std::endl;
 		ani.setTexture(tex);
 		ani.setupFrames(tex);
-		//ani.setPosition({x, y});
 		ani.setOrigin(width()/2, height()/2);
 		setX(x);
 		setY(y);
@@ -48,14 +44,6 @@ class Runner : public Object {
 	void debug();
 	void draw(sf::RenderWindow &window);
 
-	/*
-	float x()		 { return ani.getPosition().x; }
-	float y()		 { return ani.getPosition().y; }
-	float left()	 { return x() - width / 4; }
-	float right()	 { return x() + width / 4; }
-	float top()		 { return y() - height / 2; }
-	float bottom()	 { return y() + height / 2; }
-	*/
 	void setX(float nx) {
 		Object::setPosition({nx, y()});
 		ani.setPosition({nx, y()});
