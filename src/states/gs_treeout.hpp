@@ -55,8 +55,7 @@ public:
 	Ball(float x, float y) {
 		shape.setPosition(x, y);
 		shape.setRadius(10.f);
-		shape.setFillColor(sf::Color::Blue);
-		//shape.setOrigin(10.f, 10.f);
+		shape.setFillColor(sf::Color::Red);
 	}
 
 	bool update();
