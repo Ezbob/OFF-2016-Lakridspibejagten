@@ -14,7 +14,7 @@ public:
 	virtual void reset();
 	typedef std::vector<std::vector<int>> matrix;
 
-	void draw_matrix(GameStateTetris::matrix block, size_t x, size_t y, sf::Color c);
+	void draw_matrix(GameStateTetris::matrix block, size_t x, size_t y);
 
 private:
 
