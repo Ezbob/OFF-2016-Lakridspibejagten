@@ -58,28 +58,6 @@ void testCollision(Resource &mResource, Ball &mBall)
 
 void GameStateTreeout::draw(const float dt) {
 
-	// Set up paddle text
-	static sf::Text * paddleText = new sf::Text();
-    std::string str = "Paddle hits left: " + std::to_string(this->paddleHitsRemaining) + "\n";
-
-    paddleText->setString(str);
-    paddleText->setCharacterSize(30);
-    paddleText->setStyle(sf::Text::Bold);
-    paddleText->setColor(sf::Color::Black);
-    paddleText->setPosition(500, 50);
-    paddleText->setFont(assets::font_main);
-
-    // Set up point text
-	static sf::Text * pointText = new sf::Text();
-
-    str = "Points scored: " + std::to_string(this->localHighscore) + "\n";
-    pointText->setString(str);
-    pointText->setCharacterSize(30);
-    pointText->setStyle(sf::Text::Bold);
-    pointText->setColor(sf::Color::Black);
-    pointText->setPosition(500, 80);
-    pointText->setFont(assets::font_main);
-
     // clear
     this->game->window.clear(sf::Color::White);
 	this->game->window.draw(this->background);
@@ -88,12 +66,13 @@ void GameStateTreeout::draw(const float dt) {
 	if (localDebug)
 		this->game->window.draw(this->player->shape);
 	this->game->window.draw(this->ball->shape);
-	for (Resource r : resources)
+	for (Resource r : resources) {
+		this->game->window.draw(r.shape);
 		this->game->window.draw(r.sprite);
+	}
 	
 	// draw HUD/texts
-	this->game->window.draw(*paddleText);
-	this->game->window.draw(*pointText);
+	// Draw remaining lives
 }
 
 void GameStateTreeout::end() {
@@ -103,17 +82,16 @@ void GameStateTreeout::end() {
 void GameStateTreeout::update(const float dt) {
 	if (paddleHitsRemaining <= 0)
 		end();
-	if (testCollision(*player, *ball))
-		this->paddleHitsRemaining -= 1;
+	testCollision(*player, *ball);
 	player->update(dt);
 	if (ball->update()) // Hit the bottom
-		this->paddleHitsRemaining -= 2;
+		this->paddleHitsRemaining -= 1;
 	for (int i = resources.size() - 1; i >= 0; i--) {
 		if (resources[i].hit) {
 			resources[i].update();
 			if (testCollision(*player, resources[i])) {
 				resources.erase(resources.begin() + i);
-				game->currentScore += pointsPerResource;
+				game->score_pibe += pointsPerResource;
 			}
 		}
 		else 
