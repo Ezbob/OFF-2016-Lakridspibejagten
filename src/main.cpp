@@ -13,16 +13,17 @@
 #include "states/mock_gamestate.hpp"
 #include "states/gs_map.hpp"
 #include "states/mg_runner.hpp"
+#include "states/end_state.hpp"
 #include "states/gs_treeout.hpp"
 #include "states/gs_description.hpp"
 #include "assets.hpp"
 
 using namespace std;
 
-GameState * new_game_state(Game * g) {
+GameState * new_game_state(Game * g, int r) {
 	static auto mini_game_count = 2;
-	auto r = rand() % mini_game_count;
-	switch(r) {
+	r = rand();	
+	switch(r % mini_game_count) {
 		case 0: return new MiniGameRunner(g); break;
 		case 1: return new GameStateTreeout(g); break;
 	}
@@ -80,7 +81,7 @@ int main() {
 
 	std::cerr << first << " " << end << "\n";
 	map<string, GameState*> node_games;
-	for (auto i : positions) node_games[i.first] = new_game_state(&game);
+	for (auto i : positions) node_games[i.first] = new_game_state(&game, positions[i.first].x + positions[i.first].y);
 
 
 	assets::ball_sprite.setTexture(assets::ball);
@@ -95,7 +96,7 @@ int main() {
 #if 1
 	GameStateMap map(&game, graph, positions, node_games, first, end);
 
-	game.pushState(new GameStateDescription(&game, "You're done"));
+	game.pushState(new end_state(&game));
 	game.pushState(&map);
 #else
 	//game.pushState(new GameStateDescription(&game, "Yala3\n"));
