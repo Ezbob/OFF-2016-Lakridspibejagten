@@ -21,7 +21,7 @@ template<class T1, class T2> bool isIntersecting(T1& mA, T2& mB) {
 }
 
 void MiniGameRunner::testCollision(Stone& stone, Runner& runner) {
-	if (!isIntersecting(stone, runner))
+	if (!isIntersecting(stone, runner) && !got_gift)
 		return;
 
 	// Collision
@@ -48,6 +48,9 @@ void MiniGameRunner::testCollision(Gave& gave, Runner& runner) {
 	r.left += 30;
 	game->icon_gave.setTextureRect(r);
 	gave.setInactive();
+	got_gift = true;
+	clock1.restart();
+	runner.stop();
 }
 
 void MiniGameRunner::update(const float dt) {
@@ -55,7 +58,6 @@ void MiniGameRunner::update(const float dt) {
 	for (auto& stone : stones) {
 		stone.update(dt);
 		testCollision(stone, runner);
-		//stone.setVelocity(-runner.velocity.x/10, 0);
 	}
 	pibe.update(dt);
 	gave.update(dt);
@@ -68,6 +70,14 @@ void MiniGameRunner::update(const float dt) {
 	if (runner.wx > goalline && !gave.active && !game->score_gave) {
 		std::cerr << "gave?" << std::endl;
 		gave.reset();
+	}
+	// Quit
+	if (got_gift) {
+		std::cerr << "[elapsed:" << clock1.getElapsedTime().asMilliseconds() << "]" << std::endl;
+		if (clock1.getElapsedTime().asMilliseconds() > 2000) {
+			std::cerr << "[finito -> pop]" << std::endl;
+			game->popState();
+		}
 	}
 }
 
