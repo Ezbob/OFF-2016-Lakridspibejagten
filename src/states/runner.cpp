@@ -49,7 +49,7 @@ void Runner::update(const float dt) {
 		charge_jump = false;
 	}
 
-	float upd = fmax(0.05, .5/log(velocity.x));
+	float upd = std::max(0.05, .5/log(velocity.x));
 	ani.update(dt, upd);
 
 	velocity.x += speed;
