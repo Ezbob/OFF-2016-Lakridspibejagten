@@ -37,7 +37,6 @@ void GameStateMap::draw(const float dt) {
 	while (false) { auto i = dt; i = i;}
 
 	// gør vinduet klar
-	game->window.setView(view);
 	game->window.clear(Color::Black);
 	
 	// tegn kortet

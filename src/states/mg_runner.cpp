@@ -3,14 +3,13 @@
 #include "assets.hpp"
 
 void MiniGameRunner::draw(const float dt) {
-	//game->window.setView(view);
 	game->window.clear(sf::Color::White);
 
+	// Draw background, runner, stones
 	game->window.draw(back);
-	game->window.draw(runner.ani);
+	runner.draw(game->window);
 	for (auto& stone : stones) {
-		game->window.draw(stone.rectShape);
-		game->window.draw(stone.sprite);
+		stone.draw(game->window);
 	}
 
 	// Draw highscore
@@ -103,5 +102,4 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 
 
 void MiniGameRunner::reset() {
-
 }

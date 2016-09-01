@@ -7,10 +7,14 @@ void printVector(sf::Vector2f vec, std::string name) {
 	std::cerr << name << "(" << vec.x << ", " << vec.y << ")" << std::endl;
 }
 
+void Runner::draw(sf::RenderWindow &window) {
+	Object::draw(window);
+	window.draw(ani);
+}
+
 void Runner::scale(float sx, float sy) {
+	Object::setScale({sx, sy});
 	ani.setScale({sx, sy});
-	width = width * sx;
-	height = height * sy;
 }
 
 void Runner::update(const float dt) {
@@ -30,7 +34,7 @@ void Runner::update(const float dt) {
 		if (bottom() > ground) {
 			velocity.y = 0;
 			is_jumping = false;
-			setY(ground - height/2);
+			setY(ground - height()/2);
 		}
 	} else {
 		if (elapsed > 200 && charge_jump) { // trigger jump
@@ -41,7 +45,6 @@ void Runner::update(const float dt) {
 	// Jump
 	if (do_jump) {
 		int jForce = std::min(elapsed, 200);
-		//std::cerr << "jump force: " << jForce << std::endl;
 		velocity.y = -10 - jForce/50;
 
 		is_jumping = true;
@@ -54,6 +57,7 @@ void Runner::update(const float dt) {
 
 	velocity.x += speed;
 
+	Object::move({0, velocity.y});
 	ani.move({0, velocity.y});
 
 	// Update world coordinates
@@ -101,8 +105,6 @@ void Runner::debug() {
 	std::cerr << "bottom(" << bottom() << "), right(" << right() << ")" << std::endl;
 
 	std::cerr << "ground: " << ground << ", level: " << current_ground << std::endl;
-
-	//std::cerr << "jump: " << jump << std::endl;
 
 	std::cerr << "Elapsed time: " << elapsed.asMilliseconds() << " ms";
 	std::cerr << "\t(" << elapsed.asSeconds() << " sec)" << std::endl;

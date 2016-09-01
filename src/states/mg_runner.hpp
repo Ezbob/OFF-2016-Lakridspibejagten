@@ -13,7 +13,6 @@
 class MiniGameRunner : public GameState {
 	private:
 	
-	//sf::View view;
 	sf::Texture tex_back;
 	sf::Sprite back;
 	float back_pos{0.f};
@@ -30,7 +29,7 @@ class MiniGameRunner : public GameState {
 	virtual void update(const float dt);
 	virtual void handleInput();
 	virtual void testCollision(Stone& stone, Runner& runner);
-	void reset();
+	virtual void reset();
 
 };
 
