@@ -85,7 +85,7 @@ void GameStateTreeout::draw(const float dt) {
 	this->game->window.draw(this->player->shape);
 	this->game->window.draw(this->ball->shape);
 	for (Resource r : resources)
-		this->game->window.draw(r.shape);
+		this->game->window.draw(r.sprite);
 	
 	// draw HUD/texts
 	this->game->window.draw(*paddleText);
@@ -93,7 +93,7 @@ void GameStateTreeout::draw(const float dt) {
 }
 
 void GameStateTreeout::end() {
-	this->game->currentScore += this->localHighscore;
+	game->score_pibe += localHighscore;
 	game->popState();
 }
 
@@ -152,7 +152,7 @@ void GameStateTreeout::reset() {
 }
 
 void GameStateTreeout::loadgame() {
-	//game->pushState(new GameStateDescription(this->game, "As the ball hits RESOURCES, catch them to earn points. \n Each time the ball hits the bottom, two paddle hits are subtracted, \n each time it hits the paddle, one is subtracted. \n When it reaches zero, the game is over.\n"));
+
 }
 
 
@@ -193,4 +193,5 @@ void Player::update() {
 void Resource::update() {
 	sf::Vector2f v{0.f, 5.f};
 	shape.move(v);
+	sprite.move(v);
 }
