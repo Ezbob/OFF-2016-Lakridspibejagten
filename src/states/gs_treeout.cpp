@@ -8,6 +8,8 @@
 #include "gs_description.hpp"
 #include "assets.hpp"
 
+#define localDebug 0
+
 template<class T1, class T2>
 bool isIntersecting(T1 &mA, T2 &mB)
 {
@@ -80,9 +82,11 @@ void GameStateTreeout::draw(const float dt) {
 
     // clear
     this->game->window.clear(sf::Color::White);
-	
+	this->game->window.draw(this->background);
     // draw entities
-	this->game->window.draw(this->player->shape);
+	this->game->window.draw(this->player->ani);
+	if (localDebug)
+		this->game->window.draw(this->player->shape);
 	this->game->window.draw(this->ball->shape);
 	for (Resource r : resources)
 		this->game->window.draw(r.sprite);
@@ -93,7 +97,6 @@ void GameStateTreeout::draw(const float dt) {
 }
 
 void GameStateTreeout::end() {
-	game->score_pibe += localHighscore;
 	game->popState();
 }
 
@@ -102,7 +105,7 @@ void GameStateTreeout::update(const float dt) {
 		end();
 	if (testCollision(*player, *ball))
 		this->paddleHitsRemaining -= 1;
-	player->update();
+	player->update(dt);
 	if (ball->update()) // Hit the bottom
 		this->paddleHitsRemaining -= 2;
 	for (int i = resources.size() - 1; i >= 0; i--) {
@@ -110,7 +113,7 @@ void GameStateTreeout::update(const float dt) {
 			resources[i].update();
 			if (testCollision(*player, resources[i])) {
 				resources.erase(resources.begin() + i);
-				localHighscore += pointsPerResource;
+				game->currentScore += pointsPerResource;
 			}
 		}
 		else 
@@ -120,9 +123,9 @@ void GameStateTreeout::update(const float dt) {
 
 void Player::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 {
-	if (key == sf::Keyboard::A)
+	if (key == sf::Keyboard::Left)
 		pIsMovingLeft = isPressed;
-	else if (key == sf::Keyboard::D)
+	else if (key == sf::Keyboard::Right)
 		pIsMovingRight = isPressed;
 }
 
@@ -171,7 +174,10 @@ bool Ball::update() {
 	return false;
 }
 
-void Player::update() {
+void Player::update(const float dt) {
+	ani.move(velocity);
+	float upd = std::max(0.05, .5/log(velocity.x));
+	ani.update(dt, upd);
 	shape.move(velocity);
 	if (pIsMovingLeft
 		&& left() > 0 + paddleWidth/2)
