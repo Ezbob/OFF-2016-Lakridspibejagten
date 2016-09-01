@@ -32,6 +32,9 @@ GameState * new_game_state(Game * g) {
 
 int main() {
 	/* Indlæs skriftyper */
+	string first = "";
+	string end = "";
+	
 	assets::font_main.loadFromFile("assets/main_font.ttf");
 	assets::font_description.loadFromFile("assets/desc_font.ttf");
 	/* Indlæs textures */
@@ -66,13 +69,17 @@ int main() {
 	// indlæs positioner 
 	fstream nodes("nodes.txt");
 	map<string, Vector2f> positions;
-	string name;
-	float x; float y;
 	while (nodes) {
+		string name;
+		float x; float y;
 		nodes >> name >> x >> y;
+		if (name != "") end = name;
+		if (first == "") first = name;
 		positions[name] = Vector2f(x,y);
+		std::cerr << first << " " << end << "\n";
 	}
 
+	std::cerr << first << " " << end << "\n";
 	map<string, GameState*> node_games;
 	for (auto i : positions) node_games[i.first] = new_game_state(&game);
 
@@ -88,7 +95,7 @@ int main() {
 	assets::runner_animation = new animation({0,1,2,3,4,5}, assets::runner);
 
 #if 1
-	GameStateMap map(&game, graph, positions, node_games, "Odense", "Nyborg");
+	GameStateMap map(&game, graph, positions, node_games, first, end);
 
 	game.pushState(new GameStateDescription(&game, "You're done"));
 	game.pushState(&map);

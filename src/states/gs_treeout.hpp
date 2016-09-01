@@ -67,10 +67,11 @@ public:
 	sf::Sprite sprite;
 	sf::CircleShape shape;
 
-	Resource(float x, float y, sf::Texture& texture) {
+	Resource(float x, float y) {
 		shape.setPosition(x,y);
-		this->sprite.setTexture(texture);
-		this->hit = false;
+		sprite.setTexture(assets::pibe);
+		hit = false;
+		sprite.setPosition(x, y);
 		shape.setRadius(10.f);
 		shape.setFillColor(sf::Color::Cyan);
 		shape.setOrigin(10.f, 10.f);
@@ -93,13 +94,13 @@ public:
 	Player *player = new Player(385, 580, assets::player_texture);
 	std::vector<Resource> resources;
 	int localHighscore = 0;
-	int pointsPerResource = 50;
+	int pointsPerResource = 1;
 	int paddleHitsRemaining = 10;
 
 	GameStateTreeout(Game *g) {
 		game = g;
 		for (int i = 0; i < 50; i++) {
-            resources.push_back(Resource(rand() % 600 + 100, rand() % 400 + 100, assets::ball));
+            resources.push_back(Resource(rand() % 600 + 100, rand() % 400 + 100));
         }
 	}
 

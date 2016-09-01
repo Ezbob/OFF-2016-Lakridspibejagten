@@ -57,7 +57,7 @@ void Game::drawHighscore(sf::RenderWindow &window) {
 }
 
 Game::Game() {
-	this->window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Jagten paa lakridspiberne");
+	this->window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Lakridspibejagten");
 	this->window.setFramerateLimit(60);
 
 	icon_gave.setTexture(assets::gave);
@@ -72,7 +72,7 @@ Game::Game() {
 	text_pibe.setFont(assets::font_main);
 	text_pibe.setCharacterSize(30);
 	text_pibe.setStyle(sf::Text::Bold);
-	text_pibe.setFillColor(sf::Color::Black);
+	text_pibe.setColor(sf::Color::Black);
 	text_pibe.setPosition(50, 10);
 }
 

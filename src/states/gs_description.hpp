@@ -5,27 +5,19 @@
 #include "game_state.hpp"
 #include "assets.hpp"
 
-class GameStateDescription : public GameState, public sf::Texture {
-
-
-	public:
-	sf::Font font;	
+class GameStateDescription : public GameState {
+protected:
 	sf::Text text;
 
-	GameStateDescription(Game *g, std::string text) {
+public:
+	GameStateDescription(Game *g, std::string t) {
 		game = g;
-
-		this->text.setString(text);
-	   	this->text.setCharacterSize(30);
-    	this->text.setStyle(sf::Text::Bold);
-    	this->text.setColor(sf::Color::Black);
-    	this->text.setPosition(50, 200);
-    	this->text.setFont(assets::font_main);
-
+		text.setString(t);
+		text.setFont(assets::font_main);
 	}
 
-	virtual void draw(const float dt);
-	virtual void update(const float dt);
-	virtual void handleInput();
+	void draw(const float dt);
+	void update(const float dt);
+	void handleInput();
 	void loadgame();
 };

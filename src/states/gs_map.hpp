@@ -17,7 +17,6 @@ typedef map<string, map<string, float>> node_graph;
  
 class GameStateMap : public GameState {
 	private:
-	Vector2f position;
 	Text * t = new Text();
 
 	static constexpr double delay = 0.5;
