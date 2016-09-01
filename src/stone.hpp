@@ -13,7 +13,7 @@ class Stone : public Object {
 	sf::Sprite sprite;
 
 	float speed{.002};
-	std::vector<float> ground_levels{600, 400, 0};
+	std::vector<float> ground_levels{580, 400, 0};
 
 	sf::Vector2f startpos;
 
