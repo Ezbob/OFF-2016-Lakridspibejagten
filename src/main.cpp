@@ -18,6 +18,7 @@
 #include "states/gs_treeout.hpp"
 #include "states/gs_description.hpp"
 #include "assets.hpp"
+#include "tetris.hpp"
 
 using namespace std;
 
@@ -33,7 +34,7 @@ GameState * new_game_state(Game * g, int r) {
 	switch (r) {
 		case 2: return new GameStateTreeout(g);
 		case 4:	return new MiniGameRunner(g);
-		case 1: return new GameStateMockMiniGame(g);//GameStateDescription(g, "Lorem ipsum");
+		case 1: return new GameStateTetris(g); //GameStateMockMiniGame(g);//GameStateDescription(g, "Lorem ipsum");
 		case 3: return new end_state(g);
 		default:return NULL;
 	}
