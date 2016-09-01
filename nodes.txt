@@ -1,3 +1,5 @@
-Odense 400 400
-Svendborg 100 100
-Nyborg  200 100
+Start 100 100
+Kryds 200 200
+Slikbutik 300 200
+Konditor  200 300
+Fest    300 300

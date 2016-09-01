@@ -1,3 +1,5 @@
-Odense Svendborg 10
-Odense Nyborg 20
-
+Start Kryds   10
+Kryds Konditor 10
+Kryds Slikbutik 10
+Slikbutik Fest 10
+Konditor Fest 10
