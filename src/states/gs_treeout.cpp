@@ -170,9 +170,10 @@ void GameStateTreeout::loadgame() {
 bool Ball::update() {
   	shape.move(velocity);
 	if (left() < 0)
-		velocity.x = ballVelocity;
+		//velocity.x = ballVelocity;
+		velocity.x = fabs(velocity.x);
 	else if (right() > windowWidth)
-		velocity.x = -ballVelocity;
+		velocity.x = -fabs(velocity.x);
  	if (top() < 0)
  		velocity.y = ballVelocity;
  	else if(bottom() > windowHeight){
