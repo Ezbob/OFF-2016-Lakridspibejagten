@@ -15,8 +15,8 @@ class Runner : public Object {
 	float ground{600};	// ground level (can be updated)
 	std::vector<float> ground_levels{600, 400, 0};
 	int current_ground;
-	float width{48},
-		  height{54};
+	//float width{48},
+	//	  height{54};
 	float speed{.2};
 	float jump_force{0.25};
 	float force{0};
@@ -30,13 +30,15 @@ class Runner : public Object {
 	sf::Texture tex;
 	animation ani;
 
-	Runner(float x=400, float y=100) : ani({0,1,2,3,4,5},tex) {
+	Runner(float x=400, float y=100) : Object({48,56}), ani({0,1,2,3,4,5},tex) {
 		if (!tex.loadFromFile("assets/ani/run.png"))
 			std::cerr << "Error loading running texture" << std::endl;
 		ani.setTexture(tex);
 		ani.setupFrames(tex);
-		ani.setPosition({x, y});
-		ani.setOrigin(width/2, height/2);
+		//ani.setPosition({x, y});
+		ani.setOrigin(width()/2, height()/2);
+		setX(x);
+		setY(y);
 	}
 
 	void scale(float sx, float sy);
@@ -44,15 +46,24 @@ class Runner : public Object {
 	void handleInputPressed(sf::Keyboard::Key key);
 	void handleInputReleased(sf::Keyboard::Key key);
 	void debug();
+	void draw(sf::RenderWindow &window);
 
+	/*
 	float x()		 { return ani.getPosition().x; }
 	float y()		 { return ani.getPosition().y; }
 	float left()	 { return x() - width / 4; }
 	float right()	 { return x() + width / 4; }
 	float top()		 { return y() - height / 2; }
 	float bottom()	 { return y() + height / 2; }
-	void setX(float x) { ani.setPosition({x, y()}); }
-	void setY(float y) { ani.setPosition({x(), y}); }
+	*/
+	void setX(float nx) {
+		Object::setPosition({nx, y()});
+		ani.setPosition({nx, y()});
+	}
+	void setY(float ny) {
+		Object::setPosition({x(), ny});
+		ani.setPosition({x(), ny});
+	}
 };
 
 #endif

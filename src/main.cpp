@@ -45,7 +45,7 @@ int main() {
 		positions[name] = Vector2f(x,y);
 	}
 
-#if 1
+#if 0
 	GameStateMap map(&game, graph, positions, 
 		{
 			new GameStateTreeout(&game),

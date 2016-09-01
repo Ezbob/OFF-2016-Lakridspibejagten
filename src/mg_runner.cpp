@@ -7,10 +7,10 @@ void MiniGameRunner::draw(const float dt) {
 	game->window.clear(sf::Color::White);
 
 	game->window.draw(back);
-	game->window.draw(runner.ani);
+
+	runner.draw(game->window);
 	for (auto& stone : stones) {
-		game->window.draw(stone.rectShape);
-		game->window.draw(stone.sprite);
+		stone.draw(game->window);
 	}
 
 	// Draw highscore
@@ -18,6 +18,8 @@ void MiniGameRunner::draw(const float dt) {
 }
 
 template<class T1, class T2> bool isIntersecting(T1& mA, T2& mB) {
+	std::cerr << "pos(mA): (" << mA.x() << ", " << mA.y() << ")" << std::endl;
+	std::cerr << "pos(mB): (" << mB.x() << ", " << mB.y() << ")" << std::endl;
 	return mA.right() >= mB.left() && mA.left() <= mB.right()
 		&& mA.bottom() >= mB.top() && mA.top() <= mB.bottom();
 }
@@ -114,5 +116,4 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 
 
 void MiniGameRunner::reset() {
-
 }
