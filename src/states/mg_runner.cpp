@@ -90,14 +90,11 @@ MiniGameRunner::MiniGameRunner(Game *game) {
 		stones.emplace_back(800 + 400*i, 600);
 
 	runner.scale(2.f, 2.f);
-	runner.speed = .05;
 	for (auto& stone : stones) {
-		stone.speed = 0.05;
 		stone.reset();
 	}
 
-	pibe.setX(500);
-	pibe.setY(320);
+	//pibe.reset();
 }
 
 

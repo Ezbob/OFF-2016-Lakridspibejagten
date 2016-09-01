@@ -12,6 +12,7 @@ void Pibe::update(const float dt) {
 
 void Pibe::reset() {
 	setX(800 + rand()%1600);
+	setY( 500 - 100*(rand()%4) );
 }
 
 void Pibe::draw(sf::RenderWindow &window) {
