@@ -91,7 +91,8 @@ void GameStateMap::update(const float dt) {
 
 	if (route_position >= delay) {
 		current_node = target_node;
-		game->pushState(mini_games[current_node]);
+		if (mini_games[current_node]) game->pushState(mini_games[current_node]);
+		mini_games[current_node] = nullptr;
 		route_position = 0.0;
 	} else if (current_node != target_node)
 		route_position += dt;
