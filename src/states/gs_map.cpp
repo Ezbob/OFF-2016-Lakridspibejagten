@@ -7,10 +7,10 @@
 
 using namespace sf;
 
-sf::Color base_color     = Color(0xa0, 0x00, 0x00);
-sf::Color current_color  = Color(0x00, 0xff, 0x00);
-sf::Color inactive_color = Color(0x00, 0x00, 0xff);
-sf::Color target_color   = Color::Green;
+sf::Color base_color     = Color(255, 0xa0, 0x00);
+sf::Color current_color  = Color(255, 0x00, 0xa0);
+sf::Color inactive_color = Color(0xA0, 0xA0, 0xA0);
+sf::Color target_color   = Color(0x00, 0xff, 0x00);
 
 GameStateMap::GameStateMap (
 	Game * g,
@@ -76,6 +76,7 @@ void GameStateMap::draw(const float dt) {
 
 	for (auto i : positions) {
 		Color node_color = base_color;
+		for (auto p : graph[i.first]) if (p.second < 0) node_color = inactive_color;
 		t->setString(i.first);
 		t->setPosition(i.second);
 		if (i.first == current_node) node_color = current_color;
