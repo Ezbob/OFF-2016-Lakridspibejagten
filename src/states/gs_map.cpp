@@ -55,9 +55,10 @@ void GameStateMap::draw(const float dt) {
 */
 			auto start = from;
 			auto end = to;
-
 			if (i.first == current_node || j.first == current_node)
 				edge_color = Color::Red;
+
+			if (j.second < 0) edge_color = Color::White;
 
 			sfLine l(start + position, end + position);
 			l.setColor(edge_color);
@@ -96,6 +97,7 @@ void GameStateMap::draw(const float dt) {
 	for (auto i : graph[current_node]) {
 		++n;
 		t->setColor(Color::Blue);
+		if (mini_games[i.first] == nullptr) t->setColor(Color(0x1f,0x1f, 0x1f));
 		t->setString(std::to_string(n) + ": " + i.first);
 		game->window.draw(*t);
 		auto p = t->findCharacterPos(t->getString().getSize());
@@ -107,6 +109,8 @@ void GameStateMap::draw(const float dt) {
 void GameStateMap::update(const float dt) {
 
 	if (route_position >= delay) {
+		graph[current_node][target_node] = -1;
+		graph[target_node][current_node] = -1;
 		current_node = target_node;
 		if (mini_games[current_node]) game->pushState(mini_games[current_node]);
 		mini_games[current_node] = nullptr;
