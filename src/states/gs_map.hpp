@@ -8,7 +8,6 @@
 #include <string>
 #include "animation.hpp"
 #include "game_state.hpp"
-#include "assets.hpp"
 
 using namespace std;
 using namespace sf;
@@ -34,10 +33,10 @@ class GameStateMap : public GameState {
 	string current_node;
 	string target_node;
 	double route_position;
-	vector<GameState*> mini_games;
+	map<string, GameState*> mini_games;
 	public:
 	
-	GameStateMap(Game * g, node_graph gr, map<string,Vector2f> ps, vector<GameState*> mg);
+	GameStateMap(Game * g, node_graph gr, map<string,Vector2f> ps, map<string, GameState*> mg);
 	virtual void draw(const float dt);
 	virtual void update(const float dt);
 	virtual void handleInput();

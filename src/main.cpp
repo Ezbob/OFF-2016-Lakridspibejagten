@@ -19,6 +19,17 @@
 
 using namespace std;
 
+GameState * new_game_state(Game * g) {
+	static auto mini_game_count = 2;
+	auto r = rand() % mini_game_count;
+	switch(r) {
+		case 0: return new MiniGameRunner(g); break;
+		case 1: return new GameStateTreeout(g); break;
+	}
+
+	return 0;
+}
+
 int main() {
 	Game game;
 
@@ -46,6 +57,9 @@ int main() {
 		positions[name] = Vector2f(x,y);
 	}
 
+	map<string, GameState*> node_games;
+	for (auto i : positions) node_games[i.first] = new_game_state(&game);
+
 /* Indlæs skriftyper */
 	assets::font_main.loadFromFile("assets/main_font.ttf");
 	assets::font_description.loadFromFile("assets/desc_font.ttf");
@@ -61,13 +75,9 @@ int main() {
 	assets::runner.loadFromFile("assets/ani/run.png");
 
 #if 1
-	GameStateMap map(&game, graph, positions, 
-		{
-			new GameStateTreeout(&game),
-			new MiniGameRunner(&game)
-		}
-	);
+	GameStateMap map(&game, graph, positions, node_games);
 
+	
 	game.pushState(new GameStateDescription(&game, "You're done"));
 	game.pushState(&map);
 #else
