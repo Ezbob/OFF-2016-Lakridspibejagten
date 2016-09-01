@@ -7,7 +7,10 @@ namespace assets {
 
 	sf::Texture ball;
 	sf::Texture runner;
-	sf::Texture background;
+	sf::Texture back_sky;
+	sf::Texture back_mountains;
+	sf::Texture back_trees;
+	sf::Texture back_grass;
 	sf::Texture world;
 	sf::Texture player_texture;
 	sf::Texture rock;
@@ -18,7 +21,10 @@ namespace assets {
 
 	sf::Sprite ball_sprite;
 	sf::Sprite runner_sprite;
-	sf::Sprite background_sprite;
+	sf::Sprite back_sky_sprite;
+	sf::Sprite back_mountains_sprite;
+	sf::Sprite back_trees_sprite;
+	sf::Sprite back_grass_sprite;
 	sf::Sprite world_sprite;
 	sf::Sprite player_sprite;
 	sf::Sprite rock_sprite;

@@ -12,7 +12,10 @@ namespace assets {
 	extern sf::Font font_description;
 
 	extern sf::Texture world;
-	extern sf::Texture background;
+	extern sf::Texture back_sky;
+	extern sf::Texture back_mountains;
+	extern sf::Texture back_trees;
+	extern sf::Texture back_grass;
 	extern sf::Texture ball;
 	extern sf::Texture runner;
 	extern sf::Texture player_texture;
@@ -25,7 +28,10 @@ namespace assets {
 	extern sf::Sprite catcher_sprite;
 	extern sf::Sprite ball_sprite;
 	extern sf::Sprite runner_sprite;
-	extern sf::Sprite background_sprite;
+	extern sf::Sprite back_sky_sprite;
+	extern sf::Sprite back_mountains_sprite;
+	extern sf::Sprite back_trees_sprite;
+	extern sf::Sprite back_grass_sprite;
 	extern sf::Sprite world_sprite;
 	extern sf::Sprite player_sprite;
 	extern sf::Sprite rock_sprite;

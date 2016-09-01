@@ -14,7 +14,7 @@ class Runner : public Object {
 	sf::Clock clock, jClock;
 
 	float ground{600};	// ground level (can be updated)
-	std::vector<float> ground_levels{600, 400, 0};
+	std::vector<float> ground_levels{580, 400, 0};
 	int current_ground;
 	float speed{.2};
 	float jump_force{0.25};
@@ -29,12 +29,13 @@ class Runner : public Object {
 	sf::Texture tex;
 	animation ani;
 
-	Runner(float x=400, float y=100) : Object({48-30,56-5}), ani({0,1,2,3,4,5},assets::runner) {
+	Runner(float x=200, float y=100) : Object({48-30,56-5}), ani({0,1,2,3,4,5},assets::runner) {
 		ani.setTexture(assets::runner);
 		ani.setupFrames(assets::runner);
 		setX(x);
 		setY(y);
 		ani.setOrigin(width()/2, height()/2);
+		setOrigin(-width()/4, height()/2);
 	}
 
 	void scale(float sx, float sy);
