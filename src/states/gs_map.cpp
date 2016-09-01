@@ -8,7 +8,7 @@
 using namespace sf;
 
 sf::Color base_color     = Color(255, 0xa0, 0x00);
-sf::Color current_color  = Color(255, 0x00, 0xa0);
+sf::Color current_color  = Color(0x00, 0x00, 0xff);
 sf::Color inactive_color = Color(0xA0, 0xA0, 0xA0);
 sf::Color target_color   = Color(0x00, 0xff, 0x00);
 
@@ -31,8 +31,7 @@ GameStateMap::GameStateMap (
 
 void GameStateMap::draw(const float dt) {
 	// fjern advarsel om at dt ikke bliver brugt
-	while (false) { auto i = dt; i = i;}
-
+	while (false) { auto i = dt; i = 1 + i;}
 
 	// gør vinduet klar
 	game->window.clear(Color::Black);
@@ -54,6 +53,7 @@ void GameStateMap::draw(const float dt) {
 		for (auto j : i.second) {
 			auto to = positions[j.first];
 			Color edge_color = base_color;
+
 /**
 	TODO: Gør start/end lidt mindre, så linjerne ikke rammer teksten
 */
