@@ -22,14 +22,21 @@
 using namespace std;
 
 GameState * new_game_state(Game * g, int r) {
+	/*
 	static auto mini_game_count = 2;
 	r = rand();	
 	switch(r % mini_game_count) {
 		case 0: return new MiniGameRunner(g); break;
 		case 1: return new GameStateTreeout(g); break;
 	}
-
-	return 0;
+	*/
+	switch (r) {
+		case 2: return new GameStateTreeout(g);
+		case 4:	return new MiniGameRunner(g);
+		case 1: return new GameStateMockMiniGame(g);//GameStateDescription(g, "Lorem ipsum");
+		case 3: return new end_state(g);
+		default:return NULL;
+	}
 }
 
 int main() {
@@ -62,6 +69,9 @@ int main() {
 	assets::pibe.loadFromFile("assets/imgs/pibe.png");
 	assets::gave.loadFromFile("assets/imgs/gave.png");
 	assets::background_texture_treeout.loadFromFile("assets/imgs/gallery.png");
+	assets::story_start.loadFromFile("assets/imgs/story_start.png");
+	assets::story_win.loadFromFile("assets/imgs/story_win.png");
+	assets::story_lose.loadFromFile("assets/imgs/story_lose.png");
 
 
 	assets::ball_sprite.setTexture(assets::ball);
@@ -82,7 +92,7 @@ int main() {
 	// Create music
 	sf::Music music;
 	// Open it from an audio file
-	if (music.openFromFile("assets/musik.ogg")) {
+	if (music.openFromFile("assets/musik.wav")) {
 		music.setLoop(true);
 		music.play();
 	}
@@ -113,21 +123,28 @@ int main() {
 		std::cerr << first << " " << end << "\n";
 	}
 
-	std::cerr << first << " " << end << "\n";
-	map<string, GameState*> node_games;
-	for (auto i : positions) node_games[i.first] = new_game_state(&game, positions[i.first].x + positions[i.first].y);
+	int count = 0;
 
-#if 1
+	//std::cerr << first << " " << end << "\n";
+	map<string, GameState*> node_games;
+	//for (auto i : positions) node_games[i.first] = new_game_state(&game, positions[i.first].x + positions[i.first].y);
+	for (auto i : positions) {
+		node_games[i.first] = new_game_state(&game, count++);//positions[i.first].x + positions[i.first].y);
+	}
+
+#if 0
 	GameStateMap map(&game, graph, positions, node_games, first, end);
 
-	game.pushState(new end_state(&game));
+	//game.pushState(new end_state(&game));
 	game.pushState(&map);
+	game.pushState(new GameStateDescription(&game, "lorem ipsum"));
 #else
 	//game.pushState(new GameStateDescription(&game, "Yala3\n"));
 	//game.pushState(new MiniGameRunner(&game));
 	//game.pushState(new GameStateDescription(&game, "Yala2\n"));
 	//game.pushState(new GameStateDescription(&game, "Yala\n"));
-	game.pushState(new GameStateTreeout(&game));
+	//game.pushState(new GameStateTreeout(&game));
+	game.pushState(new end_state(&game));
 #endif
 	game.gameloop();
 

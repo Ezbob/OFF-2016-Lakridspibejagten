@@ -6,10 +6,20 @@
 
 class end_state : public GameState, public sf::Texture {
 public:
+
+	sf::Sprite back;
+	int state{0}; // 0: undetermined, 1: won, 2: lose
+	bool show_texture{false};
+
 	end_state(Game * g);
 	void draw(float const dt);
 	void update(float const dt);
 	void handleInput();
+
+	void draw_summary(float const dt);
+	void draw_texture(float const dt);
+
+	bool has_won();
 };
 
 #endif
