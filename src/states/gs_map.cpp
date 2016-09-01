@@ -1,7 +1,6 @@
 #include <SFML/Graphics.hpp>
 
 #include <iostream>
-#include "game_state.hpp"
 #include "gs_map.hpp"
 #include "line.hpp"
 #include "assets.hpp"
@@ -12,7 +11,7 @@ GameStateMap::GameStateMap (
 	Game * g,
 	node_graph gr,
 	map<string,Vector2f> ps,
-	vector<GameState*> mg) :
+	map<string, GameState*> mg) :
 	character({0,1,2,3,4,5}, assets::runner),
 	graph(gr),
 	positions(ps)
@@ -92,8 +91,7 @@ void GameStateMap::update(const float dt) {
 
 	if (route_position >= delay) {
 		current_node = target_node;
-		auto r = rand() % (mini_games.size());
-		game->pushState(*(mini_games.begin() + r));
+		game->pushState(mini_games[current_node]);
 		route_position = 0.0;
 	} else if (current_node != target_node)
 		route_position += dt;
