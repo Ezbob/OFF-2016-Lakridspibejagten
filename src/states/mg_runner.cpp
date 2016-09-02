@@ -75,22 +75,6 @@ void MiniGameRunner::update(const float dt) {
 	back_trees.setTextureRect(sf::IntRect(back_pos_trees, 0, 400, 300));
 	back_pos_grass += runner.velocity.x * dt;
 	back_grass.setTextureRect(sf::IntRect(back_pos_grass, 0, 400, 300));
-
-	// Finished?
-	if (runner.wx > goalline && !gave.active && !game->score_gave) {
-		clock1.restart();
-		std::cerr << "gave?" << std::endl;
-		gave.reset();
-		gave.setY(250);
-	}
-	// Quit
-	if (runner.wx > goalline && game->score_gave) {
-		//std::cerr << "[elapsed:" << clock1.getElapsedTime().asMilliseconds() << "]" << std::endl;
-		if (clock1.getElapsedTime().asSeconds() > 2) {
-			std::cerr << "[finito -> pop]" << std::endl;
-			game->popState();
-		}
-	}
 }
 
 void MiniGameRunner::handleInput() {
