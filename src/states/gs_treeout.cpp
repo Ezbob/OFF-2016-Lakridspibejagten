@@ -100,13 +100,17 @@ void GameStateTreeout::draw(const float dt) {
 void GameStateTreeout::end() {
 	sf::Clock clock;
 	clock.restart();
-	while (clock.getElapsedTime().asSeconds() < 1);
+	while (clock.getElapsedTime().asMilliseconds() < 500);
 	game->popState();
 }
 
 void GameStateTreeout::update(const float dt) {
 	if (resources.size() <= 0 && game->score_gave == false) {
 		gift->active = true;
+	}
+	if (resources.size() <= 0 && this->gift->y() > 800)
+	{
+		end();
 	}
 	if (gift->active)
 		gift->update();
@@ -148,7 +152,7 @@ void Ball::reset(float x, float y) {
 	activateBall = false;
 	sf::Clock clock;
 	clock.restart();
-	while (clock.getElapsedTime().asMilliseconds() < 500);
+	while (clock.getElapsedTime().asMilliseconds() < 200);
 }
 
 void Player::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
