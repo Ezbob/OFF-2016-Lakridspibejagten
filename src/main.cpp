@@ -87,7 +87,7 @@ int main() {
 	assets::gave_sprite.setTexture(assets::gave);
 	assets::basket_sprite.setTexture(assets::basket);
 	assets::background_sprite_treeout.setTexture(assets::background_texture_treeout);
-	assets::runner_animation = new animation({0,1,2,3,4,5}, assets::runner);
+	assets::runner_animation = new animation({0,1,2,3,4,5}, assets::runner, 48);
 	assets::catcher_animation = new animation({0,1,2,3,4,5}, assets::catcher);
 
 	// Create game

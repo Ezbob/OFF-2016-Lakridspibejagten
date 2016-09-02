@@ -12,10 +12,10 @@ class animation : public sf::Sprite {
 	int width;
 
 public:
-	animation(std::vector<int> frame_indices, sf::Texture& t);
-	void setupFrames(sf::Texture& t);
+	animation(std::vector<int> frame_indices, sf::Texture& t, int w=0);
+	void setupFrames(sf::Texture& t, int w=0);
 	void update(double dt, double ds = 0.2);
-	void animation::setFrameOffset(int index);
+	void setFrameOffset(int index);
 };
 
 #endif

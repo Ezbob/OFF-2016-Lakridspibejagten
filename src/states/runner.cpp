@@ -42,10 +42,10 @@ void Runner::update(const float dt) {
 			setY(ground - height()/2);
 		}
 
-		if (velocity.y < 0) {
-			ani.setFrameOffset(6 + rand()%2);
+		if (velocity.y < 0)
+			ani.setFrameOffset(6 + choice);
 		else
-			ani.setFrameOffset(8 + rand()%2);
+			ani.setFrameOffset(8 + choice);
 	} else {
 		if (elapsed > 200 && charge_jump) { // trigger jump
 			do_jump = true;
@@ -60,6 +60,8 @@ void Runner::update(const float dt) {
 		is_jumping = true;
 		do_jump = false;
 		charge_jump = false;
+
+		choice = rand()%2;
 	}
 
 	if (!stopped) {
