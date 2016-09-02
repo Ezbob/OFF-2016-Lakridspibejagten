@@ -70,6 +70,7 @@ bool end_state::has_won() {
 void end_state::draw_texture(float const dt) {
 	game->window.draw(back);
 	if (state == 2) {
+		game->window.draw(textTop);
 		time += dt;
 		if (time > 0.2) {
 			time = 0.0;
@@ -107,6 +108,12 @@ void end_state::handleInput() {
 					game->icon_pibe.setPosition({-100,-100});
 					game->icon_gave.setPosition({-100,-100});
 					game->text_pibe.setPosition({-100,-100});
+
+					Color grey(200,200,200);
+					textTop.setString(L"Tænk på alle de børn du skuffet.");
+					textTop.setCharacterSize(20);
+					textTop.setColor(grey);
+					textTop.setPosition({100,200});
 				}
 			default:
 				break;
