@@ -34,8 +34,8 @@ void end_state::draw_summary(float const dt) {
 }
 
 void end_state::draw(float const dt) {
-
-	game->window.clear(sf::Color::White);
+	sf::Color bluish(96, 185, 214);
+	game->window.clear(bluish);
 
 	if (show_texture) draw_texture(dt);
 	else              draw_summary(dt);
@@ -111,9 +111,9 @@ void end_state::handleInput() {
 					game->window.close();
 				} else {
 					show_texture = true;
-					game->icon_pibe.setPosition({-100,-100});
-					game->icon_gave.setPosition({-100,-100});
-					game->text_pibe.setPosition({-100,-100});
+					game->icon_pibe.setPosition({-200,-200});
+					game->icon_gave.setPosition({-200,-200});
+					game->text_pibe.setPosition({-200,-200});
 
 					Color grey(200,200,200);
 					textTop.setString(L"Tænk på alle de børn du har skuffet.");

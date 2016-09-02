@@ -1,3 +1,0 @@
-assets/background.png
-brikgrf2.png
-

@@ -125,6 +125,13 @@ void GameStateTetris::draw(const float dt) {
 
 
 	game->window.clear(Color::White);
+
+	sf::RectangleShape rectangle;
+	rectangle.setFillColor(Color(0x80, 0x80, 0x80));
+	rectangle.setPosition(x_offset, y_offset);
+	rectangle.setSize(Vector2f(tile_dim.x * world_width, tile_dim.y * world_height));
+	game->window.draw(rectangle);
+
 	draw_matrix(world, x_offset, y_offset);
 	draw_matrix(current_block, x * tile_dim.x + x_offset, y * tile_dim.y + y_offset, bounce);
 	draw_matrix(next_block, (world_width + 2) * tile_dim.x + x_offset, (world_height / 2 - 2) * tile_dim.y + y_offset);
