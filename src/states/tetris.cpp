@@ -98,15 +98,20 @@ void GameStateTetris::reset() {
 	get_new_block = false;
 }
 
-void GameStateTetris::draw_matrix(GameStateTetris::matrix block, int x, int y) {
+void GameStateTetris::draw_matrix(GameStateTetris::matrix block, int x, int y, double bounce) {
 
 	sf::RectangleShape rectangle;
 
 	for (size_t i = 0; i < block.size(); ++i)
 	for (size_t j = 0; j < block[i].size(); ++j) {
 		if (block[i][j]) {
-			rectangle.setPosition(x + i * tile_dim.x, y + j * tile_dim.y);
-			rectangle.setSize(tile_dim);
+			auto size = tile_dim;
+			size.x *= bounce;
+			size.y *= bounce;
+			auto position = Vector2f(x + i * tile_dim.x - (size.x - tile_dim.x) / 2, y + j * tile_dim.y - (size.y - tile_dim.y) / 2);
+			
+			rectangle.setPosition(position);
+			rectangle.setSize(size);
 			rectangle.setFillColor(Color(block[i][j]));
 			game->window.draw(rectangle);
 
@@ -117,7 +122,7 @@ void GameStateTetris::draw_matrix(GameStateTetris::matrix block, int x, int y) {
 void GameStateTetris::draw(const float dt) {
 	game->window.clear(Color::White);
 	draw_matrix(world, x_offset, y_offset);
-	draw_matrix(current_block, x * tile_dim.x + x_offset, y * tile_dim.y + y_offset);
+	draw_matrix(current_block, x * tile_dim.x + x_offset, y * tile_dim.y + y_offset, bounce);
 	draw_matrix(next_block, (world_width + 2) * tile_dim.x + x_offset, (world_height / 2 - 2) * tile_dim.y + y_offset);
 	game->window.draw(this->foreground);
 }
@@ -215,6 +220,9 @@ void GameStateTetris::update(const float dt) {
 	rotation = 0;
 	get_new_block = false;
 	settled = false;
+	
+	bounce *= 1.015;
+	if (bounce > 1.25) bounce = 1.0;
 }
 
 void GameStateTetris::handleInput() {
