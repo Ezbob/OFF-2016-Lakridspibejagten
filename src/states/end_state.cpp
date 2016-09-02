@@ -113,7 +113,7 @@ void end_state::handleInput() {
 					textTop.setString(L"Tænk på alle de børn du har skuffet.");
 					textTop.setCharacterSize(20);
 					textTop.setColor(grey);
-					textTop.setPosition({80,200});
+					textTop.setPosition({50,200});
 				}
 			default:
 				break;

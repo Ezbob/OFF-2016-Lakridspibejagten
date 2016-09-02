@@ -76,6 +76,7 @@ void MiniGameRunner::update(const float dt) {
 
 	// Finished?
 	if (runner.wx > goalline && !gave.active && !game->score_gave) {
+		clock1.restart();
 		std::cerr << "gave?" << std::endl;
 		gave.reset();
 		gave.setY(250);

@@ -47,7 +47,7 @@ void testCollision(Resource &mResource, Ball &mBall)
     if (!isIntersecting(mResource, mBall)) return;
     mResource.hit = true;
 
-	float xdiff = mBall.x() - mResource.x();
+	float xdiff = std::min(mBall.x()-mResource.x(), pipeWidth/2.f);
     mBall.velocity.x = xdiff / (pipeWidth/2.f) * ballVelocity;
 }
 
