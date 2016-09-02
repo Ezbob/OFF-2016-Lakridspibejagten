@@ -139,7 +139,7 @@ int main() {
 #if 1
 	GameStateMap map(&game, graph, positions, node_games, first, end);
 	game.pushState(&map);
-	game.pushState(new GameStateDescription(&game, "Beskrivelse"));
+	game.pushState(new GameStateDescription(&game));
 #else
 	// DEBUG
 	//game.pushState(new GameStateDescription(&game, "Yala3\n"));

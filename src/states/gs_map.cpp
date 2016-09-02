@@ -32,16 +32,11 @@ GameStateMap::GameStateMap (
 }
 
 void GameStateMap::draw(const float dt) {
-	// fjern advarsel om at dt ikke bliver brugt
-	while (false) { auto i = dt; i = 1 + i;}
+	do_nothing(dt);
 
 	// gør vinduet klar
 	game->window.clear(Color::Black);
-	
-	auto size = game->window.getSize();
-	// tegn kortet
 	game->window.draw(assets::world_sprite);
-
 	t->setFont(assets::font_main);
 
 /******************************************************************************/

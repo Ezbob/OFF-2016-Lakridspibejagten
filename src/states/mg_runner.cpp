@@ -3,6 +3,8 @@
 #include "assets.hpp"
 
 void MiniGameRunner::draw(const float dt) {
+	do_nothing(dt);
+
 	game->window.clear(sf::Color::White);
 
 	// Draw backgrounds

@@ -5,6 +5,8 @@
 #include "assets.hpp"
 
 void GameStateMockMiniGame::draw(const float dt) {
+	do_nothing(dt);
+
 	sf::Text * text = new sf::Text();
     text->setString("You have started a minigame\nPress any key to continue.");
     text->setCharacterSize(30);
@@ -18,6 +20,7 @@ void GameStateMockMiniGame::draw(const float dt) {
 }
 
 void GameStateMockMiniGame::update(const float dt) {
+	do_nothing(dt);
 
 }
 

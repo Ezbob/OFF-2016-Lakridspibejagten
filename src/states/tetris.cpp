@@ -120,6 +120,9 @@ void GameStateTetris::draw_matrix(GameStateTetris::matrix block, int x, int y, d
 }
 
 void GameStateTetris::draw(const float dt) {
+	do_nothing(dt);
+
+
 	game->window.clear(Color::White);
 	draw_matrix(world, x_offset, y_offset);
 	draw_matrix(current_block, x * tile_dim.x + x_offset, y * tile_dim.y + y_offset, bounce);
@@ -136,6 +139,7 @@ bool collides(GameStateTetris::matrix block, GameStateTetris::matrix world, size
 }
 
 void GameStateTetris::update(const float dt) {
+	do_nothing(dt);
 
 	static double time = 0.0;
 	static double delay = 0.8;

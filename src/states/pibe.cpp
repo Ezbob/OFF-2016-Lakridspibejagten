@@ -1,6 +1,13 @@
 #include "pibe.hpp"
 
+static
+void do_nothing(double const dt) {
+	if (dt != 0) do_nothing(0);
+}
+
 void Pibe::update(const float dt) {
+	do_nothing(dt);
+
 	if (!active)
 		return;
 
