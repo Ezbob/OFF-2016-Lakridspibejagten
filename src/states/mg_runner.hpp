@@ -39,9 +39,6 @@ class MiniGameRunner : public GameState {
 	virtual void draw(const float dt);
 	virtual void update(const float dt);
 	virtual void handleInput();
-	virtual void testCollision(Stone& mStone, Runner& mRunner);
-	virtual void testCollision(Pibe& mPibe, Runner& mRunner);
-	virtual void testCollision(Gave& mGave, Runner& mRunner);
 	virtual void reset();
 };
 

@@ -73,8 +73,8 @@ void end_state::draw_texture(float const dt) {
 	do_nothing(dt);
 	
 	game->window.draw(back);
+	game->window.draw(textTop);
 	if (state == 2) {
-		game->window.draw(textTop);
 		time += dt;
 		if (time > 0.2) {
 			time = 0.0;
@@ -116,10 +116,15 @@ void end_state::handleInput() {
 					game->text_pibe.setPosition({-200,-200});
 
 					Color grey(200,200,200);
-					textTop.setString(L"Tænk på alle de børn du har skuffet.");
 					textTop.setCharacterSize(20);
 					textTop.setColor(grey);
-					textTop.setPosition({50,200});
+					if (state == 2) {
+						textTop.setString(L"Tænk på alle de børn du har skuffet.");
+						textTop.setPosition({50,200});
+					} else if (state == 1) {
+						textTop.setString(L"Dagen og børnefødselsdagen er reddet.\nSe engang hvor glade de er.");
+						textTop.setPosition({40, 560});
+					}
 				}
 			default:
 				break;
