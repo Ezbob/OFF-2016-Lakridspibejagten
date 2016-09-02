@@ -8,7 +8,7 @@
 
 constexpr float ballVelocity = 8.f;
 constexpr int windowWidth = 800, windowHeight = 600;
-constexpr float paddleWidth = 24.f, paddleHeight = 20.f, paddleVelocity = 15.f;
+constexpr float paddleWidth = 24.f, paddleHeight = 20.f, paddleVelocity = 12.f;
 constexpr float pipeWidth = 48.f, pipeHeight = 20.f;
 
 
