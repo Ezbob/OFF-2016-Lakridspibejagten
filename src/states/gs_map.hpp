@@ -19,7 +19,7 @@ class GameStateMap : public GameState {
 	private:
 	Text * t = new Text();
 
-	static constexpr double delay = 0.5;
+	static constexpr double delay = 1.5;
 	node_graph graph;
 	map<string,Vector2f> positions;
 	string current_node;

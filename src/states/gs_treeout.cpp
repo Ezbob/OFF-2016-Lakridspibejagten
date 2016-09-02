@@ -113,12 +113,11 @@ void GameStateTreeout::update(const float dt) {
 	testCollision(*player, *ball);
 	if (testCollision(*player, *gift)) {
 		this->game->score_gave = true;
-		auto r = game->icon_gave.getTextureRect();
-		r.left += 30;
-		game->icon_gave.setTextureRect(r);
 		end();
 	}
+
 	player->update(dt);
+
 	for (int i = resources.size() - 1; i >= 0; i--) {
 		if (resources[i].hit) {
 			resources[i].update();

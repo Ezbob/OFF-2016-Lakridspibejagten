@@ -32,6 +32,9 @@ void Game::gameloop() {
 	sf::Clock clock;
 
 	while (this->window.isOpen() && states.empty() == false) {
+		auto r = icon_gave.getTextureRect();
+		r.left = score_gave * 30;
+		icon_gave.setTextureRect(r);
 		sf::Time elapsed = clock.restart();
 		float dt = elapsed.asSeconds();
 
