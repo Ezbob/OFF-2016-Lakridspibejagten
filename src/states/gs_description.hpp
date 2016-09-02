@@ -14,10 +14,10 @@ public:
 	GameStateDescription(Game *g, std::string t) {
 		game = g;
 
-		textLeft.setString(L"Du skal til fest!\nBørnene mangler lakridspiber,\nog der er en der fortjener en gave!\n\nEn lange rejse venter dig. Afsted!\n\n[Tryk <Space> for at starte.]");
-		textLeft.setPosition({10, 400});
+		textLeft.setString(L"Du skal til børnefødselsdag, og børnene mangler lakridspiber.\nTilmed er der en, der fortjener en gave!\nEn lange rejse venter dig, så kom endelig afsted!\n\n[Tryk <Space> for at starte.]");
+		textLeft.setPosition({10, 520});
 		textLeft.setFont(assets::font_main);
-		textLeft.setCharacterSize(20);
+		textLeft.setCharacterSize(12);
 
 		back.setTexture(assets::story_start);
 		back.setScale({2.f, 2.f});

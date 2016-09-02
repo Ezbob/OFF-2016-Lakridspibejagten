@@ -86,7 +86,7 @@ void MiniGameRunner::update(const float dt) {
 		gave.setY(250);
 	}
 	// Quit
-	if (game->score_gave) {
+	if (runner.wx > goalline && game->score_gave) {
 		//std::cerr << "[elapsed:" << clock1.getElapsedTime().asMilliseconds() << "]" << std::endl;
 		if (clock1.getElapsedTime().asSeconds() > 2) {
 			std::cerr << "[finito -> pop]" << std::endl;

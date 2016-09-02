@@ -22,7 +22,7 @@ void Stone::update(const float dt) {
 
 void Stone::reset() {
 	// New scale
-	float sc = 1.f + (rand()%4)/2.f;
+	float sc = 2.f + (rand()%4)/2.f;
 	scale(sc, sc);
 
 	// New position
