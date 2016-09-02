@@ -65,7 +65,7 @@ int main() {
 	assets::back_grass.setRepeated(true);
 	assets::back_grass.setSmooth(true);
 	assets::ball.loadFromFile("assets/ball.png");
-	assets::runner.loadFromFile("assets/ani/run.png");
+	assets::runner.loadFromFile("assets/ani/run_jump.png");
 	assets::catcher.loadFromFile("assets/ani/catch.png");
 	assets::rock.loadFromFile("assets/imgs/rock1.png");
 	assets::pibe.loadFromFile("assets/imgs/pibe.png");
@@ -87,7 +87,7 @@ int main() {
 	assets::gave_sprite.setTexture(assets::gave);
 	assets::basket_sprite.setTexture(assets::basket);
 	assets::background_sprite_treeout.setTexture(assets::background_texture_treeout);
-	assets::runner_animation = new animation({0,1,2,3,4,5}, assets::runner);
+	assets::runner_animation = new animation({0,1,2,3,4,5}, assets::runner, 48);
 	assets::catcher_animation = new animation({0,1,2,3,4,5}, assets::catcher);
 
 	// Create game

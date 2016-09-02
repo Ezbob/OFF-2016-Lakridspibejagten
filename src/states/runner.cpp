@@ -41,6 +41,11 @@ void Runner::update(const float dt) {
 			is_jumping = false;
 			setY(ground - height()/2);
 		}
+
+		if (velocity.y < 0)
+			ani.setFrameOffset(6 + choice);
+		else
+			ani.setFrameOffset(8 + choice);
 	} else {
 		if (elapsed > 200 && charge_jump) { // trigger jump
 			do_jump = true;
@@ -55,11 +60,15 @@ void Runner::update(const float dt) {
 		is_jumping = true;
 		do_jump = false;
 		charge_jump = false;
+
+		choice = rand()%2;
 	}
 
 	if (!stopped) {
-		float upd = std::max(0.05, .5/log(velocity.x));
-		ani.update(dt, upd);
+		if (!is_jumping) {
+			float upd = std::max(0.05, .5/log(velocity.x));
+			ani.update(dt, upd);
+		}
 		velocity.x += speed;
 		Object::move({0, velocity.y});
 		ani.move({0, velocity.y});

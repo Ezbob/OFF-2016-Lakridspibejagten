@@ -23,15 +23,14 @@ class Runner : public Object {
 	bool do_jump = false;
 	bool charge_jump = false;
 	bool stopped{false};
+	int choice{0};
 
 	float wx{0};
 
 	sf::Texture tex;
 	animation ani;
 
-	Runner(float x=200, float y=100) : Object({48-30,56-5}), ani({0,1,2,3,4,5},assets::runner) {
-		ani.setTexture(assets::runner);
-		ani.setupFrames(assets::runner);
+	Runner(float x=200, float y=100) : Object({48-30,56-5}), ani({0,1,2,3,4,5},assets::runner,48) {
 		setX(x);
 		setY(y);
 		ani.setOrigin(width()/2, height()/2);
