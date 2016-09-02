@@ -14,7 +14,7 @@ class Game {
 	
 	int score_pibe{0};
 	bool score_gave{false};
-	int children{20};
+	int children{30};
 	sf::Text text_pibe;
 	sf::Text text_gave;
 	sf::Sprite icon_pibe;
