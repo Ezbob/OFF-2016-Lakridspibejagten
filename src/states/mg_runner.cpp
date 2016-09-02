@@ -57,6 +57,14 @@ void MiniGameRunner::update(const float dt) {
 	back_trees.setTextureRect(sf::IntRect(back_pos_trees, 0, 400, 300));
 	back_pos_grass += runner.velocity.x * dt;
 	back_grass.setTextureRect(sf::IntRect(back_pos_grass, 0, 400, 300));
+
+	// Finished?
+	if (runner.wx > goalline && !gave.active && !game->score_gave) {
+		std::cerr << "gave?" << std::endl;
+		gave.reset();
+		gave.setY(250);
+	}
+
 }
 
 void MiniGameRunner::handleInput() {
