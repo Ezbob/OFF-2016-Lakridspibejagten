@@ -22,50 +22,32 @@ void MiniGameRunner::draw(const float dt) {
 }
 
 template<class T1, class T2> bool isIntersecting(T1& mA, T2& mB) {
-	return mA.right() >= mB.left() && mA.left() <= mB.right()
-		&& mA.bottom() >= mB.top() && mA.top() <= mB.bottom();
-}
-
-void MiniGameRunner::testCollision(Stone& mStone, Runner& mRunner) {
-	if (!isIntersecting(mStone, mRunner))
-		return;
-
-	// Collision
-	game->popState();
-}
-
-void MiniGameRunner::testCollision(Pibe& mPibe, Runner& mRunner) {
-	if (!isIntersecting(mPibe, mRunner)) 
-		return;
-
-	// Collision
-	game->score_pibe++;
-	mPibe.reset();
-}
-
-void MiniGameRunner::testCollision(Gave& mGave, Runner& mRunner) {
-	if (!isIntersecting(mGave, mRunner) || game->score_gave) 
-		return;
-
-	// Collision
-	//got_gift = true;
-	gave.setX(-100);
-	gave.setInactive();
-	clock1.restart();
-	std::cerr << "got here" << std::endl;
-	game->score_gave |= true;
+	return (mA.right() >= mB.left()) && (mA.left() <= mB.right())
+		&& (mA.bottom() >= mB.top()) && (mA.top() <= mB.bottom());
 }
 
 void MiniGameRunner::update(const float dt) {
 	runner.update(dt);
 	for (auto& stone : stones) {
 		stone.update(dt);
-		testCollision(stone, runner);
+		if (isIntersecting(stone, runner)) {
+			// skift state... læg en beskrivelse ind istedet
+			game->popState();
+		}
 	}
+	
 	pibe.update(dt);
 	gave.update(dt);
-	testCollision(pibe, runner);
-	testCollision(gave, runner);
+
+	if (isIntersecting(pibe, runner)) {
+		pibe.reset();
+		game->score_pibe++;
+	}
+
+	if (isIntersecting(gave, runner)) {
+		gave.reset();
+		game->score_gave = true;
+	}
 	// Update backgrounds
 	back_pos_sky += 25 * dt / 10;
 	back_sky.setTextureRect(sf::IntRect(back_pos_sky, 0, 400, 300));

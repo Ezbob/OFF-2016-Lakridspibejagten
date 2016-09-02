@@ -16,6 +16,8 @@ public:
 	void setupFrames(sf::Texture& t, int w=0);
 	void update(double dt, double ds = 0.2);
 	void setFrameOffset(int index);
+	void mirror();
+	bool is_mirrored;
 };
 
 #endif
