@@ -22,6 +22,7 @@ private:
 	sf::Texture frame_texture;
 	sf::Sprite frame;
 	sf::Sprite background;
+	sf::Sprite foreground;
 
 	bool settled;
 	matrix current_block;
