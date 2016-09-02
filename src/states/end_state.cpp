@@ -123,7 +123,7 @@ void end_state::handleInput() {
 						textTop.setPosition({50,200});
 					} else if (state == 1) {
 						textTop.setString(L"Dagen og børnefødselsdagen er reddet.\nSe engang hvor glade de er.");
-						textTop.setPosition({40, 560});
+						textTop.setPosition({40, 545});
 					}
 				}
 			default:

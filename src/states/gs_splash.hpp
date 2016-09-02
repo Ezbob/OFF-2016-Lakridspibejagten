@@ -13,11 +13,12 @@ protected:
 	sf::IntRect back_rect;
 
 public:
-	GameStateSplash(Game *g) : back_rect(0,0,400,300) {
+	GameStateSplash(Game *g) : back_rect(0,0,400,300)  {
 		game = g;
 
 		back.setTexture(assets::splash);
 		back.setScale({2.f, 2.f});
+		is_splash = true;
 	}
 
 	void draw(const float dt);

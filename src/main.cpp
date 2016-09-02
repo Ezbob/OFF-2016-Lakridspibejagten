@@ -76,7 +76,7 @@ int main() {
 	assets::story_win.loadFromFile("assets/imgs/story_win.png");
 	assets::story_lose.loadFromFile("assets/imgs/rainyday.png");
 	assets::basket.loadFromFile("assets/imgs/basket.png");
-	assets::splash.loadFromFile("assets/ani/splash.png");
+	assets::splash.loadFromFile("assets/imgs/splash.png");
 
 
 	assets::ball_sprite.setTexture(assets::ball);

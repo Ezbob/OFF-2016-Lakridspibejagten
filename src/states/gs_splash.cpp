@@ -6,7 +6,7 @@ void GameStateSplash::draw(const float dt) {
 	game->window.clear(sf::Color::White);
 
 	time += dt;
-	if (time > 0.2) {
+	if (time > 0.1) {
 		time = 0.0;
 		frame = (frame+1) % 12;
 		back_rect.left = frame * 400;
