@@ -3,6 +3,7 @@
 #include <iostream>
 #include "tetris.hpp"
 
+#include "game.hpp"
 #include "data.h"
 
 using namespace sf;
@@ -146,15 +147,10 @@ void GameStateTetris::update(const float dt) {
 	static double input_delay = 0.10;
 	static double input_time = 0.0;
 
-	auto dimensions = game->window.getSize();
+	tile_dim.x = (WINDOW_WIDTH / 2) / world_width;
+	tile_dim.y = WINDOW_HEIGHT / world_height;
 
-	tile_dim.x = (dimensions.x  / 2) / world_width;
-	tile_dim.y = dimensions.y / world_height;
-
-	dimensions.x /= 2;
-	dimensions.x -= (tile_dim.x * world_width) / 2;
-
-	x_offset = dimensions.x;
+	x_offset = (WINDOW_WIDTH - tile_dim.x * world_width) / 2;
 	y_offset = 0;
 
 	time += dt;
@@ -225,7 +221,7 @@ void GameStateTetris::update(const float dt) {
 	get_new_block = false;
 	settled = false;
 	
-	bounce *= 1.015;
+	bounce *= 1.01;
 	if (bounce > 1.25) bounce = 1.0;
 }
 
