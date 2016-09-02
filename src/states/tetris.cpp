@@ -70,6 +70,10 @@ GameStateTetris::matrix new_block() {
 
 GameStateTetris::GameStateTetris(Game * g) {
 	game = g;
+	frame_texture.loadFromFile("assets/imgs/arcade_screen.png");
+	foreground.setTexture(frame_texture);
+	foreground.setPosition(0.f,0.f);
+	foreground.setScale({2.f, 2.f});
 	reset();
 }
 
@@ -115,7 +119,7 @@ void GameStateTetris::draw(const float dt) {
 	draw_matrix(world, x_offset, y_offset);
 	draw_matrix(current_block, x * tile_dim.x + x_offset, y * tile_dim.y + y_offset);
 	draw_matrix(next_block, (world_width + 2) * tile_dim.x + x_offset, (world_height / 2 - 2) * tile_dim.y + y_offset);
-
+	game->window.draw(this->foreground);
 }
 
 bool collides(GameStateTetris::matrix block, GameStateTetris::matrix world, size_t x, size_t y) {
