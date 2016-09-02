@@ -73,7 +73,7 @@ int main() {
 	assets::background_texture_treeout.loadFromFile("assets/imgs/gallery.png");
 	assets::story_start.loadFromFile("assets/imgs/story_start.png");
 	assets::story_win.loadFromFile("assets/imgs/story_win.png");
-	assets::story_lose.loadFromFile("assets/imgs/story_lose.png");
+	assets::story_lose.loadFromFile("assets/imgs/rainyday.png");
 	assets::basket.loadFromFile("assets/imgs/basket.png");
 
 
