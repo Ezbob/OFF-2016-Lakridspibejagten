@@ -80,7 +80,7 @@ void Runner::update(const float dt) {
 }
 
 void Runner::handleInputPressed(sf::Keyboard::Key key) {
-	if (key == sf::Keyboard::Up) {
+	if (key == sf::Keyboard::Up || key == sf::Keyboard::Space) {
 		// std::cerr << "[KEY:up]" << std::endl;
 		if (bottom() == ground && !is_jumping) {
 			jClock.restart();
