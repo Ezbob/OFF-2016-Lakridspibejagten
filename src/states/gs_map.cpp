@@ -134,18 +134,13 @@ void GameStateMap::draw(const float dt) {
 void GameStateMap::update(const float dt) {
 
 	if (route_position >= delay) {
-		graph[current_node][target_node] = -1;
-		graph[target_node][current_node] = -1;
+		game->pushState(mini_games[target_node]);
 		current_node = target_node;
-		if (mini_games[current_node]) game->pushState(mini_games[current_node]);
-		mini_games[current_node] = nullptr;
 		route_position = 0.0;
-		target_node = graph[current_node].begin()->first;
+		
 	} else if (current_node != target_node)
 		route_position += dt;
-	else {
-		route_position = 0;
-	}
+
 /******************************************************************************/
 /* Opdater løberen                                                            */
 /******************************************************************************/
@@ -177,14 +172,7 @@ void GameStateMap::handleInput() {
 			case Event::KeyPressed:
 				if (event.key.code == Keyboard::Escape)
 					game->window.close();
-
-				if (event.key.code >= Keyboard::Num0 &&
-				    event.key.code <= Keyboard::Num9) {
-				    new_route = (event.key.code - Keyboard::Num0);
-				}
-				if (event.key.code == Keyboard::Space)
-					new_route = 1;
-
+				else new_route = 1;
 			break;
 
 			default:
@@ -194,12 +182,8 @@ void GameStateMap::handleInput() {
 
 	// flyt til en anden knude
 	if (target_node == current_node && new_route < graph[current_node].size() + 1) {
-
-		auto new_node = graph[current_node].begin();
-
-		for (size_t i = 0; i < new_route - 1; ++i) ++new_node;
-		if (new_node->second >= 0)
-			target_node = new_node->first;
+		target_node = graph[current_node].begin()->first;
+		route_position = 0.0;
 	}
 }
 
