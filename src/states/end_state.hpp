@@ -10,6 +10,9 @@ public:
 	sf::Sprite back;
 	sf::Text textTop,
 			 textBottom;
+	sf::IntRect back_rect;
+	unsigned int frame{0};
+	double time{0.f};
 	int state{0}; // 0: undetermined, 1: won, 2: lose
 	bool show_texture{false};
 

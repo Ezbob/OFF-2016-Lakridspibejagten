@@ -9,7 +9,7 @@ using namespace std;
 
 #include "end_state.hpp"
 
-end_state::end_state(Game * g) {
+end_state::end_state(Game * g) : back_rect(0,0,400,300) {
 	game = g;
 
 	back.setScale({2.f,2.f});
@@ -69,6 +69,15 @@ bool end_state::has_won() {
 
 void end_state::draw_texture(float const dt) {
 	game->window.draw(back);
+	if (state == 2) {
+		time += dt;
+		if (time > 0.2) {
+			time = 0.0;
+			frame = (frame+1) % 3;
+			back_rect.left = frame * 400;
+			back.setTextureRect(back_rect);
+		}
+	}
 }
 
 void end_state::update(float const dt) {
