@@ -24,6 +24,6 @@ clean:
 	$(RM) $(TARGET) $(OBJECTS)
 
 deps:
-	cc -Isrc -Isrc/states -MM $(SOURCE) > deps
+	cc -Isrc -Isrc/states -MM $(SOURCE) $(STATES) > deps
 
 -include deps
