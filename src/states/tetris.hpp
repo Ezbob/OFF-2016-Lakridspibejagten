@@ -14,10 +14,10 @@ public:
 	virtual void reset();
 	typedef std::vector<std::vector<int>> matrix;
 
-	void draw_matrix(GameStateTetris::matrix block, int x, int y);
+	void draw_matrix(GameStateTetris::matrix block, int x, int y, double bounce = 1.0);
 
 private:
-
+	double bounce = 1.0;
 	sf::Texture background_texture;
 	sf::Texture frame_texture;
 	sf::Sprite frame;
