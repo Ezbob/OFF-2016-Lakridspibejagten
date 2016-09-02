@@ -10,6 +10,7 @@ protected:
 	}
 
 	public:
+	bool is_splash{false};
 	
 	Game * game;
 

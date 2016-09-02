@@ -28,6 +28,7 @@ namespace assets {
 	extern sf::Texture story_win;
 	extern sf::Texture story_lose;
 	extern sf::Texture basket;
+	extern sf::Texture splash;
 
 	extern sf::Sprite catcher_sprite;
 	extern sf::Sprite ball_sprite;

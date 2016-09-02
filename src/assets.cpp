@@ -22,6 +22,7 @@ namespace assets {
 	sf::Texture story_win;
 	sf::Texture story_lose;
 	sf::Texture basket;
+	sf::Texture splash;
 
 	sf::Sprite ball_sprite;
 	sf::Sprite runner_sprite;

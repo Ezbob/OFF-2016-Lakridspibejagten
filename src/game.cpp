@@ -46,7 +46,8 @@ void Game::gameloop() {
 		this->window.clear(sf::Color::Black);
 
 		peekState()->draw(dt);
-		drawHighscore(this->window);
+		if (!peekState()->is_splash)
+			drawHighscore(this->window);
 
 		this->window.display();
 	}
