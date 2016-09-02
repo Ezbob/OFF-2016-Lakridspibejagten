@@ -9,19 +9,19 @@
 class Stone : public Object {
 	public:
 
-	sf::Vector2f velocity{-5, 0};
+	sf::Vector2f velocity{-2, 0};
 	sf::Sprite sprite;
 
-	float speed{.002};
+	float speed{.007};
 	std::vector<float> ground_levels{580, 400, 0};
 
 	sf::Vector2f startpos;
 
-	Stone(float x, float y) : Object ({24, 12}), startpos(x,y) {
+	Stone(float x, float y) : Object ({16, 12}), startpos(x,y) {
 		sprite.setTexture(assets::rock);
 		setX(x);
 		setY(y);
-		sprite.setOrigin(width()/2, height()/2);
+		sprite.setOrigin(3*width()/4, height()/2+3);
 	}
 
 	void update(const float dt);

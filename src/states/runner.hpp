@@ -35,7 +35,7 @@ class Runner : public Object {
 		setX(x);
 		setY(y);
 		ani.setOrigin(width()/2, height()/2);
-		setOrigin(-width()/4, height()/2);
+		setOrigin(-width()/4+5, height()/2);
 	}
 
 	void scale(float sx, float sy);

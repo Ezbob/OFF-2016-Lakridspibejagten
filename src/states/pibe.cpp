@@ -15,7 +15,7 @@ void Pibe::update(const float dt) {
 
 void Pibe::reset() {
 	setX(800 + rand()%1600);
-	setY(100*(1+rand()%6) );
+	setY(100*(1+rand()%5) );
 	active = true;
 }
 

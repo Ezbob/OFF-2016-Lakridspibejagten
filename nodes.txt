@@ -1,6 +1,6 @@
 Start     250 110
-Cirkus    450 120
-Skov      420 255
-Arcade    300 330
-Fest      306 474
+Cirkuset  450 120
+Skoven    420 255
+Arcaden   300 330
+Festen    306 474
 
