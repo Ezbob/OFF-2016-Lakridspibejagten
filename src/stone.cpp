@@ -4,12 +4,19 @@
 #include <time.h>
 #include <SFML/Graphics.hpp>
 
+static
+void do_nothing(double const dt) {
+	if (dt != 0) do_nothing(0);
+}
+
 void Stone::draw(sf::RenderWindow &window) {
 	Object::draw(window);
 	window.draw(sprite);
 }
 
 void Stone::update(const float dt) {
+	do_nothing(dt);
+
 	if (x() < 0) {
 		reset();
 	}

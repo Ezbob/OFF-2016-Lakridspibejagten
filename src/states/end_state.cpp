@@ -27,17 +27,19 @@ end_state::end_state(Game * g) : back_rect(0,0,400,300) {
 }
 
 void end_state::draw_summary(float const dt) {
+	do_nothing(dt);
+
 	game->window.draw(textTop);
 	game->window.draw(textBottom);
 }
 
 void end_state::draw(float const dt) {
+
 	game->window.clear(sf::Color::White);
-	switch (show_texture) {
-		case false: draw_summary(dt); break;
-		case true:  draw_texture(dt); break;
-		default: break;
-	}
+
+	if (show_texture) draw_texture(dt);
+	else              draw_summary(dt);
+
 }
 
 bool end_state::has_won() {
@@ -68,6 +70,8 @@ bool end_state::has_won() {
 }
 
 void end_state::draw_texture(float const dt) {
+	do_nothing(dt);
+	
 	game->window.draw(back);
 	if (state == 2) {
 		game->window.draw(textTop);
@@ -82,6 +86,8 @@ void end_state::draw_texture(float const dt) {
 }
 
 void end_state::update(float const dt) {
+	do_nothing(dt);
+
 	if (state == 0) {
 		if (has_won()) {
 			state = 1;

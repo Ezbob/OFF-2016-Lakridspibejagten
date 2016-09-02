@@ -11,7 +11,7 @@ protected:
 	sf::Sprite back;
 
 public:
-	GameStateDescription(Game *g, std::string t) {
+	GameStateDescription(Game *g) {
 		game = g;
 
 		textLeft.setString(L"Du skal til en stor børnefødselsdag, og de "+std::to_wstring(game->children)+L" børn mangler\nlakridspiber. Tilmed er der en, der fortjener en gave!\nEn lange rejse venter dig, så kom endelig afsted!\n\n[Tryk <Space> for at starte.]");

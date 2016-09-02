@@ -23,6 +23,7 @@ void Runner::scale(float sx, float sy) {
 }
 
 void Runner::update(const float dt) {
+
 	int elapsed = jClock.getElapsedTime().asMilliseconds(); // since pressing UP
 
 	if (is_jumping) {

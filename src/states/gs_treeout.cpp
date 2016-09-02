@@ -52,6 +52,7 @@ void testCollision(Resource &mResource, Ball &mBall)
 }
 
 void GameStateTreeout::draw(const float dt) {
+	do_nothing(dt);
 
     // clear
     this->game->window.clear(sf::Color::White);
@@ -210,6 +211,7 @@ bool Ball::update() {
 }
 
 void Player::update(const float dt) {
+
 	ani.move(velocity);
 	shape.move(velocity);
 	float upd = std::max(0.05, .5/(velocity.x));

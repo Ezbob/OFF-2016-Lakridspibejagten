@@ -4,6 +4,11 @@
 #include "game.hpp"
 
 class GameState {
+protected:
+	virtual void do_nothing(double const d) {
+		if (d != 0) do_nothing(0);
+	}
+
 	public:
 	
 	Game * game;

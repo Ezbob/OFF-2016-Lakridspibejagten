@@ -34,10 +34,12 @@ void hell::reset() {
 }
 
 void hell::draw(double dt) {
+	do_nothing(dt);
 
 }
 
 void hell::update(double dt) {
+	do_nothing(dt);
 
 	for (auto b : bullets) {
 		for (auto s : ships ) {
