@@ -19,6 +19,7 @@
 #include "states/gs_description.hpp"
 #include "assets.hpp"
 #include "tetris.hpp"
+#include "states/gs_splash.hpp"
 
 using namespace std;
 
@@ -75,6 +76,7 @@ int main() {
 	assets::story_win.loadFromFile("assets/imgs/story_win.png");
 	assets::story_lose.loadFromFile("assets/imgs/rainyday.png");
 	assets::basket.loadFromFile("assets/imgs/basket.png");
+	assets::splash.loadFromFile("assets/ani/splash.png");
 
 
 	assets::ball_sprite.setTexture(assets::ball);
@@ -140,6 +142,7 @@ int main() {
 	GameStateMap map(&game, graph, positions, node_games, first, end);
 	game.pushState(&map);
 	game.pushState(new GameStateDescription(&game));
+	game.pushState(new GameStateSplash(&game));
 #else
 	// DEBUG
 	//game.pushState(new GameStateDescription(&game, "Yala3\n"));
