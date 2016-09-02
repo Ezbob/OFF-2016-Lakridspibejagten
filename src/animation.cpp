@@ -32,3 +32,9 @@ void animation::setupFrames(sf::Texture& t) {
 	frame = 0;
 }
 
+void animation::setFrameOffset(int index) {
+	auto rect = getTextureRect();
+	rect.left = index * width;
+	setTextureRect(rect);
+}
+

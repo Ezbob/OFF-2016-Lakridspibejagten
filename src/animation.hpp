@@ -15,6 +15,7 @@ public:
 	animation(std::vector<int> frame_indices, sf::Texture& t);
 	void setupFrames(sf::Texture& t);
 	void update(double dt, double ds = 0.2);
+	void animation::setFrameOffset(int index);
 };
 
 #endif
