@@ -187,6 +187,8 @@ void GameStateMap::handleInput() {
 				    event.key.code <= Keyboard::Num9) {
 				    new_route = (event.key.code - Keyboard::Num0);
 				}
+				if (event.key.code == Keyboard::Space)
+					new_route = 1;
 
 			break;
 
