@@ -5,6 +5,7 @@
 animation::animation(std::vector<int> frame_indices, sf::Texture& t, int w) {
 	this->frame_indices = frame_indices;
 	setupFrames(t, w);
+	is_mirrored = true;
 }
 
 void animation::update(double dt, double ds) {
@@ -41,3 +42,14 @@ void animation::setFrameOffset(int index) {
 	setTextureRect(rect);
 }
 
+void animation::mirror() {
+	if (is_mirrored) {
+		Sprite::setOrigin({0, 0 });
+		Sprite::setScale({1,1});
+		is_mirrored = false;
+	} else {
+		Sprite::setOrigin({Sprite::getLocalBounds().width, 0 });
+		Sprite::setScale({-1,1});
+		is_mirrored = true;
+	}
+}
