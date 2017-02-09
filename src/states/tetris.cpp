@@ -121,7 +121,7 @@ void GameStateTetris::draw_matrix(GameStateTetris::matrix block, int x, int y, d
 }
 
 void GameStateTetris::draw(const float dt) {
-	do_nothing(dt);
+	//do_nothing(dt);
 
 
 	game->window.clear(Color::White);
@@ -147,12 +147,11 @@ bool collides(GameStateTetris::matrix block, GameStateTetris::matrix world, size
 }
 
 void GameStateTetris::update(const float dt) {
-	do_nothing(dt);
-
 	static double time = 0.0;
 	static double delay = 0.8;
-	static double input_delay = 0.10;
+	static double input_delay = 0.00;
 	static double input_time = 0.0;
+
 
 	tile_dim.x = (WINDOW_WIDTH / 2) / world_width;
 	tile_dim.y = WINDOW_HEIGHT / world_height;
@@ -235,12 +234,12 @@ void GameStateTetris::update(const float dt) {
 void GameStateTetris::handleInput() {
 	Event e;
 
-	while (game->window.pollEvent(e));
-
-	if (is_key_pressed(Keyboard::Escape)) game->popState();
-	if (is_key_pressed(Keyboard::Right)) slide = 1;
-	if (is_key_pressed(Keyboard::Left))  slide = -1;
-	if (is_key_pressed(Keyboard::Up))    rotation = 1;
-	if (is_key_pressed(Keyboard::Down))  down = 1;
+	while (game->window.pollEvent(e)) {
+		if (is_key_pressed(Keyboard::Escape)) game->popState();
+		if (is_key_pressed(Keyboard::Right)) slide = 1;
+		if (is_key_pressed(Keyboard::Left))  slide = -1;
+		if (is_key_pressed(Keyboard::Up))    rotation = 1;
+		if (is_key_pressed(Keyboard::Down))  down = 1;
+	}
 }
 
